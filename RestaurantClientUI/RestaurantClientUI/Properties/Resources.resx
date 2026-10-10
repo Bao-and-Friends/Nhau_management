@@ -121,10 +121,10 @@
   <data name="restaurantlogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\restaurantlogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Gemini_Generated_Image_djt1yjdjt1yjdjt1q" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gemini_Generated_Image_djt1yjdjt1yjdjt1q.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cutlery-pot-near-twig" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cutlery-pot-near-twig.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="restaurantlogo1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\restaurantlogo1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1690c83e-6f22-4d8e-bd4e-cd5360d94c76" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1690c83e-6f22-4d8e-bd4e-cd5360d94c76.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
