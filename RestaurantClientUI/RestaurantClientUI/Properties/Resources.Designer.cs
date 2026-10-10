@@ -63,9 +63,19 @@ namespace RestaurantClientUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Gemini_Generated_Image_djt1yjdjt1yjdjt1q {
+        internal static System.Drawing.Bitmap _1690c83e_6f22_4d8e_bd4e_cd5360d94c76 {
             get {
-                object obj = ResourceManager.GetObject("Gemini_Generated_Image_djt1yjdjt1yjdjt1q", resourceCulture);
+                object obj = ResourceManager.GetObject("1690c83e-6f22-4d8e-bd4e-cd5360d94c76", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cutlery_pot_near_twig {
+            get {
+                object obj = ResourceManager.GetObject("cutlery-pot-near-twig", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -76,16 +86,6 @@ namespace RestaurantClientUI.Properties {
         internal static System.Drawing.Bitmap restaurantlogo {
             get {
                 object obj = ResourceManager.GetObject("restaurantlogo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap restaurantlogo1 {
-            get {
-                object obj = ResourceManager.GetObject("restaurantlogo1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
