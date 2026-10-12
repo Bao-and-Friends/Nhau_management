@@ -7,7 +7,8 @@ namespace RestaurantManagement
         public LoginUI()
         {
             InitializeComponent();
-       
+
         }
+
     }
 }
