@@ -83,6 +83,7 @@
             // uiLinkLabel1
             // 
             uiLinkLabel1.ActiveLinkColor = Color.FromArgb(184, 124, 80);
+            uiLinkLabel1.Anchor = AnchorStyles.None;
             uiLinkLabel1.BackColor = Color.Transparent;
             uiLinkLabel1.Font = new Font("Segoe UI", 10F);
             uiLinkLabel1.ForeColor = Color.FromArgb(48, 48, 48);
@@ -99,6 +100,7 @@
             // 
             // uiButton1
             // 
+            uiButton1.Anchor = AnchorStyles.None;
             uiButton1.BackColor = Color.Transparent;
             uiButton1.FillColor = Color.FromArgb(152, 98, 61);
             uiButton1.FillColor2 = Color.Empty;
@@ -122,6 +124,7 @@
             // 
             // uiTextBox1
             // 
+            uiTextBox1.Anchor = AnchorStyles.None;
             uiTextBox1.BackColor = Color.Transparent;
             uiTextBox1.Font = new Font("Microsoft Sans Serif", 12F);
             uiTextBox1.Location = new Point(71, 272);
@@ -141,6 +144,7 @@
             // 
             // uiLabelTitle
             // 
+            uiLabelTitle.Anchor = AnchorStyles.None;
             uiLabelTitle.BackColor = Color.Transparent;
             uiLabelTitle.Font = new Font("Segoe UI Semibold", 20F, FontStyle.Bold, GraphicsUnit.Point, 0);
             uiLabelTitle.ForeColor = Color.FromArgb(56, 42, 34);
@@ -153,6 +157,7 @@
             // 
             // pictureBox2
             // 
+            pictureBox2.Anchor = AnchorStyles.None;
             pictureBox2.BackColor = Color.Transparent;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
             pictureBox2.Location = new Point(241, 99);
@@ -164,6 +169,7 @@
             // 
             // uiTextBox2
             // 
+            uiTextBox2.Anchor = AnchorStyles.None;
             uiTextBox2.BackColor = Color.Transparent;
             uiTextBox2.Font = new Font("Microsoft Sans Serif", 12F);
             uiTextBox2.Location = new Point(71, 352);
@@ -184,11 +190,12 @@
             // pictureBox1
             // 
             pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Resource.loginUI;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Margin = new Padding(0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(1126, 982);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
             // 
