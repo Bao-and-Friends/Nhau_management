@@ -1,4 +1,6 @@
-﻿namespace RestaurantManagement
+﻿using Sunny.UI;
+
+namespace RestaurantManagement
 {
     partial class LoginUI
     {
@@ -30,13 +32,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginUI));
             tableLayoutPanel1 = new TableLayoutPanel();
-            uiPanel2 = new Sunny.UI.UIPanel();
-            uiLinkLabel1 = new Sunny.UI.UILinkLabel();
-            uiButton1 = new Sunny.UI.UIButton();
-            uiTextBox1 = new Sunny.UI.UITextBox();
-            uiLabelTitle = new Sunny.UI.UILabel();
+            uiPanel2 = new UIPanel();
+            uiLinkLabel1 = new UILinkLabel();
+            uiButton1 = new UIButton();
+            uiTextBox1 = new UITextBox();
+            uiLabelTitle = new UILabel();
             pictureBox2 = new PictureBox();
-            uiTextBox2 = new Sunny.UI.UITextBox();
+            uiTextBox2 = new UITextBox();
             pictureBox1 = new PictureBox();
             tableLayoutPanel1.SuspendLayout();
             uiPanel2.SuspendLayout();
@@ -127,6 +129,7 @@
             uiTextBox1.Anchor = AnchorStyles.None;
             uiTextBox1.BackColor = Color.Transparent;
             uiTextBox1.Font = new Font("Microsoft Sans Serif", 12F);
+            uiTextBox1.Icon = (Image)resources.GetObject("uiTextBox1.Icon");
             uiTextBox1.Location = new Point(71, 272);
             uiTextBox1.Margin = new Padding(4, 5, 4, 5);
             uiTextBox1.MinimumSize = new Size(1, 16);
@@ -139,8 +142,7 @@
             uiTextBox1.TabIndex = 2;
             uiTextBox1.TextAlignment = ContentAlignment.MiddleLeft;
             uiTextBox1.Watermark = "Tên đăng nhập";
-            uiTextBox1.WatermarkActiveColor = Color.White;
-            uiTextBox1.WatermarkColor = Color.Black;
+            uiTextBox1.WatermarkColor = Color.FromArgb(184, 124, 80);
             // 
             // uiLabelTitle
             // 
@@ -171,21 +173,47 @@
             // 
             uiTextBox2.Anchor = AnchorStyles.None;
             uiTextBox2.BackColor = Color.Transparent;
+            uiTextBox2.ButtonFillColor = Color.Empty;
+            uiTextBox2.ButtonFillHoverColor = Color.Empty;
+            uiTextBox2.ButtonFillPressColor = Color.Empty;
+            uiTextBox2.ButtonForeColor = Color.FromArgb(184, 124, 80);
+            uiTextBox2.ButtonForeHoverColor = Color.FromArgb(184, 124, 80);
+            uiTextBox2.ButtonForePressColor = Color.FromArgb(184, 124, 80);
+            uiTextBox2.ButtonRectColor = Color.Empty;
+            uiTextBox2.ButtonRectHoverColor = Color.Empty;
+            uiTextBox2.ButtonRectPressColor = Color.Empty;
+            uiTextBox2.ButtonStyleInherited = false;
+            uiTextBox2.ButtonSymbol = 61550;
+            uiTextBox2.ButtonSymbolSize = 30;
+            uiTextBox2.FillColor2 = Color.Empty;
+            uiTextBox2.FillDisableColor = Color.Empty;
+            uiTextBox2.FillReadOnlyColor = Color.Empty;
             uiTextBox2.Font = new Font("Microsoft Sans Serif", 12F);
+            uiTextBox2.ForeColor = Color.Empty;
+            uiTextBox2.ForeDisableColor = Color.Empty;
+            uiTextBox2.ForeReadOnlyColor = Color.Empty;
+            uiTextBox2.Icon = (Image)resources.GetObject("uiTextBox2.Icon");
             uiTextBox2.Location = new Point(71, 352);
             uiTextBox2.Margin = new Padding(4, 5, 4, 5);
             uiTextBox2.MinimumSize = new Size(1, 16);
             uiTextBox2.Name = "uiTextBox2";
             uiTextBox2.Padding = new Padding(5);
+            uiTextBox2.PasswordChar = '●';
             uiTextBox2.Radius = 20;
-            uiTextBox2.RectColor = Color.FromArgb(152, 98, 61);
+            uiTextBox2.RectColor = Color.Empty;
+            uiTextBox2.RectDisableColor = Color.Empty;
+            uiTextBox2.RectReadOnlyColor = Color.Empty;
+            uiTextBox2.ScrollBarBackColor = Color.Empty;
+            uiTextBox2.ScrollBarColor = Color.Empty;
+            uiTextBox2.ScrollBarStyleInherited = false;
+            uiTextBox2.ShowButton = true;
             uiTextBox2.ShowText = false;
             uiTextBox2.Size = new Size(467, 70);
             uiTextBox2.TabIndex = 3;
             uiTextBox2.TextAlignment = ContentAlignment.MiddleLeft;
             uiTextBox2.Watermark = "Mật khẩu";
-            uiTextBox2.WatermarkActiveColor = Color.White;
-            uiTextBox2.WatermarkColor = Color.Black;
+            uiTextBox2.WatermarkColor = Color.FromArgb(184, 124, 80);
+            uiTextBox2.ButtonClick += uiTextBox2_button_click;
             // 
             // pictureBox1
             // 
