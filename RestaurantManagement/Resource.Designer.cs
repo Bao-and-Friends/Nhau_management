@@ -63,6 +63,16 @@ namespace RestaurantManagement {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Biểu_tượng_đầu_bếp_nón_và_dao_nĩa {
+            get {
+                object obj = ResourceManager.GetObject("Biểu tượng đầu bếp nón và dao nĩa", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap loginUI {
             get {
                 object obj = ResourceManager.GetObject("loginUI", resourceCulture);
