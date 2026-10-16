@@ -15,31 +15,23 @@ namespace RestaurantManagement.UI
         {
             InitializeComponent();
             // Tự động mở Sơ đồ bàn khi vào ứng dụng
-            SwitchUserControl(new UC_SoDoBan());
+            //SwitchUserControl(new UC_SoDoBan());
         }
-
-        private void uiLabel1_Click(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
+            lblTime.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
 
+            timer1.Interval = 1000;
+            timer1.Start();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
-            lblClock.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            lblTime.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
         }
-
-        private void btnOpenChat_Click(object sender, EventArgs e)
-        {
-            // Đảo ngược trạng thái ẩn/hiện của panel Chat
-            panelChat.Visible = !panelChat.Visible;
-        }
-
-        private void btnLogout_Click(object sender, EventArgs e)
+        private void DangXuat_Click(object sender, EventArgs e)
         {
             this.Close();
-            // Mở lại form đăng nhập
-            LoginUI login = new LoginUI();
-            login.Show();
         }
 
         private void SwitchUserControl(UserControl uc)
@@ -48,11 +40,6 @@ namespace RestaurantManagement.UI
             uc.Dock = DockStyle.Fill;
             panelContent.Controls.Add(uc);
             uc.BringToFront();
-        }
-
-        private void btnMenuBanAn_Click(object sender, EventArgs e)
-        {
-            SwitchUserControl(new UC_SoDoBan());
         }
     }
 }

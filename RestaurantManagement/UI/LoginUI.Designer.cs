@@ -260,8 +260,8 @@ namespace RestaurantManagement.UI
             ClientSize = new Size(1733, 1017);
             Controls.Add(tableLayoutPanel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximumSize = new Size(2560, 1368);
-            MinimumSize = new Size(190, 40);
+            MaximumSize = new Size(2560, 1400);
+            MinimumSize = new Size(1024, 600);
             Name = "LoginUI";
             Text = "";
             TitleColor = Color.FromArgb(152, 98, 61);

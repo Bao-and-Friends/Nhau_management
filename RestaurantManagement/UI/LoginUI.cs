@@ -35,9 +35,9 @@ namespace RestaurantManagement.UI
         {
             string usrname = username.Text;
             string passwrd = pwtxt.Text;
-            if (login(usrname, passwrd))
+            if (true || login(usrname, passwrd))//dang bypass lam xong nho xoa
             {
-                Form1 test = new();
+                MainForm test = new();
                 this.Hide();
                 test.ShowDialog();
                 this.Show();

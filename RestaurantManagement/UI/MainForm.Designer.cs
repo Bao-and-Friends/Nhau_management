@@ -26,380 +26,556 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
+
+
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            panelHeader = new Sunny.UI.UIPanel();
-            uiPanel1 = new Sunny.UI.UIPanel();
-            btnLogout = new Sunny.UI.UIButton();
-            uiAvatar1 = new Sunny.UI.UIAvatar();
-            uiLabel1 = new Sunny.UI.UILabel();
-            btnOpenChat = new Sunny.UI.UIButton();
-            uiPanel2 = new Sunny.UI.UIPanel();
-            uiLabel2 = new Sunny.UI.UILabel();
-            panelFooter = new Sunny.UI.UIPanel();
-            lblClock = new Sunny.UI.UILabel();
-            lblNetworkStatus = new Sunny.UI.UILabel();
-            panelSidebar = new Sunny.UI.UIPanel();
-            btnMenuBaoCao = new Sunny.UI.UIButton();
-            btnMenuNhanVien = new Sunny.UI.UIButton();
-            btnMenuKho = new Sunny.UI.UIButton();
-            btnMenuThucDon = new Sunny.UI.UIButton();
-            btnMenuBep = new Sunny.UI.UIButton();
-            btnMenuThuNgan = new Sunny.UI.UIButton();
-            btnMenuBanAn = new Sunny.UI.UIButton();
-            panelContent = new Sunny.UI.UIPanel();
-            panelChat = new Sunny.UI.UIPanel();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             timer1 = new System.Windows.Forms.Timer(components);
-            panelHeader.SuspendLayout();
-            uiPanel1.SuspendLayout();
-            uiPanel2.SuspendLayout();
-            panelFooter.SuspendLayout();
-            panelSidebar.SuspendLayout();
-            panelContent.SuspendLayout();
+            pnlHeadder = new Sunny.UI.UIPanel();
+            uiTableLayoutPanel2 = new Sunny.UI.UITableLayoutPanel();
+            panel4 = new Panel();
+            panel2 = new Panel();
+            panel1 = new Panel();
+            Trochuyen = new Sunny.UI.UISymbolButton();
+            DangXuat = new Sunny.UI.UISymbolButton();
+            Ten = new Sunny.UI.UILabel();
+            chucVu = new Sunny.UI.UILabel();
+            sep2 = new Panel();
+            uiSymbolButton1 = new Sunny.UI.UISymbolButton();
+            Ten_nhaHang = new Sunny.UI.UILabel();
+            sep1 = new Panel();
+            pictureBox1 = new PictureBox();
+            uiTableLayoutPanel1 = new Sunny.UI.UITableLayoutPanel();
+            footer = new Sunny.UI.UIPanel();
+            lblTime = new Sunny.UI.UILabel();
+            lblConnectionStatus = new Sunny.UI.UILabel();
+            main = new Sunny.UI.UITableLayoutPanel();
+            panelContent = new Sunny.UI.UIPanel();
+            pnlSidebar = new Sunny.UI.UIFlowLayoutPanel();
+            uiSymbolButton6 = new Sunny.UI.UISymbolButton();
+            uiSymbolButton5 = new Sunny.UI.UISymbolButton();
+            uiSymbolButton4 = new Sunny.UI.UISymbolButton();
+            uiSymbolButton2 = new Sunny.UI.UISymbolButton();
+            uiSymbolButton3 = new Sunny.UI.UISymbolButton();
+            pnlHeadder.SuspendLayout();
+            uiTableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            uiTableLayoutPanel1.SuspendLayout();
+            footer.SuspendLayout();
+            main.SuspendLayout();
+            pnlSidebar.SuspendLayout();
             SuspendLayout();
             // 
-            // panelHeader
+            // timer1
             // 
-            panelHeader.Controls.Add(uiPanel1);
-            panelHeader.Controls.Add(uiPanel2);
-            panelHeader.Dock = DockStyle.Top;
-            panelHeader.FillColor = Color.FromArgb(250, 245, 240);
-            panelHeader.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            panelHeader.Location = new Point(0, 35);
-            panelHeader.Margin = new Padding(4, 5, 4, 5);
-            panelHeader.MinimumSize = new Size(1, 1);
-            panelHeader.Name = "panelHeader";
-            panelHeader.RectColor = Color.Transparent;
-            panelHeader.Size = new Size(1366, 53);
-            panelHeader.TabIndex = 0;
-            panelHeader.Text = null;
-            panelHeader.TextAlignment = ContentAlignment.MiddleCenter;
+            timer1.Tick += Timer1_Tick;
             // 
-            // uiPanel1
+            // pnlHeadder
             // 
-            uiPanel1.BackColor = Color.Transparent;
-            uiPanel1.Controls.Add(btnLogout);
-            uiPanel1.Controls.Add(uiAvatar1);
-            uiPanel1.Controls.Add(uiLabel1);
-            uiPanel1.Controls.Add(btnOpenChat);
-            uiPanel1.Dock = DockStyle.Right;
-            uiPanel1.FillColor = Color.Transparent;
-            uiPanel1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            uiPanel1.Location = new Point(821, 0);
-            uiPanel1.Margin = new Padding(4, 5, 4, 5);
-            uiPanel1.MinimumSize = new Size(1, 1);
-            uiPanel1.Name = "uiPanel1";
-            uiPanel1.RectColor = Color.Transparent;
-            uiPanel1.Size = new Size(545, 53);
-            uiPanel1.TabIndex = 4;
-            uiPanel1.Text = null;
-            uiPanel1.TextAlignment = ContentAlignment.MiddleCenter;
+            pnlHeadder.BackColor = Color.FromArgb(241, 228, 216);
+            pnlHeadder.Controls.Add(uiTableLayoutPanel2);
+            pnlHeadder.Dock = DockStyle.Fill;
+            pnlHeadder.FillColor = Color.Empty;
+            pnlHeadder.FillColor2 = Color.Empty;
+            pnlHeadder.Font = new Font("Microsoft Sans Serif", 12F);
+            pnlHeadder.Location = new Point(0, 0);
+            pnlHeadder.Margin = new Padding(0);
+            pnlHeadder.MinimumSize = new Size(1, 1);
+            pnlHeadder.Name = "pnlHeadder";
+            pnlHeadder.RectColor = Color.FromArgb(255, 252, 248);
+            pnlHeadder.Size = new Size(1366, 79);
+            pnlHeadder.TabIndex = 0;
+            pnlHeadder.Text = null;
+            pnlHeadder.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // btnLogout
+            // uiTableLayoutPanel2
             // 
-            btnLogout.BackColor = Color.Transparent;
-            btnLogout.FillColor = Color.FromArgb(230, 80, 80);
-            btnLogout.FillHoverColor = Color.Transparent;
-            btnLogout.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnLogout.Location = new Point(430, 13);
-            btnLogout.MinimumSize = new Size(1, 1);
-            btnLogout.Name = "btnLogout";
-            btnLogout.Radius = 20;
-            btnLogout.RectColor = Color.Transparent;
-            btnLogout.Size = new Size(93, 32);
-            btnLogout.TabIndex = 3;
-            btnLogout.Text = "Đăng xuất";
-            btnLogout.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnLogout.Click += btnLogout_Click;
+            uiTableLayoutPanel2.ColumnCount = 12;
+            uiTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 69F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 13F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 26.7931328F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 12F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.6984673F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 0.851788759F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 28.7249813F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 12F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 17.4801121F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 13F));
+            uiTableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.306463F));
+            uiTableLayoutPanel2.Controls.Add(panel4, 10, 0);
+            uiTableLayoutPanel2.Controls.Add(panel2, 3, 0);
+            uiTableLayoutPanel2.Controls.Add(panel1, 1, 0);
+            uiTableLayoutPanel2.Controls.Add(Trochuyen, 4, 0);
+            uiTableLayoutPanel2.Controls.Add(DangXuat, 11, 0);
+            uiTableLayoutPanel2.Controls.Add(Ten, 7, 0);
+            uiTableLayoutPanel2.Controls.Add(chucVu, 9, 0);
+            uiTableLayoutPanel2.Controls.Add(sep2, 8, 0);
+            uiTableLayoutPanel2.Controls.Add(uiSymbolButton1, 6, 0);
+            uiTableLayoutPanel2.Controls.Add(Ten_nhaHang, 2, 0);
+            uiTableLayoutPanel2.Controls.Add(sep1, 5, 0);
+            uiTableLayoutPanel2.Controls.Add(pictureBox1, 0, 0);
+            uiTableLayoutPanel2.Dock = DockStyle.Top;
+            uiTableLayoutPanel2.ForeColor = Color.FromArgb(241, 228, 216);
+            uiTableLayoutPanel2.Location = new Point(0, 0);
+            uiTableLayoutPanel2.Margin = new Padding(0);
+            uiTableLayoutPanel2.Name = "uiTableLayoutPanel2";
+            uiTableLayoutPanel2.RowCount = 1;
+            uiTableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            uiTableLayoutPanel2.Size = new Size(1366, 79);
+            uiTableLayoutPanel2.TabIndex = 0;
+            uiTableLayoutPanel2.TagString = null;
             // 
-            // uiAvatar1
+            // panel4
             // 
-            uiAvatar1.BackColor = Color.FromArgb(250, 245, 240);
-            uiAvatar1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            uiAvatar1.Location = new Point(116, 3);
-            uiAvatar1.MinimumSize = new Size(1, 1);
-            uiAvatar1.Name = "uiAvatar1";
-            uiAvatar1.Size = new Size(36, 45);
-            uiAvatar1.TabIndex = 1;
-            uiAvatar1.Text = "uiAvatar1";
+            panel4.Anchor = AnchorStyles.None;
+            panel4.BackColor = Color.FromArgb(220, 203, 192);
+            panel4.Location = new Point(1290, 2);
+            panel4.Margin = new Padding(0);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(8, 75);
+            panel4.TabIndex = 11;
             // 
-            // uiLabel1
+            // panel2
             // 
-            uiLabel1.AutoSize = true;
-            uiLabel1.BackColor = Color.FromArgb(250, 245, 240);
-            uiLabel1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new Point(172, 16);
-            uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(197, 21);
-            uiLabel1.TabIndex = 0;
-            uiLabel1.Text = "Nguyen Van A  | Phuc vu";
-            uiLabel1.TextAlign = ContentAlignment.MiddleLeft;
-            uiLabel1.Click += uiLabel1_Click;
+            panel2.Anchor = AnchorStyles.None;
+            panel2.BackColor = Color.FromArgb(220, 203, 192);
+            panel2.Location = new Point(402, 2);
+            panel2.Margin = new Padding(0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(8, 75);
+            panel2.TabIndex = 10;
             // 
-            // btnOpenChat
+            // panel1
             // 
-            btnOpenChat.BackColor = Color.Transparent;
-            btnOpenChat.FillColor = Color.Chocolate;
-            btnOpenChat.FillDisableColor = Color.Transparent;
-            btnOpenChat.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnOpenChat.LightColor = Color.Salmon;
-            btnOpenChat.Location = new Point(0, 16);
-            btnOpenChat.MinimumSize = new Size(1, 1);
-            btnOpenChat.Name = "btnOpenChat";
-            btnOpenChat.Radius = 20;
-            btnOpenChat.RectColor = Color.Salmon;
-            btnOpenChat.Size = new Size(107, 26);
-            btnOpenChat.TabIndex = 2;
-            btnOpenChat.Text = "💬 Trò chuyện";
-            btnOpenChat.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnOpenChat.Click += btnOpenChat_Click;
+            panel1.Anchor = AnchorStyles.None;
+            panel1.BackColor = Color.FromArgb(220, 203, 192);
+            panel1.Location = new Point(71, 2);
+            panel1.Margin = new Padding(0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(8, 75);
+            panel1.TabIndex = 9;
             // 
-            // uiPanel2
+            // Trochuyen
             // 
-            uiPanel2.BackColor = Color.Transparent;
-            uiPanel2.Controls.Add(uiLabel2);
-            uiPanel2.Dock = DockStyle.Left;
-            uiPanel2.FillColor = Color.Transparent;
-            uiPanel2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            uiPanel2.Location = new Point(0, 0);
-            uiPanel2.Margin = new Padding(4, 5, 4, 5);
-            uiPanel2.MinimumSize = new Size(1, 1);
-            uiPanel2.Name = "uiPanel2";
-            uiPanel2.RectColor = Color.Transparent;
-            uiPanel2.Size = new Size(392, 53);
-            uiPanel2.TabIndex = 5;
-            uiPanel2.Text = null;
-            uiPanel2.TextAlignment = ContentAlignment.MiddleCenter;
+            Trochuyen.Cursor = Cursors.Hand;
+            Trochuyen.Dock = DockStyle.Fill;
+            Trochuyen.FillColor = Color.FromArgb(223, 194, 168);
+            Trochuyen.FillHoverColor = Color.FromArgb(234, 215, 197);
+            Trochuyen.FillPressColor = Color.FromArgb(223, 194, 168);
+            Trochuyen.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            Trochuyen.ForeColor = Color.FromArgb(75, 52, 38);
+            Trochuyen.Location = new Point(415, 3);
+            Trochuyen.MinimumSize = new Size(1, 1);
+            Trochuyen.Name = "Trochuyen";
+            Trochuyen.Radius = 30;
+            Trochuyen.RectColor = Color.FromArgb(241, 228, 216);
+            Trochuyen.RectDisableColor = Color.FromArgb(241, 228, 216);
+            Trochuyen.RectHoverColor = Color.FromArgb(241, 228, 216);
+            Trochuyen.RectPressColor = Color.FromArgb(241, 228, 216);
+            Trochuyen.RectSelectedColor = Color.FromArgb(241, 228, 216);
+            Trochuyen.Size = new Size(240, 73);
+            Trochuyen.Symbol = 61574;
+            Trochuyen.SymbolColor = Color.FromArgb(109, 71, 46);
+            Trochuyen.SymbolSize = 40;
+            Trochuyen.TabIndex = 1;
+            Trochuyen.Text = "Trò chuyện";
+            Trochuyen.TipsFont = new Font("Microsoft Sans Serif", 9F);
             // 
-            // uiLabel2
+            // DangXuat
             // 
-            uiLabel2.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            uiLabel2.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel2.Location = new Point(3, 13);
-            uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new Size(440, 27);
-            uiLabel2.TabIndex = 0;
-            uiLabel2.Text = "🍽 THE GOURMET RESTAURANT";
+            DangXuat.BackColor = Color.FromArgb(241, 228, 216);
+            DangXuat.Cursor = Cursors.Hand;
+            DangXuat.Dock = DockStyle.Fill;
+            DangXuat.FillColor = Color.FromArgb(217, 83, 79);
+            DangXuat.FillHoverColor = Color.FromArgb(199, 71, 66);
+            DangXuat.FillPressColor = Color.FromArgb(178, 57, 53);
+            DangXuat.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            DangXuat.Location = new Point(1304, 3);
+            DangXuat.MinimumSize = new Size(1, 1);
+            DangXuat.Name = "DangXuat";
+            DangXuat.Radius = 30;
+            DangXuat.RectColor = Color.FromArgb(217, 83, 79);
+            DangXuat.RectDisableColor = Color.FromArgb(217, 83, 79);
+            DangXuat.RectHoverColor = Color.FromArgb(217, 83, 79);
+            DangXuat.RectPressColor = Color.FromArgb(217, 83, 79);
+            DangXuat.RectSelectedColor = Color.FromArgb(217, 83, 79);
+            DangXuat.Size = new Size(59, 73);
+            DangXuat.Symbol = 61579;
+            DangXuat.SymbolSize = 40;
+            DangXuat.TabIndex = 2;
+            DangXuat.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            DangXuat.Click += DangXuat_Click;
             // 
-            // panelFooter
+            // Ten
             // 
-            panelFooter.Controls.Add(lblClock);
-            panelFooter.Controls.Add(lblNetworkStatus);
-            panelFooter.Dock = DockStyle.Bottom;
-            panelFooter.FillColor = Color.FromArgb(250, 245, 240);
-            panelFooter.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            panelFooter.Location = new Point(0, 733);
-            panelFooter.Margin = new Padding(4, 5, 4, 5);
-            panelFooter.MinimumSize = new Size(1, 1);
-            panelFooter.Name = "panelFooter";
-            panelFooter.RectColor = Color.Transparent;
-            panelFooter.Size = new Size(1366, 35);
-            panelFooter.TabIndex = 1;
-            panelFooter.Text = null;
-            panelFooter.TextAlignment = ContentAlignment.MiddleCenter;
+            Ten.BackColor = Color.FromArgb(241, 228, 216);
+            Ten.Dock = DockStyle.Fill;
+            Ten.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Ten.ForeColor = Color.FromArgb(109, 71, 46);
+            Ten.ImageAlign = ContentAlignment.MiddleLeft;
+            Ten.Location = new Point(728, 0);
+            Ten.Margin = new Padding(0);
+            Ten.Name = "Ten";
+            Ten.Size = new Size(341, 79);
+            Ten.TabIndex = 4;
+            Ten.Text = "Nguyễn Ngọc Huỳnh Như";
+            Ten.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lblClock
+            // chucVu
             // 
-            lblClock.BackColor = Color.Transparent;
-            lblClock.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            lblClock.ForeColor = Color.FromArgb(48, 48, 48);
-            lblClock.Location = new Point(1153, 7);
-            lblClock.Name = "lblClock";
-            lblClock.Size = new Size(210, 23);
-            lblClock.TabIndex = 2;
-            lblClock.Text = "🕒 20:30:00 - 15/10/2026";
+            chucVu.BackColor = Color.FromArgb(241, 228, 216);
+            chucVu.Dock = DockStyle.Fill;
+            chucVu.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            chucVu.ForeColor = Color.FromArgb(109, 71, 46);
+            chucVu.Location = new Point(1081, 0);
+            chucVu.Margin = new Padding(0);
+            chucVu.Name = "chucVu";
+            chucVu.Size = new Size(207, 79);
+            chucVu.TabIndex = 5;
+            chucVu.Text = "Phục Vụ";
+            chucVu.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lblNetworkStatus
+            // sep2
             // 
-            lblNetworkStatus.BackColor = Color.Transparent;
-            lblNetworkStatus.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            lblNetworkStatus.ForeColor = Color.ForestGreen;
-            lblNetworkStatus.Location = new Point(3, 0);
-            lblNetworkStatus.Name = "lblNetworkStatus";
-            lblNetworkStatus.Size = new Size(338, 30);
-            lblNetworkStatus.TabIndex = 1;
-            lblNetworkStatus.Text = "\U0001f7e2 Đã kết nối Máy chủ TCP (127.0.0.1:8888)";
-            lblNetworkStatus.TextAlign = ContentAlignment.MiddleCenter;
+            sep2.Anchor = AnchorStyles.None;
+            sep2.BackColor = Color.FromArgb(220, 203, 192);
+            sep2.Location = new Point(1071, 2);
+            sep2.Margin = new Padding(0);
+            sep2.Name = "sep2";
+            sep2.Size = new Size(8, 75);
+            sep2.TabIndex = 6;
             // 
-            // panelSidebar
+            // uiSymbolButton1
             // 
-            panelSidebar.Controls.Add(btnMenuBaoCao);
-            panelSidebar.Controls.Add(btnMenuNhanVien);
-            panelSidebar.Controls.Add(btnMenuKho);
-            panelSidebar.Controls.Add(btnMenuThucDon);
-            panelSidebar.Controls.Add(btnMenuBep);
-            panelSidebar.Controls.Add(btnMenuThuNgan);
-            panelSidebar.Controls.Add(btnMenuBanAn);
-            panelSidebar.Dock = DockStyle.Left;
-            panelSidebar.FillColor = Color.FromArgb(48, 40, 36);
-            panelSidebar.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            panelSidebar.Location = new Point(0, 88);
-            panelSidebar.Margin = new Padding(4, 5, 4, 5);
-            panelSidebar.MinimumSize = new Size(1, 1);
-            panelSidebar.Name = "panelSidebar";
-            panelSidebar.RectColor = Color.Transparent;
-            panelSidebar.Size = new Size(230, 645);
-            panelSidebar.TabIndex = 2;
-            panelSidebar.Text = null;
-            panelSidebar.TextAlignment = ContentAlignment.MiddleCenter;
+            uiSymbolButton1.Dock = DockStyle.Fill;
+            uiSymbolButton1.FillColor = Color.FromArgb(74, 144, 226);
+            uiSymbolButton1.Font = new Font("Microsoft Sans Serif", 12F);
+            uiSymbolButton1.Location = new Point(671, 3);
+            uiSymbolButton1.MinimumSize = new Size(1, 1);
+            uiSymbolButton1.Name = "uiSymbolButton1";
+            uiSymbolButton1.Radius = 14;
+            uiSymbolButton1.Size = new Size(54, 73);
+            uiSymbolButton1.Symbol = 61827;
+            uiSymbolButton1.SymbolSize = 40;
+            uiSymbolButton1.TabIndex = 3;
+            uiSymbolButton1.TipsFont = new Font("Microsoft Sans Serif", 9F);
             // 
-            // btnMenuBaoCao
+            // Ten_nhaHang
             // 
-            btnMenuBaoCao.BackColor = Color.Transparent;
-            btnMenuBaoCao.FillColor = Color.RosyBrown;
-            btnMenuBaoCao.FillHoverColor = Color.FromArgb(152, 98, 61);
-            btnMenuBaoCao.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnMenuBaoCao.Location = new Point(3, 339);
-            btnMenuBaoCao.MinimumSize = new Size(1, 1);
-            btnMenuBaoCao.Name = "btnMenuBaoCao";
-            btnMenuBaoCao.Radius = 20;
-            btnMenuBaoCao.RectColor = Color.Transparent;
-            btnMenuBaoCao.Size = new Size(224, 50);
-            btnMenuBaoCao.TabIndex = 6;
-            btnMenuBaoCao.Text = "📊 Thống kê Doanh thu";
-            btnMenuBaoCao.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            Ten_nhaHang.BackColor = Color.FromArgb(241, 228, 216);
+            Ten_nhaHang.Dock = DockStyle.Fill;
+            Ten_nhaHang.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Ten_nhaHang.ForeColor = Color.FromArgb(109, 71, 46);
+            Ten_nhaHang.Location = new Point(82, 0);
+            Ten_nhaHang.Margin = new Padding(0);
+            Ten_nhaHang.Name = "Ten_nhaHang";
+            Ten_nhaHang.Size = new Size(318, 79);
+            Ten_nhaHang.TabIndex = 7;
+            Ten_nhaHang.Text = "THE GOURMET";
+            Ten_nhaHang.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // btnMenuNhanVien
+            // sep1
             // 
-            btnMenuNhanVien.BackColor = Color.Transparent;
-            btnMenuNhanVien.FillColor = Color.RosyBrown;
-            btnMenuNhanVien.FillHoverColor = Color.FromArgb(152, 98, 61);
-            btnMenuNhanVien.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnMenuNhanVien.Location = new Point(3, 283);
-            btnMenuNhanVien.MinimumSize = new Size(1, 1);
-            btnMenuNhanVien.Name = "btnMenuNhanVien";
-            btnMenuNhanVien.Radius = 20;
-            btnMenuNhanVien.RectColor = Color.Transparent;
-            btnMenuNhanVien.Size = new Size(224, 50);
-            btnMenuNhanVien.TabIndex = 5;
-            btnMenuNhanVien.Text = "👥 Quản lý Nhân sự";
-            btnMenuNhanVien.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            sep1.Anchor = AnchorStyles.None;
+            sep1.BackColor = Color.FromArgb(220, 203, 192);
+            sep1.Location = new Point(659, 2);
+            sep1.Margin = new Padding(0);
+            sep1.Name = "sep1";
+            sep1.Size = new Size(8, 75);
+            sep1.TabIndex = 6;
             // 
-            // btnMenuKho
+            // pictureBox1
             // 
-            btnMenuKho.BackColor = Color.Transparent;
-            btnMenuKho.FillColor = Color.RosyBrown;
-            btnMenuKho.FillHoverColor = Color.FromArgb(152, 98, 61);
-            btnMenuKho.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnMenuKho.Location = new Point(3, 227);
-            btnMenuKho.MinimumSize = new Size(1, 1);
-            btnMenuKho.Name = "btnMenuKho";
-            btnMenuKho.Radius = 20;
-            btnMenuKho.RectColor = Color.Transparent;
-            btnMenuKho.Size = new Size(224, 50);
-            btnMenuKho.TabIndex = 4;
-            btnMenuKho.Text = "📦 Quản lý Kho";
-            btnMenuKho.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            pictureBox1.BackColor = Color.FromArgb(241, 228, 216);
+            pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Margin = new Padding(0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(69, 79);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 8;
+            pictureBox1.TabStop = false;
             // 
-            // btnMenuThucDon
+            // uiTableLayoutPanel1
             // 
-            btnMenuThucDon.BackColor = Color.Transparent;
-            btnMenuThucDon.FillColor = Color.RosyBrown;
-            btnMenuThucDon.FillHoverColor = Color.FromArgb(152, 98, 61);
-            btnMenuThucDon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnMenuThucDon.Location = new Point(3, 171);
-            btnMenuThucDon.MinimumSize = new Size(1, 1);
-            btnMenuThucDon.Name = "btnMenuThucDon";
-            btnMenuThucDon.Radius = 20;
-            btnMenuThucDon.RectColor = Color.Transparent;
-            btnMenuThucDon.Size = new Size(224, 50);
-            btnMenuThucDon.TabIndex = 3;
-            btnMenuThucDon.Text = "📋 Quản lý Thực đơn";
-            btnMenuThucDon.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            uiTableLayoutPanel1.ColumnCount = 1;
+            uiTableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            uiTableLayoutPanel1.Controls.Add(footer, 0, 2);
+            uiTableLayoutPanel1.Controls.Add(main, 0, 1);
+            uiTableLayoutPanel1.Controls.Add(pnlHeadder, 0, 0);
+            uiTableLayoutPanel1.Dock = DockStyle.Fill;
+            uiTableLayoutPanel1.Location = new Point(0, 35);
+            uiTableLayoutPanel1.Margin = new Padding(0);
+            uiTableLayoutPanel1.Name = "uiTableLayoutPanel1";
+            uiTableLayoutPanel1.RowCount = 3;
+            uiTableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 79F));
+            uiTableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            uiTableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            uiTableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            uiTableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            uiTableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            uiTableLayoutPanel1.Size = new Size(1366, 733);
+            uiTableLayoutPanel1.TabIndex = 0;
+            uiTableLayoutPanel1.TagString = null;
             // 
-            // btnMenuBep
+            // footer
             // 
-            btnMenuBep.BackColor = Color.Transparent;
-            btnMenuBep.FillColor = Color.RosyBrown;
-            btnMenuBep.FillHoverColor = Color.FromArgb(152, 98, 61);
-            btnMenuBep.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnMenuBep.Location = new Point(3, 115);
-            btnMenuBep.MinimumSize = new Size(1, 1);
-            btnMenuBep.Name = "btnMenuBep";
-            btnMenuBep.Radius = 20;
-            btnMenuBep.RectColor = Color.Transparent;
-            btnMenuBep.Size = new Size(224, 50);
-            btnMenuBep.TabIndex = 2;
-            btnMenuBep.Text = "👨‍🍳 Khu vực Bếp, Bar";
-            btnMenuBep.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            footer.BackColor = Color.FromArgb(241, 228, 216);
+            footer.Controls.Add(lblTime);
+            footer.Controls.Add(lblConnectionStatus);
+            footer.Dock = DockStyle.Fill;
+            footer.FillColor = Color.FromArgb(241, 228, 216);
+            footer.Font = new Font("Microsoft Sans Serif", 12F);
+            footer.Location = new Point(0, 698);
+            footer.Margin = new Padding(0);
+            footer.MinimumSize = new Size(1, 1);
+            footer.Name = "footer";
+            footer.RectColor = Color.FromArgb(247, 241, 235);
+            footer.Size = new Size(1366, 35);
+            footer.TabIndex = 11;
+            footer.Text = null;
+            footer.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // btnMenuThuNgan
+            // lblTime
             // 
-            btnMenuThuNgan.BackColor = Color.Transparent;
-            btnMenuThuNgan.FillColor = Color.RosyBrown;
-            btnMenuThuNgan.FillHoverColor = Color.FromArgb(152, 98, 61);
-            btnMenuThuNgan.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnMenuThuNgan.Location = new Point(3, 59);
-            btnMenuThuNgan.MinimumSize = new Size(1, 1);
-            btnMenuThuNgan.Name = "btnMenuThuNgan";
-            btnMenuThuNgan.Radius = 20;
-            btnMenuThuNgan.RectColor = Color.Transparent;
-            btnMenuThuNgan.Size = new Size(224, 50);
-            btnMenuThuNgan.TabIndex = 1;
-            btnMenuThuNgan.Text = "💵 Thu ngân, Thanh toán";
-            btnMenuThuNgan.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            lblTime.BackColor = Color.Transparent;
+            lblTime.Dock = DockStyle.Right;
+            lblTime.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblTime.ForeColor = Color.FromArgb(139, 90, 58);
+            lblTime.Location = new Point(939, 0);
+            lblTime.Margin = new Padding(0);
+            lblTime.Name = "lblTime";
+            lblTime.Size = new Size(427, 35);
+            lblTime.TabIndex = 1;
+            lblTime.Text = "time";
+            lblTime.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // btnMenuBanAn
+            // lblConnectionStatus
             // 
-            btnMenuBanAn.BackColor = Color.Transparent;
-            btnMenuBanAn.FillColor = Color.RosyBrown;
-            btnMenuBanAn.FillHoverColor = Color.FromArgb(152, 98, 61);
-            btnMenuBanAn.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnMenuBanAn.Location = new Point(3, 3);
-            btnMenuBanAn.MinimumSize = new Size(1, 1);
-            btnMenuBanAn.Name = "btnMenuBanAn";
-            btnMenuBanAn.Radius = 20;
-            btnMenuBanAn.RectColor = Color.Transparent;
-            btnMenuBanAn.Size = new Size(224, 50);
-            btnMenuBanAn.TabIndex = 0;
-            btnMenuBanAn.Text = "\U0001fa91 Sơ đồ bàn, Đặt món";
-            btnMenuBanAn.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnMenuBanAn.Click += btnMenuBanAn_Click;
+            lblConnectionStatus.BackColor = Color.Transparent;
+            lblConnectionStatus.Dock = DockStyle.Left;
+            lblConnectionStatus.Font = new Font("Segoe UI", 9F);
+            lblConnectionStatus.ForeColor = Color.FromArgb(57, 132, 91);
+            lblConnectionStatus.Location = new Point(0, 0);
+            lblConnectionStatus.Margin = new Padding(0);
+            lblConnectionStatus.Name = "lblConnectionStatus";
+            lblConnectionStatus.Size = new Size(120, 35);
+            lblConnectionStatus.TabIndex = 0;
+            lblConnectionStatus.Text = "● Đã kết nối";
+            lblConnectionStatus.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // main
+            // 
+            main.ColumnCount = 2;
+            main.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 29.48529F));
+            main.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70.51471F));
+            main.Controls.Add(panelContent, 1, 0);
+            main.Controls.Add(pnlSidebar, 0, 0);
+            main.Dock = DockStyle.Fill;
+            main.Location = new Point(3, 82);
+            main.Name = "main";
+            main.RowCount = 1;
+            main.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            main.Size = new Size(1360, 613);
+            main.TabIndex = 12;
+            main.TagString = null;
             // 
             // panelContent
             // 
-            panelContent.Controls.Add(panelChat);
             panelContent.Dock = DockStyle.Fill;
-            panelContent.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            panelContent.Location = new Point(230, 88);
-            panelContent.Margin = new Padding(4, 5, 4, 5);
+            panelContent.FillColor = Color.FromArgb(255, 128, 128);
+            panelContent.FillColor2 = Color.Empty;
+            panelContent.Font = new Font("Microsoft Sans Serif", 12F);
+            panelContent.Location = new Point(400, 0);
+            panelContent.Margin = new Padding(0);
             panelContent.MinimumSize = new Size(1, 1);
             panelContent.Name = "panelContent";
-            panelContent.RectColor = Color.Transparent;
-            panelContent.Size = new Size(1136, 645);
+            panelContent.RectColor = Color.Empty;
+            panelContent.Size = new Size(960, 613);
             panelContent.TabIndex = 3;
             panelContent.Text = null;
             panelContent.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // panelChat
+            // pnlSidebar
             // 
-            panelChat.Dock = DockStyle.Right;
-            panelChat.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            panelChat.Location = new Point(816, 0);
-            panelChat.Margin = new Padding(4, 5, 4, 5);
-            panelChat.MinimumSize = new Size(1, 1);
-            panelChat.Name = "panelChat";
-            panelChat.RectColor = Color.Transparent;
-            panelChat.Size = new Size(320, 645);
-            panelChat.TabIndex = 0;
-            panelChat.Text = null;
-            panelChat.TextAlignment = ContentAlignment.MiddleCenter;
-            panelChat.Visible = false;
+            pnlSidebar.Controls.Add(uiSymbolButton6);
+            pnlSidebar.Controls.Add(uiSymbolButton5);
+            pnlSidebar.Controls.Add(uiSymbolButton4);
+            pnlSidebar.Controls.Add(uiSymbolButton2);
+            pnlSidebar.Controls.Add(uiSymbolButton3);
+            pnlSidebar.Dock = DockStyle.Fill;
+            pnlSidebar.FillColor = Color.FromArgb(152, 98, 61);
+            pnlSidebar.FlowDirection = FlowDirection.TopDown;
+            pnlSidebar.Font = new Font("Microsoft Sans Serif", 12F);
+            pnlSidebar.Location = new Point(0, 0);
+            pnlSidebar.Margin = new Padding(0);
+            pnlSidebar.MinimumSize = new Size(1, 1);
+            pnlSidebar.Name = "pnlSidebar";
+            pnlSidebar.Padding = new Padding(2);
+            pnlSidebar.RectColor = Color.Empty;
+            pnlSidebar.ShowText = false;
+            pnlSidebar.Size = new Size(400, 613);
+            pnlSidebar.TabIndex = 2;
+            pnlSidebar.Text = "uiFlowLayoutPanel1";
+            pnlSidebar.TextAlignment = ContentAlignment.MiddleCenter;
+            pnlSidebar.WrapContents = false;
             // 
-            // timer1
+            // uiSymbolButton6
             // 
-            timer1.Tick += timer1_Tick;
+            uiSymbolButton6.BackColor = Color.Transparent;
+            uiSymbolButton6.Cursor = Cursors.Hand;
+            uiSymbolButton6.Dock = DockStyle.Top;
+            uiSymbolButton6.FillColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton6.FillHoverColor = Color.FromArgb(158, 108, 75);
+            uiSymbolButton6.FillPressColor = Color.FromArgb(115, 72, 45);
+            uiSymbolButton6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            uiSymbolButton6.ForeColor = Color.FromArgb(255, 252, 248);
+            uiSymbolButton6.Location = new Point(2, 302);
+            uiSymbolButton6.Margin = new Padding(3, 4, 3, 4);
+            uiSymbolButton6.MinimumSize = new Size(1, 1);
+            uiSymbolButton6.Name = "uiSymbolButton6";
+            uiSymbolButton6.Padding = new Padding(5, 10, 5, 5);
+            uiSymbolButton6.Radius = 50;
+            uiSymbolButton6.RectColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton6.RectDisableColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton6.RectHoverColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton6.RectPressColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton6.RectSelectedColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton6.Size = new Size(396, 75);
+            uiSymbolButton6.Symbol = 61632;
+            uiSymbolButton6.SymbolColor = Color.FromArgb(245, 230, 211);
+            uiSymbolButton6.SymbolSize = 40;
+            uiSymbolButton6.TabIndex = 8;
+            uiSymbolButton6.Text = "Nhân viên";
+            uiSymbolButton6.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            // 
+            // uiSymbolButton5
+            // 
+            uiSymbolButton5.BackColor = Color.Transparent;
+            uiSymbolButton5.Cursor = Cursors.Hand;
+            uiSymbolButton5.Dock = DockStyle.Top;
+            uiSymbolButton5.FillColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton5.FillHoverColor = Color.FromArgb(158, 108, 75);
+            uiSymbolButton5.FillPressColor = Color.FromArgb(115, 72, 45);
+            uiSymbolButton5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            uiSymbolButton5.ForeColor = Color.FromArgb(255, 252, 248);
+            uiSymbolButton5.Location = new Point(2, 227);
+            uiSymbolButton5.Margin = new Padding(3, 4, 3, 4);
+            uiSymbolButton5.MinimumSize = new Size(1, 1);
+            uiSymbolButton5.Name = "uiSymbolButton5";
+            uiSymbolButton5.Padding = new Padding(5, 10, 5, 5);
+            uiSymbolButton5.Radius = 50;
+            uiSymbolButton5.RectColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton5.RectDisableColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton5.RectHoverColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton5.RectPressColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton5.RectSelectedColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton5.Size = new Size(396, 75);
+            uiSymbolButton5.Symbol = 61685;
+            uiSymbolButton5.SymbolColor = Color.FromArgb(245, 230, 211);
+            uiSymbolButton5.SymbolSize = 40;
+            uiSymbolButton5.TabIndex = 7;
+            uiSymbolButton5.Text = "món ăn";
+            uiSymbolButton5.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            // 
+            // uiSymbolButton4
+            // 
+            uiSymbolButton4.BackColor = Color.Transparent;
+            uiSymbolButton4.Cursor = Cursors.Hand;
+            uiSymbolButton4.Dock = DockStyle.Top;
+            uiSymbolButton4.FillColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton4.FillHoverColor = Color.FromArgb(158, 108, 75);
+            uiSymbolButton4.FillPressColor = Color.FromArgb(115, 72, 45);
+            uiSymbolButton4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            uiSymbolButton4.ForeColor = Color.FromArgb(255, 252, 248);
+            uiSymbolButton4.Location = new Point(2, 152);
+            uiSymbolButton4.Margin = new Padding(3, 4, 3, 4);
+            uiSymbolButton4.MinimumSize = new Size(1, 1);
+            uiSymbolButton4.Name = "uiSymbolButton4";
+            uiSymbolButton4.Padding = new Padding(5, 10, 5, 5);
+            uiSymbolButton4.Radius = 50;
+            uiSymbolButton4.RectColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton4.RectDisableColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton4.RectHoverColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton4.RectPressColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton4.RectSelectedColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton4.Size = new Size(396, 75);
+            uiSymbolButton4.Symbol = 61597;
+            uiSymbolButton4.SymbolColor = Color.FromArgb(245, 230, 211);
+            uiSymbolButton4.SymbolSize = 40;
+            uiSymbolButton4.TabIndex = 6;
+            uiSymbolButton4.Text = "Thanh toán";
+            uiSymbolButton4.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            // 
+            // uiSymbolButton2
+            // 
+            uiSymbolButton2.BackColor = Color.Transparent;
+            uiSymbolButton2.Cursor = Cursors.Hand;
+            uiSymbolButton2.Dock = DockStyle.Top;
+            uiSymbolButton2.FillColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton2.FillHoverColor = Color.FromArgb(158, 108, 75);
+            uiSymbolButton2.FillPressColor = Color.FromArgb(115, 72, 45);
+            uiSymbolButton2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            uiSymbolButton2.ForeColor = Color.FromArgb(255, 252, 248);
+            uiSymbolButton2.Location = new Point(2, 77);
+            uiSymbolButton2.Margin = new Padding(3, 4, 3, 4);
+            uiSymbolButton2.MinimumSize = new Size(1, 1);
+            uiSymbolButton2.Name = "uiSymbolButton2";
+            uiSymbolButton2.Padding = new Padding(5, 10, 5, 5);
+            uiSymbolButton2.Radius = 50;
+            uiSymbolButton2.RectColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton2.RectDisableColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton2.RectHoverColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton2.RectPressColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton2.RectSelectedColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton2.Size = new Size(396, 75);
+            uiSymbolButton2.Symbol = 61674;
+            uiSymbolButton2.SymbolColor = Color.FromArgb(245, 230, 211);
+            uiSymbolButton2.SymbolSize = 40;
+            uiSymbolButton2.TabIndex = 5;
+            uiSymbolButton2.Text = "Hóa đơn";
+            uiSymbolButton2.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            // 
+            // uiSymbolButton3
+            // 
+            uiSymbolButton3.BackColor = Color.Transparent;
+            uiSymbolButton3.Cursor = Cursors.Hand;
+            uiSymbolButton3.Dock = DockStyle.Top;
+            uiSymbolButton3.FillColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton3.FillHoverColor = Color.FromArgb(158, 108, 75);
+            uiSymbolButton3.FillPressColor = Color.FromArgb(115, 72, 45);
+            uiSymbolButton3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            uiSymbolButton3.ForeColor = Color.FromArgb(255, 252, 248);
+            uiSymbolButton3.Location = new Point(2, 2);
+            uiSymbolButton3.Margin = new Padding(3, 4, 3, 4);
+            uiSymbolButton3.MinimumSize = new Size(1, 1);
+            uiSymbolButton3.Name = "uiSymbolButton3";
+            uiSymbolButton3.Padding = new Padding(5, 10, 5, 5);
+            uiSymbolButton3.Radius = 50;
+            uiSymbolButton3.RectColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton3.RectDisableColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton3.RectHoverColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton3.RectPressColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton3.RectSelectedColor = Color.FromArgb(139, 90, 58);
+            uiSymbolButton3.Size = new Size(396, 75);
+            uiSymbolButton3.Symbol = 61449;
+            uiSymbolButton3.SymbolColor = Color.FromArgb(245, 230, 211);
+            uiSymbolButton3.SymbolSize = 40;
+            uiSymbolButton3.TabIndex = 4;
+            uiSymbolButton3.Text = "Sơ đồ bàn";
+            uiSymbolButton3.TipsFont = new Font("Microsoft Sans Serif", 9F);
             // 
             // MainForm
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1366, 768);
-            Controls.Add(panelContent);
-            Controls.Add(panelSidebar);
-            Controls.Add(panelFooter);
-            Controls.Add(panelHeader);
+            Controls.Add(uiTableLayoutPanel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            IconImage = (Image)resources.GetObject("$this.IconImage");
             MaximumSize = new Size(1920, 1080);
             MinimumSize = new Size(1024, 600);
             Name = "MainForm";
@@ -409,39 +585,44 @@
             TitleColor = Color.FromArgb(152, 98, 61);
             TitleFont = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
             ZoomScaleRect = new Rectangle(15, 15, 800, 450);
-            panelHeader.ResumeLayout(false);
-            uiPanel1.ResumeLayout(false);
-            uiPanel1.PerformLayout();
-            uiPanel2.ResumeLayout(false);
-            panelFooter.ResumeLayout(false);
-            panelSidebar.ResumeLayout(false);
-            panelContent.ResumeLayout(false);
+            Load += MainForm_Load;
+            pnlHeadder.ResumeLayout(false);
+            uiTableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            uiTableLayoutPanel1.ResumeLayout(false);
+            footer.ResumeLayout(false);
+            main.ResumeLayout(false);
+            pnlSidebar.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Sunny.UI.UIPanel panelHeader;
-        private Sunny.UI.UIPanel panelFooter;
-        private Sunny.UI.UIPanel panelSidebar;
-        private Sunny.UI.UIPanel panelContent;
-        private Sunny.UI.UIPanel panelChat;
-        private Sunny.UI.UILabel uiLabel1;
-        private Sunny.UI.UIAvatar uiAvatar1;
-        private Sunny.UI.UIButton btnLogout;
-        private Sunny.UI.UIButton btnOpenChat;
-        private Sunny.UI.UIButton btnMenuBep;
-        private Sunny.UI.UIButton btnMenuThuNgan;
-        private Sunny.UI.UIButton btnMenuBanAn;
-        private Sunny.UI.UIButton btnMenuBaoCao;
-        private Sunny.UI.UIButton btnMenuNhanVien;
-        private Sunny.UI.UIButton btnMenuKho;
-        private Sunny.UI.UIButton btnMenuThucDon;
-        private Sunny.UI.UILabel lblClock;
-        private Sunny.UI.UILabel lblNetworkStatus;
         private System.Windows.Forms.Timer timer1;
-        private Sunny.UI.UIPanel uiPanel1;
-        private Sunny.UI.UIPanel uiPanel2;
-        private Sunny.UI.UILabel uiLabel2;
+        private Sunny.UI.UIPanel pnlHeadder;
+        private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel2;
+        private Panel panel4;
+        private Panel panel2;
+        private Panel panel1;
+        private Sunny.UI.UISymbolButton Trochuyen;
+        private Sunny.UI.UISymbolButton DangXuat;
+        private Sunny.UI.UILabel Ten;
+        private Sunny.UI.UILabel chucVu;
+        private Panel sep2;
+        private Sunny.UI.UISymbolButton uiSymbolButton1;
+        private Sunny.UI.UILabel Ten_nhaHang;
+        private Panel sep1;
+        private PictureBox pictureBox1;
+        private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel1;
+        private Sunny.UI.UIPanel footer;
+        private Sunny.UI.UILabel lblTime;
+        private Sunny.UI.UILabel lblConnectionStatus;
+        private Sunny.UI.UIFlowLayoutPanel pnlSidebar;
+        private Sunny.UI.UISymbolButton uiSymbolButton6;
+        private Sunny.UI.UISymbolButton uiSymbolButton5;
+        private Sunny.UI.UISymbolButton uiSymbolButton4;
+        private Sunny.UI.UISymbolButton uiSymbolButton2;
+        private Sunny.UI.UISymbolButton uiSymbolButton3;
+        private Sunny.UI.UIPanel panelContent;
+        private Sunny.UI.UITableLayoutPanel main;
     }
 }
