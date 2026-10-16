@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection.Metadata;
+using System.Security.Cryptography;
 using System.Text;
 using System.Xml.XPath;
 
@@ -10,70 +11,46 @@ namespace RestaurantShared
 {
     public class DataProvider
     {
-        private string connectionStr = "Data Source=.;Initial Catalog=LTMCB;Integrated Security=True;Trust Server Certificate=True";
-        private static readonly Lazy<DataProvider> DP = new (() => new DataProvider());
+        private string connectionStr = "Data Source=.;Initial Catalog=QuanLyQuanNhau;Integrated Security=True;Trust Server Certificate=True";
+        private static readonly Lazy<DataProvider> DP = new(() => new DataProvider());
 
         public static DataProvider Instance => DP.Value;
 
-        private DataProvider(){ }
-        public DataTable ExecuteQuery(string query, object[] parameter = null)
+        private DataProvider() { }
+        public DataTable ExecuteQuery(string query, params SqlParameter[] parameters)
         {
             DataTable data = new();
 
             using SqlConnection connection = new(connectionStr);
 
-            connection.Open();
 
-            SqlCommand cmd = new(query, connection);
+            using SqlCommand cmd = new(query, connection);
 
-            if(parameter != null)
+            if (parameters != null)
             {
-                string[] paraList = query.Split(' ');
-
-                int i = 0;
-
-                foreach(string item in paraList)
-                {
-                    if(item.Contains('@'))
-                    {
-                        cmd.Parameters.AddWithValue(item, parameter[i]);
-                        i++;
-                    }
-                }
+                cmd.Parameters.AddRange(parameters);
             }
 
-            SqlDataAdapter adapter = new(cmd);
+            using SqlDataAdapter adapter = new(cmd);
 
             adapter.Fill(data);
 
-            connection.Close();
 
             return data;
         }
 
-        public int ExecuteNonQuery(string query,object[] parameter = null)
+        public int ExecuteNonQuery(string query, params SqlParameter[] parameters)
         {
             int data = 0;
             using SqlConnection connection = new(connectionStr);
 
             connection.Open();
 
-            SqlCommand cmd = new(query, connection);
+            using SqlCommand cmd = new(query, connection);
 
-            if (parameter != null)
+            if (parameters != null)
             {
-                string[] paraList = query.Split(' ');
-
-                int i = 0;
-
-                foreach (string item in paraList)
-                {
-                    if (item.Contains('@'))
-                    {
-                        cmd.Parameters.AddWithValue(item, parameter[i]);
-                        i++;
-                    }
-                }
+                cmd.Parameters.AddRange(parameters);
             }
 
 
@@ -83,31 +60,19 @@ namespace RestaurantShared
             return data;
         }
 
-        public object ExecuteScalar(string query, object[] parameter = null)
+        public object ExecuteScalar(string query, params SqlParameter[] parameters)
         {
             object data = 0;
             using SqlConnection connection = new(connectionStr);
 
             connection.Open();
 
-            SqlCommand cmd = new(query, connection);
+            using SqlCommand cmd = new(query, connection);
 
-            if (parameter != null)
+            if (parameters != null)
             {
-                string[] paraList = query.Split(' ');
-
-                int i = 0;
-
-                foreach (string item in paraList)
-                {
-                    if (item.Contains('@'))
-                    {
-                        cmd.Parameters.AddWithValue(item, parameter[i]);
-                        i++;
-                    }
-                }
+                cmd.Parameters.AddRange(parameters);
             }
-
             data = cmd.ExecuteScalar();
 
             connection.Close();
