@@ -35,17 +35,21 @@ namespace RestaurantManagement.UI
         {
             string usrname = username.Text;
             string passwrd = pwtxt.Text;
-            if (true || login(usrname, passwrd))//dang bypass lam xong nho xoa
+            if (true || login(usrname, passwrd)) // Đang bypass kiểm thử
             {
-                MainForm test = new();
+                // Ví dụ: Giả lập đăng nhập tài khoản Phục vụ để kiểm tra dồn nút
+                // (Sau này nối database sẽ lấy đúng từ bảng NHANVIEN và VAITRO)
+                string tenNV = "Nguyễn Văn A";
+                string chucVu = "Phục Vụ";
+                string maVaiTro = "VT03";
+                MainForm main = new MainForm(tenNV, chucVu, maVaiTro);
                 this.Hide();
-                test.ShowDialog();
+                main.ShowDialog();
                 this.Show();
             }
             else
             {
-
-                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu");
+                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!");
             }
         }
         private bool login(string username, string password)
