@@ -1,4 +1,4 @@
-namespace RestaurantManagement
+namespace RestaurantManagement.UI
 {
     internal static class Program
     {
