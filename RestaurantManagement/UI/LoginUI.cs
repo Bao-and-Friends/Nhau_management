@@ -4,6 +4,7 @@ namespace RestaurantManagement.UI
     using Sunny.UI;
     using System.Resources;
     using RestaurantShared.DAO;
+    using RestaurantShared.DTO;
 
     public partial class LoginUI : UIForm
     {
@@ -52,9 +53,9 @@ namespace RestaurantManagement.UI
                 MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!");
             }
         }
-        private bool login(string username, string password)
+        private bool login(string username, string password,Caccount acc)
         {
-            return AccountDAO.Instance.Login(username, password);
+            return AccountDAO.Instance.Login(username, password,acc);
         }
     }
 }

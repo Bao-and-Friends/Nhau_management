@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using RestaurantShared.DTO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,10 +14,14 @@ namespace RestaurantShared.DAO
         public static AccountDAO Instance => AcDAO.Value;
         private AccountDAO() { }
 
-        public bool Login(string username,string password)
+        public bool Login(string username,string password,Caccount Acc = null)
         {
             string query = $"select MaTaiKhoan from TAIKHOAN where TenDangNhap = @username and MatKhau = @password";
             DataTable data = DataProvider.Instance.ExecuteQuery(query, new("@username", username),new("@password", password));
+            if(Acc !=null)
+            {
+                Acc = new(data.Rows[0]);
+            }
             return data.Rows.Count == 1;
         }
         
