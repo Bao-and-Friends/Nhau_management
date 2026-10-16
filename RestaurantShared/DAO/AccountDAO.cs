@@ -19,5 +19,6 @@ namespace RestaurantShared.DAO
             DataTable data = DataProvider.Instance.ExecuteQuery(query, new("@username", username),new("@password", password));
             return data.Rows.Count == 1;
         }
+        
     }
 }
