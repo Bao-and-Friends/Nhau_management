@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RestaurantManagement {
+namespace RestaurantManagement.UI {
     using System;
     
     

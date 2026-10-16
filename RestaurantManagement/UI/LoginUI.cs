@@ -1,8 +1,9 @@
-namespace RestaurantManagement
-    
+namespace RestaurantManagement.UI
+
 {
     using Sunny.UI;
     using System.Resources;
+    using RestaurantShared.DAO;
 
     public partial class LoginUI : UIForm
     {
@@ -13,21 +14,43 @@ namespace RestaurantManagement
 
         }
 
-        
+
         private void uiTextBox2_button_click(object sender, EventArgs e)
         {
-            if (uiTextBox2.PasswordChar == '●')
+            if (pwtxt.PasswordChar == '●')
             {
                 // Hiển thị mật khẩu
-                uiTextBox2.PasswordChar = '\0';
-                uiTextBox2.ButtonSymbol = 61550;
+                pwtxt.PasswordChar = '\0';
+                pwtxt.ButtonSymbol = 61550;
             }
             else
             {
                 // Ẩn mật khẩu
-                uiTextBox2.PasswordChar = '●';
-                uiTextBox2.ButtonSymbol = 61552;
+                pwtxt.PasswordChar = '●';
+                pwtxt.ButtonSymbol = 61552;
             }
+        }
+
+        private void Dangnhap_Click(object sender, EventArgs e)
+        {
+            string usrname = username.Text;
+            string passwrd = pwtxt.Text;
+            if (login(usrname, passwrd))
+            {
+                Form1 test = new();
+                this.Hide();
+                test.ShowDialog();
+                this.Show();
+            }
+            else
+            {
+
+                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu");
+            }
+        }
+        private bool login(string username, string password)
+        {
+            return AccountDAO.Instance.Login(username, password);
         }
     }
 }
