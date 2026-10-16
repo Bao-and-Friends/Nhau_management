@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Runtime.Intrinsics.Arm;
@@ -14,10 +15,9 @@ namespace RestaurantShared.DAO
 
         public bool Login(string username,string password)
         {
-            string query = "";
-           DataTable data = DataProvider.Instance.ExecuteQuery(query);
-            return data.Rows.Count > 0;
-
+            string query = $"select MaTaiKhoan from TAIKHOAN where TenDangNhap = @username and MatKhau = @password";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new("@username", username),new("@password", password));
+            return data.Rows.Count == 1;
         }
     }
 }
