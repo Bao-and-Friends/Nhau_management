@@ -36,13 +36,12 @@ namespace RestaurantManagement.UI
         {
             string usrname = username.Text;
             string passwrd = pwtxt.Text;
-            if (true || login(usrname, passwrd)) // Đang bypass kiểm thử
+            string IDNhanVien = login(usrname, passwrd);
+            if (IDNhanVien.CompareTo("")!=0)
             {
-                string tenNV = "Nguyễn Văn A";
-                string chucVu = "Phục Vụ";
-                string maVaiTro = "VT03";
-                MainForm main = new MainForm(tenNV, chucVu, maVaiTro);
+                MainForm main = new MainForm();
                 this.Hide();
+                main.Tag = IDNhanVien;
                 main.ShowDialog();
                 this.Show();
             }
@@ -51,7 +50,7 @@ namespace RestaurantManagement.UI
                 MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!");
             }
         }
-        private bool login(string username, string password)
+        private string login(string username, string password)
         {
             return AccountDAO.Instance.Login(username, password);
         }

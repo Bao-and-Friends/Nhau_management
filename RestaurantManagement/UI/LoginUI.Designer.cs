@@ -133,6 +133,7 @@ namespace RestaurantManagement.UI
             username.ShowText = false;
             username.Size = new Size(467, 70);
             username.TabIndex = 0;
+            username.Text = "nguyenvana";
             username.TextAlignment = ContentAlignment.MiddleLeft;
             username.Watermark = "Tên đăng nhập";
             username.WatermarkColor = Color.FromArgb(184, 124, 80);
@@ -223,6 +224,7 @@ namespace RestaurantManagement.UI
             pwtxt.ButtonStyleInherited = false;
             pwtxt.ButtonSymbol = 61550;
             pwtxt.ButtonSymbolSize = 30;
+            pwtxt.DoubleValue = 123456D;
             pwtxt.FillColor2 = Color.Empty;
             pwtxt.FillDisableColor = Color.Empty;
             pwtxt.FillReadOnlyColor = Color.Empty;
@@ -231,6 +233,7 @@ namespace RestaurantManagement.UI
             pwtxt.ForeDisableColor = Color.Empty;
             pwtxt.ForeReadOnlyColor = Color.Empty;
             pwtxt.Icon = (Image)resources.GetObject("pwtxt.Icon");
+            pwtxt.IntValue = 123456;
             pwtxt.Location = new Point(71, 352);
             pwtxt.Margin = new Padding(4, 5, 4, 5);
             pwtxt.MinimumSize = new Size(1, 16);
@@ -248,6 +251,7 @@ namespace RestaurantManagement.UI
             pwtxt.ShowText = false;
             pwtxt.Size = new Size(467, 70);
             pwtxt.TabIndex = 1;
+            pwtxt.Text = "123456";
             pwtxt.TextAlignment = ContentAlignment.MiddleLeft;
             pwtxt.Watermark = "Mật khẩu";
             pwtxt.WatermarkColor = Color.FromArgb(184, 124, 80);

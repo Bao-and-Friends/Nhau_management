@@ -14,11 +14,16 @@ namespace RestaurantShared.DAO
         public static AccountDAO Instance => AcDAO.Value;
         private AccountDAO() { }
 
-        public bool Login(string username,string password)
+        public string Login(string username,string password)
         {
-            string query = $"select MaTaiKhoan from TAIKHOAN where TenDangNhap = @username and MatKhau = @password";
+            string query = $"select * from TAIKHOAN where TenDangNhap = @username and MatKhau = @password";
             DataTable data = DataProvider.Instance.ExecuteQuery(query, new("@username", username),new("@password", password));
-            return data.Rows.Count == 1;
+           if(data.Rows.Count >0)
+            {
+                string IDNhanVien = data.Rows[0]["MaNV"].ToString();
+                return IDNhanVien;
+            }
+            return "";
         }
         
     }
