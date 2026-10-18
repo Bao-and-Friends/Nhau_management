@@ -38,8 +38,6 @@ namespace RestaurantManagement.UI
             string passwrd = pwtxt.Text;
             if (true || login(usrname, passwrd)) // Đang bypass kiểm thử
             {
-                // Ví dụ: Giả lập đăng nhập tài khoản Phục vụ để kiểm tra dồn nút
-                // (Sau này nối database sẽ lấy đúng từ bảng NHANVIEN và VAITRO)
                 string tenNV = "Nguyễn Văn A";
                 string chucVu = "Phục Vụ";
                 string maVaiTro = "VT03";
@@ -53,9 +51,9 @@ namespace RestaurantManagement.UI
                 MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!");
             }
         }
-        private bool login(string username, string password,Caccount acc)
+        private bool login(string username, string password)
         {
-            return AccountDAO.Instance.Login(username, password,acc);
+            return AccountDAO.Instance.Login(username, password);
         }
     }
 }

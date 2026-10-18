@@ -5,16 +5,16 @@ using System.Text;
 
 namespace RestaurantShared.DTO
 {
-    public class Caccount
+    public class AccountDATA
     {
-        public Caccount(string matk,string manv,string state,string ngaytao)
+        public AccountDATA(string matk,string manv,string state,string ngaytao)
         {
             this.MaTaiKhoan = matk;
             this.MaNV = manv;
              this.TrangThai = state;
             this.NgayTao = ngaytao;
         }
-        public Caccount(DataRow row)
+        public AccountDATA(DataRow row)
         {
             this.MaTaiKhoan = row["MaTaiKhoan"].ToString();
             this.MaNV = row["MaNV"].ToString(); 
