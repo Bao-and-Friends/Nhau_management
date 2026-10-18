@@ -1,13 +1,17 @@
-INSERT INTO VAITRO
-VALUES
-('VT01', N'Quản lý'),
-('VT02', N'Phục vụ'),
-('VT03', N'Thu ngân');
-
 INSERT INTO NHANVIEN
+(
+    MaNV,
+    HoTen,
+    NgaySinh,
+    GioiTinh,
+    SoDienThoai,
+    DiaChi,
+    VaiTro,
+    TrangThai
+)
 VALUES
-('NV01', N'Nguyễn Văn A', '2000-05-10', N'Nam', '0901234567', N'TP.HCM', 'VT02', N'Đang làm'),
-('NV02', N'Trần Thị B', '2001-08-20', N'Nữ', '0912345678', N'TP.HCM', 'VT03', N'Đang làm');
+('NV01', N'Nguyễn Văn A', '2000-05-10', N'Nam', '0901234567', N'TP.HCM', N'Phục vụ', N'Đang làm'),
+('NV02', N'Trần Thị B', '2001-08-20', N'Nữ', '0912345678', N'TP.HCM', N'Thu ngân', N'Đang làm');
 
 INSERT INTO TAIKHOAN
 (
