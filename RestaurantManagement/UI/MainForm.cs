@@ -47,10 +47,14 @@ namespace RestaurantManagement.UI
             SwitchUserControl(new UC_SoDoBan());
         }
 
-        /// <summary>
-        /// Phân quyền các nút Sidebar theo từng vai trò (Tự động dồn nút lên khi ẩn)
-        /// </summary>
+        //role permission
+        private void IdentifyRole(string manv)
+        {
+            switch(manv)
+            {
 
+            }
+        }
         // Sự kiện click nút Sơ đồ bàn
         private void btnSoDoBan_Click(object sender, EventArgs e)
         {

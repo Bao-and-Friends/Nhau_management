@@ -33,582 +33,336 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            panelChiTietBan = new Sunny.UI.UIPanel();
-            uiPanel4 = new Sunny.UI.UIPanel();
-            btnYeuCauThanhToan = new Sunny.UI.UIButton();
-            lblTongTien = new Sunny.UI.UILabel();
-            dgvOrder = new Sunny.UI.UIDataGridView();
-            panelKhuVucBan = new Sunny.UI.UIPanel();
-            flowPanelBan = new Sunny.UI.UIFlowLayoutPanel();
-            panelThucDon = new Sunny.UI.UIPanel();
-            uiFlowLayoutPanel1 = new Sunny.UI.UIFlowLayoutPanel();
-            uiPanel2 = new Sunny.UI.UIPanel();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            txtTimKiemMon = new Sunny.UI.UITextBox();
-            uiFlowLayoutPanel2 = new Sunny.UI.UIFlowLayoutPanel();
-            uiButton5 = new Sunny.UI.UIButton();
-            uiButton4 = new Sunny.UI.UIButton();
-            uiButton3 = new Sunny.UI.UIButton();
-            uiButton2 = new Sunny.UI.UIButton();
-            uiButton1 = new Sunny.UI.UIButton();
-            btnTatCa = new Sunny.UI.UIButton();
-            uiLabel5 = new Sunny.UI.UILabel();
-            uiPanel3 = new Sunny.UI.UIPanel();
-            lblThongTinBan = new Sunny.UI.UILabel();
-            lblTenBan = new Sunny.UI.UILabel();
-            btnKhuTatCa = new Sunny.UI.UIButton();
-            btnKhuSanhChinh = new Sunny.UI.UIButton();
-            btnKhuSanVuon = new Sunny.UI.UIButton();
-            btnKhuVIP = new Sunny.UI.UIButton();
-            uiPanel1 = new Sunny.UI.UIPanel();
-            panelChiTietBan.SuspendLayout();
-            uiPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvOrder).BeginInit();
-            panelKhuVucBan.SuspendLayout();
-            panelThucDon.SuspendLayout();
-            uiPanel2.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
-            uiFlowLayoutPanel2.SuspendLayout();
-            uiPanel3.SuspendLayout();
-            uiPanel1.SuspendLayout();
+            Sodoban = new Sunny.UI.UISplitContainer();
+            fplSoDoBan = new Sunny.UI.UIFlowLayoutPanel();
+            uiTableLayoutPanel1 = new Sunny.UI.UITableLayoutPanel();
+            OrderInfo = new Sunny.UI.UIDataGridView();
+            featureBtn = new Sunny.UI.UIFlowLayoutPanel();
+            TienInfo = new Sunny.UI.UITableLayoutPanel();
+            lblTongtien = new Sunny.UI.UILabel();
+            lbltien = new Sunny.UI.UIPanel();
+            headder = new Sunny.UI.UITableLayoutPanel();
+            info = new Sunny.UI.UIPanel();
+            TenBan = new Sunny.UI.UIPanel();
+            status = new Sunny.UI.UIButton();
+            hidebtn = new Sunny.UI.UISymbolButton();
+            (Sodoban).BeginInit();
+            Sodoban.Panel1.SuspendLayout();
+            Sodoban.Panel2.SuspendLayout();
+            Sodoban.SuspendLayout();
+            uiTableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)OrderInfo).BeginInit();
+            TienInfo.SuspendLayout();
+            headder.SuspendLayout();
             SuspendLayout();
             // 
-            // panelChiTietBan
+            // Sodoban
             // 
-            panelChiTietBan.Controls.Add(uiPanel3);
-            panelChiTietBan.Controls.Add(uiPanel4);
-            panelChiTietBan.Controls.Add(dgvOrder);
-            panelChiTietBan.Dock = DockStyle.Right;
-            panelChiTietBan.FillColor = Color.White;
-            panelChiTietBan.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            panelChiTietBan.Location = new Point(1071, 0);
-            panelChiTietBan.Margin = new Padding(6, 8, 6, 8);
-            panelChiTietBan.MinimumSize = new Size(1, 2);
-            panelChiTietBan.Name = "panelChiTietBan";
-            panelChiTietBan.RectColor = Color.Transparent;
-            panelChiTietBan.Size = new Size(543, 1045);
-            panelChiTietBan.TabIndex = 0;
-            panelChiTietBan.Text = null;
-            panelChiTietBan.TextAlignment = ContentAlignment.MiddleCenter;
+            Sodoban.CollapsePanel = Sunny.UI.UISplitContainer.UICollapsePanel.Panel2;
+            Sodoban.Dock = DockStyle.Fill;
+            Sodoban.Location = new Point(0, 0);
+            Sodoban.Margin = new Padding(0);
+            Sodoban.MinimumSize = new Size(20, 20);
+            Sodoban.Name = "Sodoban";
             // 
-            // uiPanel4
+            // Sodoban.Panel1
             // 
-            uiPanel4.Controls.Add(btnYeuCauThanhToan);
-            uiPanel4.Controls.Add(lblTongTien);
-            uiPanel4.Controls.Add(uiLabel5);
-            uiPanel4.Dock = DockStyle.Bottom;
-            uiPanel4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            uiPanel4.Location = new Point(0, 885);
-            uiPanel4.Margin = new Padding(4, 5, 4, 5);
-            uiPanel4.MinimumSize = new Size(1, 1);
-            uiPanel4.Name = "uiPanel4";
-            uiPanel4.Size = new Size(543, 160);
-            uiPanel4.TabIndex = 2;
-            uiPanel4.Text = null;
-            uiPanel4.TextAlignment = ContentAlignment.MiddleCenter;
+            Sodoban.Panel1.BackColor = Color.FromArgb(241, 228, 216);
+            Sodoban.Panel1.Controls.Add(fplSoDoBan);
+            Sodoban.Panel1.RightToLeft = RightToLeft.No;
             // 
-            // btnYeuCauThanhToan
+            // Sodoban.Panel2
             // 
-            btnYeuCauThanhToan.FillColor = Color.FromArgb(152, 98, 61);
-            btnYeuCauThanhToan.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnYeuCauThanhToan.ForeColor = Color.Black;
-            btnYeuCauThanhToan.Location = new Point(9, 69);
-            btnYeuCauThanhToan.MinimumSize = new Size(1, 1);
-            btnYeuCauThanhToan.Name = "btnYeuCauThanhToan";
-            btnYeuCauThanhToan.Radius = 15;
-            btnYeuCauThanhToan.RectColor = Color.Transparent;
-            btnYeuCauThanhToan.Size = new Size(531, 35);
-            btnYeuCauThanhToan.TabIndex = 4;
-            btnYeuCauThanhToan.Text = "\U0001f9fe YÊU CẦU THANH TOÁN";
-            btnYeuCauThanhToan.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnYeuCauThanhToan.TipsForeColor = SystemColors.WindowFrame;
-            btnYeuCauThanhToan.Click += btnYeuCauThanhToan_Click;
+            Sodoban.Panel2.BackColor = Color.FromArgb(241, 228, 200);
+            Sodoban.Panel2.Controls.Add(uiTableLayoutPanel1);
+            Sodoban.Panel2.RightToLeft = RightToLeft.No;
+            Sodoban.Panel2Collapsed = true;
+            Sodoban.RightToLeft = RightToLeft.No;
+            Sodoban.Size = new Size(1120, 633);
+            Sodoban.SplitterDistance = 725;
+            Sodoban.SplitterWidth = 11;
+            Sodoban.TabIndex = 0;
             // 
-            // lblTongTien
+            // fplSoDoBan
             // 
-            lblTongTien.BackColor = Color.Transparent;
-            lblTongTien.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            lblTongTien.ForeColor = Color.FromArgb(48, 48, 48);
-            lblTongTien.Location = new Point(271, 9);
-            lblTongTien.Name = "lblTongTien";
-            lblTongTien.Size = new Size(269, 41);
-            lblTongTien.TabIndex = 1;
-            lblTongTien.Text = "0 đ";
-            lblTongTien.TextAlign = ContentAlignment.MiddleLeft;
-            lblTongTien.Click += lblTongTien_Click;
+            fplSoDoBan.Dock = DockStyle.Fill;
+            fplSoDoBan.FillColor = Color.FromArgb(241, 228, 216);
+            fplSoDoBan.Font = new Font("Microsoft Sans Serif", 12F);
+            fplSoDoBan.Location = new Point(0, 0);
+            fplSoDoBan.Margin = new Padding(0);
+            fplSoDoBan.MinimumSize = new Size(1, 1);
+            fplSoDoBan.Name = "fplSoDoBan";
+            fplSoDoBan.Padding = new Padding(2);
+            fplSoDoBan.RectColor = Color.Transparent;
+            fplSoDoBan.RectSides = ToolStripStatusLabelBorderSides.None;
+            fplSoDoBan.ShowText = false;
+            fplSoDoBan.Size = new Size(1120, 633);
+            fplSoDoBan.TabIndex = 0;
+            fplSoDoBan.Text = null;
+            fplSoDoBan.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // dgvOrder
+            // uiTableLayoutPanel1
+            // 
+            uiTableLayoutPanel1.BackColor = Color.Transparent;
+            uiTableLayoutPanel1.ColumnCount = 1;
+            uiTableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            uiTableLayoutPanel1.Controls.Add(OrderInfo, 0, 1);
+            uiTableLayoutPanel1.Controls.Add(featureBtn, 0, 3);
+            uiTableLayoutPanel1.Controls.Add(TienInfo, 0, 2);
+            uiTableLayoutPanel1.Controls.Add(headder, 0, 0);
+            uiTableLayoutPanel1.Dock = DockStyle.Fill;
+            uiTableLayoutPanel1.Location = new Point(0, 0);
+            uiTableLayoutPanel1.Margin = new Padding(0);
+            uiTableLayoutPanel1.Name = "uiTableLayoutPanel1";
+            uiTableLayoutPanel1.RowCount = 4;
+            uiTableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 75F));
+            uiTableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            uiTableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            uiTableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 200F));
+            uiTableLayoutPanel1.Size = new Size(384, 633);
+            uiTableLayoutPanel1.TabIndex = 0;
+            uiTableLayoutPanel1.TagString = null;
+            // 
+            // OrderInfo
             // 
             dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
-            dgvOrder.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dgvOrder.BackgroundColor = Color.White;
-            dgvOrder.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            OrderInfo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            OrderInfo.BackgroundColor = Color.FromArgb(241, 228, 216);
+            OrderInfo.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 12F);
             dataGridViewCellStyle2.ForeColor = Color.White;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvOrder.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            dgvOrder.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            OrderInfo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            OrderInfo.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle3.Font = new Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgvOrder.DefaultCellStyle = dataGridViewCellStyle3;
-            dgvOrder.Dock = DockStyle.Fill;
-            dgvOrder.EnableHeadersVisualStyles = false;
-            dgvOrder.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            dgvOrder.GridColor = Color.FromArgb(80, 160, 255);
-            dgvOrder.Location = new Point(0, 0);
-            dgvOrder.Name = "dgvOrder";
-            dgvOrder.RectColor = Color.Transparent;
-            dgvOrder.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            OrderInfo.DefaultCellStyle = dataGridViewCellStyle3;
+            OrderInfo.Dock = DockStyle.Fill;
+            OrderInfo.EnableHeadersVisualStyles = false;
+            OrderInfo.Font = new Font("Microsoft Sans Serif", 12F);
+            OrderInfo.GridColor = Color.FromArgb(80, 160, 255);
+            OrderInfo.Location = new Point(0, 75);
+            OrderInfo.Margin = new Padding(0);
+            OrderInfo.Name = "OrderInfo";
+            OrderInfo.RectColor = Color.Empty;
+            OrderInfo.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 12F);
             dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
             dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(80, 160, 255);
             dataGridViewCellStyle4.SelectionForeColor = Color.White;
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvOrder.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            dgvOrder.RowHeadersWidth = 62;
+            OrderInfo.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            OrderInfo.RowHeadersWidth = 62;
             dataGridViewCellStyle5.BackColor = Color.White;
-            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            dgvOrder.RowsDefaultCellStyle = dataGridViewCellStyle5;
-            dgvOrder.SelectedIndex = -1;
-            dgvOrder.Size = new Size(543, 1045);
-            dgvOrder.StripeOddColor = Color.FromArgb(235, 243, 255);
-            dgvOrder.TabIndex = 1;
+            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 12F);
+            OrderInfo.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            OrderInfo.SelectedIndex = -1;
+            OrderInfo.Size = new Size(384, 298);
+            OrderInfo.StripeOddColor = Color.FromArgb(235, 243, 255);
+            OrderInfo.TabIndex = 2;
             // 
-            // panelKhuVucBan
+            // featureBtn
             // 
-            panelKhuVucBan.Controls.Add(flowPanelBan);
-            panelKhuVucBan.Controls.Add(uiPanel1);
-            panelKhuVucBan.Dock = DockStyle.Left;
-            panelKhuVucBan.FillColor = Color.White;
-            panelKhuVucBan.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            panelKhuVucBan.Location = new Point(0, 0);
-            panelKhuVucBan.Margin = new Padding(6, 8, 6, 8);
-            panelKhuVucBan.MinimumSize = new Size(1, 2);
-            panelKhuVucBan.Name = "panelKhuVucBan";
-            panelKhuVucBan.RectColor = Color.Transparent;
-            panelKhuVucBan.Size = new Size(543, 1045);
-            panelKhuVucBan.TabIndex = 1;
-            panelKhuVucBan.Text = null;
-            panelKhuVucBan.TextAlignment = ContentAlignment.MiddleCenter;
+            featureBtn.Dock = DockStyle.Fill;
+            featureBtn.FillColor = Color.FromArgb(241, 228, 216);
+            featureBtn.Font = new Font("Microsoft Sans Serif", 12F);
+            featureBtn.Location = new Point(0, 433);
+            featureBtn.Margin = new Padding(0);
+            featureBtn.MinimumSize = new Size(1, 1);
+            featureBtn.Name = "featureBtn";
+            featureBtn.Padding = new Padding(2);
+            featureBtn.RectColor = Color.Empty;
+            featureBtn.ShowText = false;
+            featureBtn.Size = new Size(384, 200);
+            featureBtn.TabIndex = 3;
+            featureBtn.Text = "uiFlowLayoutPanel1";
+            featureBtn.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // flowPanelBan
+            // TienInfo
             // 
-            flowPanelBan.Dock = DockStyle.Fill;
-            flowPanelBan.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            flowPanelBan.Location = new Point(0, 85);
-            flowPanelBan.Margin = new Padding(4, 5, 4, 5);
-            flowPanelBan.MinimumSize = new Size(1, 1);
-            flowPanelBan.Name = "flowPanelBan";
-            flowPanelBan.Padding = new Padding(2);
-            flowPanelBan.RectColor = Color.Transparent;
-            flowPanelBan.ShowText = false;
-            flowPanelBan.Size = new Size(543, 960);
-            flowPanelBan.TabIndex = 1;
-            flowPanelBan.Text = "uiFlowLayoutPanel1";
-            flowPanelBan.TextAlignment = ContentAlignment.MiddleCenter;
+            TienInfo.BackColor = Color.FromArgb(223, 194, 168);
+            TienInfo.ColumnCount = 2;
+            TienInfo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            TienInfo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            TienInfo.Controls.Add(lblTongtien, 0, 0);
+            TienInfo.Controls.Add(lbltien, 1, 0);
+            TienInfo.Dock = DockStyle.Fill;
+            TienInfo.Location = new Point(0, 373);
+            TienInfo.Margin = new Padding(0);
+            TienInfo.Name = "TienInfo";
+            TienInfo.RowCount = 1;
+            TienInfo.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TienInfo.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TienInfo.Size = new Size(384, 60);
+            TienInfo.TabIndex = 4;
+            TienInfo.TagString = null;
             // 
-            // panelThucDon
+            // lblTongtien
             // 
-            panelThucDon.BackColor = Color.Transparent;
-            panelThucDon.Controls.Add(uiFlowLayoutPanel1);
-            panelThucDon.Controls.Add(uiPanel2);
-            panelThucDon.Dock = DockStyle.Fill;
-            panelThucDon.FillColor = Color.FromArgb(250, 250, 252);
-            panelThucDon.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            panelThucDon.Location = new Point(543, 0);
-            panelThucDon.Margin = new Padding(6, 8, 6, 8);
-            panelThucDon.MinimumSize = new Size(1, 2);
-            panelThucDon.Name = "panelThucDon";
-            panelThucDon.RectColor = Color.Transparent;
-            panelThucDon.Size = new Size(528, 1045);
-            panelThucDon.TabIndex = 2;
-            panelThucDon.Text = null;
-            panelThucDon.TextAlignment = ContentAlignment.MiddleCenter;
+            lblTongtien.BackColor = Color.Transparent;
+            lblTongtien.Dock = DockStyle.Fill;
+            lblTongtien.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTongtien.ForeColor = Color.FromArgb(152, 98, 61);
+            lblTongtien.Location = new Point(3, 0);
+            lblTongtien.Name = "lblTongtien";
+            lblTongtien.Size = new Size(186, 60);
+            lblTongtien.TabIndex = 0;
+            lblTongtien.Text = "Tổng Tiền";
+            lblTongtien.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // uiFlowLayoutPanel1
+            // lbltien
             // 
-            uiFlowLayoutPanel1.Dock = DockStyle.Fill;
-            uiFlowLayoutPanel1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            uiFlowLayoutPanel1.Location = new Point(0, 85);
-            uiFlowLayoutPanel1.Margin = new Padding(4, 5, 4, 5);
-            uiFlowLayoutPanel1.MinimumSize = new Size(1, 1);
-            uiFlowLayoutPanel1.Name = "uiFlowLayoutPanel1";
-            uiFlowLayoutPanel1.Padding = new Padding(2);
-            uiFlowLayoutPanel1.RectColor = Color.Transparent;
-            uiFlowLayoutPanel1.ShowText = false;
-            uiFlowLayoutPanel1.Size = new Size(528, 960);
-            uiFlowLayoutPanel1.TabIndex = 8;
-            uiFlowLayoutPanel1.Text = "uiFlowLayoutPanel1";
-            uiFlowLayoutPanel1.TextAlignment = ContentAlignment.MiddleCenter;
+            lbltien.BackColor = Color.Transparent;
+            lbltien.Dock = DockStyle.Fill;
+            lbltien.FillColor = Color.Transparent;
+            lbltien.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbltien.ForeColor = Color.FromArgb(152, 98, 61);
+            lbltien.Location = new Point(192, 0);
+            lbltien.Margin = new Padding(0);
+            lbltien.MinimumSize = new Size(1, 1);
+            lbltien.Name = "lbltien";
+            lbltien.RectColor = Color.Empty;
+            lbltien.Size = new Size(192, 60);
+            lbltien.TabIndex = 1;
+            lbltien.Text = "000000 đ";
+            lbltien.TextAlignment = ContentAlignment.MiddleRight;
             // 
-            // uiPanel2
+            // headder
             // 
-            uiPanel2.Controls.Add(tableLayoutPanel1);
-            uiPanel2.Dock = DockStyle.Top;
-            uiPanel2.FillColor = Color.Silver;
-            uiPanel2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            uiPanel2.Location = new Point(0, 0);
-            uiPanel2.Margin = new Padding(4, 5, 4, 5);
-            uiPanel2.MinimumSize = new Size(1, 1);
-            uiPanel2.Name = "uiPanel2";
-            uiPanel2.RectColor = Color.Transparent;
-            uiPanel2.Size = new Size(528, 85);
-            uiPanel2.TabIndex = 7;
-            uiPanel2.Text = null;
-            uiPanel2.TextAlignment = ContentAlignment.MiddleCenter;
+            headder.BackColor = Color.FromArgb(223, 194, 168);
+            headder.ColumnCount = 2;
+            headder.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 68.4895859F));
+            headder.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31.510416F));
+            headder.Controls.Add(info, 0, 1);
+            headder.Controls.Add(TenBan, 0, 0);
+            headder.Controls.Add(status, 1, 1);
+            headder.Controls.Add(hidebtn, 1, 0);
+            headder.Dock = DockStyle.Fill;
+            headder.Location = new Point(0, 0);
+            headder.Margin = new Padding(0);
+            headder.Name = "headder";
+            headder.RowCount = 1;
+            headder.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            headder.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            headder.Size = new Size(384, 75);
+            headder.TabIndex = 5;
+            headder.TagString = null;
             // 
-            // tableLayoutPanel1
+            // info
             // 
-            tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(txtTimKiemMon, 0, 0);
-            tableLayoutPanel1.Controls.Add(uiFlowLayoutPanel2, 0, 1);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(528, 85);
-            tableLayoutPanel1.TabIndex = 0;
+            info.Dock = DockStyle.Fill;
+            info.FillColor = Color.Empty;
+            info.Font = new Font("Segoe UI Semibold", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            info.ForeColor = Color.FromArgb(109, 71, 46);
+            info.Location = new Point(4, 42);
+            info.Margin = new Padding(4, 5, 4, 5);
+            info.MinimumSize = new Size(1, 1);
+            info.Name = "info";
+            info.RectColor = Color.Empty;
+            info.Size = new Size(255, 28);
+            info.TabIndex = 5;
+            info.Text = "Sức chứa: 4 người · Bắt Đầu: 10:15";
+            info.TextAlignment = ContentAlignment.MiddleLeft;
             // 
-            // txtTimKiemMon
+            // TenBan
             // 
-            txtTimKiemMon.BackColor = Color.Transparent;
-            txtTimKiemMon.Dock = DockStyle.Top;
-            txtTimKiemMon.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            txtTimKiemMon.Location = new Point(4, 5);
-            txtTimKiemMon.Margin = new Padding(4, 5, 4, 5);
-            txtTimKiemMon.MinimumSize = new Size(1, 16);
-            txtTimKiemMon.Name = "txtTimKiemMon";
-            txtTimKiemMon.Padding = new Padding(5);
-            txtTimKiemMon.Radius = 15;
-            txtTimKiemMon.RectColor = Color.FromArgb(255, 128, 0);
-            txtTimKiemMon.ShowText = false;
-            txtTimKiemMon.Size = new Size(520, 29);
-            txtTimKiemMon.TabIndex = 8;
-            txtTimKiemMon.TextAlignment = ContentAlignment.MiddleLeft;
-            txtTimKiemMon.Watermark = "🔍 Tìm kiếm tên món, đồ uống, mã món...";
+            TenBan.Dock = DockStyle.Fill;
+            TenBan.FillColor = Color.Empty;
+            TenBan.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TenBan.ForeColor = Color.FromArgb(109, 71, 46);
+            TenBan.Location = new Point(4, 5);
+            TenBan.Margin = new Padding(4, 5, 4, 5);
+            TenBan.MinimumSize = new Size(1, 1);
+            TenBan.Name = "TenBan";
+            TenBan.RectColor = Color.Empty;
+            TenBan.Size = new Size(255, 27);
+            TenBan.TabIndex = 3;
+            TenBan.Text = "Tên bàn";
+            TenBan.TextAlignment = ContentAlignment.MiddleLeft;
             // 
-            // uiFlowLayoutPanel2
+            // status
             // 
-            tableLayoutPanel1.SetColumnSpan(uiFlowLayoutPanel2, 6);
-            uiFlowLayoutPanel2.Controls.Add(uiButton5);
-            uiFlowLayoutPanel2.Controls.Add(uiButton4);
-            uiFlowLayoutPanel2.Controls.Add(uiButton3);
-            uiFlowLayoutPanel2.Controls.Add(uiButton2);
-            uiFlowLayoutPanel2.Controls.Add(uiButton1);
-            uiFlowLayoutPanel2.Controls.Add(btnTatCa);
-            uiFlowLayoutPanel2.Dock = DockStyle.Fill;
-            uiFlowLayoutPanel2.FillColor = Color.Empty;
-            uiFlowLayoutPanel2.FillColor2 = Color.Empty;
-            uiFlowLayoutPanel2.Font = new Font("Microsoft Sans Serif", 12F);
-            uiFlowLayoutPanel2.Location = new Point(4, 47);
-            uiFlowLayoutPanel2.Margin = new Padding(4, 5, 4, 5);
-            uiFlowLayoutPanel2.MinimumSize = new Size(1, 1);
-            uiFlowLayoutPanel2.Name = "uiFlowLayoutPanel2";
-            uiFlowLayoutPanel2.Padding = new Padding(2);
-            uiFlowLayoutPanel2.ShowText = false;
-            uiFlowLayoutPanel2.Size = new Size(520, 33);
-            uiFlowLayoutPanel2.TabIndex = 9;
-            uiFlowLayoutPanel2.Text = "uiFlowLayoutPanel2";
-            uiFlowLayoutPanel2.TextAlignment = ContentAlignment.MiddleCenter;
+            status.Dock = DockStyle.Fill;
+            status.Enabled = false;
+            status.FillColor = Color.Empty;
+            status.FillColor2 = Color.Empty;
+            status.FillDisableColor = Color.Empty;
+            status.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            status.Location = new Point(266, 40);
+            status.MinimumSize = new Size(1, 1);
+            status.Name = "status";
+            status.Radius = 31;
+            status.RectColor = Color.Empty;
+            status.RectDisableColor = Color.Empty;
+            status.RectSides = ToolStripStatusLabelBorderSides.None;
+            status.Size = new Size(115, 32);
+            status.TabIndex = 1;
+            status.Text = "status";
+            status.TipsFont = new Font("Microsoft Sans Serif", 9F);
             // 
-            // uiButton5
+            // hidebtn
             // 
-            uiButton5.BackColor = Color.Transparent;
-            uiButton5.FillColor = Color.FromArgb(255, 128, 0);
-            uiButton5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            uiButton5.Location = new Point(441, -2);
-            uiButton5.MinimumSize = new Size(1, 1);
-            uiButton5.Name = "uiButton5";
-            uiButton5.Radius = 11;
-            uiButton5.RectColor = Color.Transparent;
-            uiButton5.Size = new Size(84, 37);
-            uiButton5.TabIndex = 15;
-            uiButton5.Text = " Tất cả ";
-            uiButton5.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            // 
-            // uiButton4
-            // 
-            uiButton4.BackColor = Color.Transparent;
-            uiButton4.FillColor = Color.FromArgb(255, 128, 0);
-            uiButton4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            uiButton4.Location = new Point(351, -2);
-            uiButton4.MinimumSize = new Size(1, 1);
-            uiButton4.Name = "uiButton4";
-            uiButton4.Radius = 11;
-            uiButton4.RectColor = Color.Transparent;
-            uiButton4.Size = new Size(84, 37);
-            uiButton4.TabIndex = 14;
-            uiButton4.Text = " Tất cả ";
-            uiButton4.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            // 
-            // uiButton3
-            // 
-            uiButton3.BackColor = Color.Transparent;
-            uiButton3.FillColor = Color.FromArgb(255, 128, 0);
-            uiButton3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            uiButton3.Location = new Point(275, -2);
-            uiButton3.MinimumSize = new Size(1, 1);
-            uiButton3.Name = "uiButton3";
-            uiButton3.Radius = 11;
-            uiButton3.RectColor = Color.Transparent;
-            uiButton3.Size = new Size(84, 37);
-            uiButton3.TabIndex = 13;
-            uiButton3.Text = " Tất cả ";
-            uiButton3.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            // 
-            // uiButton2
-            // 
-            uiButton2.BackColor = Color.Transparent;
-            uiButton2.FillColor = Color.FromArgb(255, 128, 0);
-            uiButton2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            uiButton2.Location = new Point(185, -2);
-            uiButton2.MinimumSize = new Size(1, 1);
-            uiButton2.Name = "uiButton2";
-            uiButton2.Radius = 11;
-            uiButton2.RectColor = Color.Transparent;
-            uiButton2.Size = new Size(84, 37);
-            uiButton2.TabIndex = 12;
-            uiButton2.Text = " Tất cả ";
-            uiButton2.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            // 
-            // uiButton1
-            // 
-            uiButton1.BackColor = Color.Transparent;
-            uiButton1.FillColor = Color.FromArgb(255, 128, 0);
-            uiButton1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            uiButton1.Location = new Point(95, -2);
-            uiButton1.MinimumSize = new Size(1, 1);
-            uiButton1.Name = "uiButton1";
-            uiButton1.Radius = 11;
-            uiButton1.RectColor = Color.Transparent;
-            uiButton1.Size = new Size(84, 37);
-            uiButton1.TabIndex = 11;
-            uiButton1.Text = " Tất cả ";
-            uiButton1.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            // 
-            // btnTatCa
-            // 
-            btnTatCa.BackColor = Color.Transparent;
-            btnTatCa.FillColor = Color.FromArgb(255, 128, 0);
-            btnTatCa.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            btnTatCa.Location = new Point(5, -2);
-            btnTatCa.MinimumSize = new Size(1, 1);
-            btnTatCa.Name = "btnTatCa";
-            btnTatCa.Radius = 11;
-            btnTatCa.RectColor = Color.Transparent;
-            btnTatCa.Size = new Size(84, 37);
-            btnTatCa.TabIndex = 10;
-            btnTatCa.Text = " Tất cả ";
-            btnTatCa.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            // 
-            // uiLabel5
-            // 
-            uiLabel5.BackColor = Color.Transparent;
-            uiLabel5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            uiLabel5.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel5.Location = new Point(7, 9);
-            uiLabel5.Name = "uiLabel5";
-            uiLabel5.Size = new Size(262, 41);
-            uiLabel5.TabIndex = 0;
-            uiLabel5.Text = "TỔNG THANH TOÁN:";
-            uiLabel5.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // uiPanel3
-            // 
-            uiPanel3.Controls.Add(lblThongTinBan);
-            uiPanel3.Controls.Add(lblTenBan);
-            uiPanel3.Dock = DockStyle.Top;
-            uiPanel3.FillColor = Color.FromArgb(224, 224, 224);
-            uiPanel3.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            uiPanel3.Location = new Point(0, 0);
-            uiPanel3.Margin = new Padding(4, 5, 4, 5);
-            uiPanel3.MinimumSize = new Size(1, 1);
-            uiPanel3.Name = "uiPanel3";
-            uiPanel3.RectColor = Color.Transparent;
-            uiPanel3.Size = new Size(543, 85);
-            uiPanel3.TabIndex = 3;
-            uiPanel3.Text = null;
-            uiPanel3.TextAlignment = ContentAlignment.MiddleCenter;
-            // 
-            // lblThongTinBan
-            // 
-            lblThongTinBan.AutoSize = true;
-            lblThongTinBan.BackColor = Color.Transparent;
-            lblThongTinBan.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            lblThongTinBan.ForeColor = Color.FromArgb(48, 48, 48);
-            lblThongTinBan.Location = new Point(7, 41);
-            lblThongTinBan.Name = "lblThongTinBan";
-            lblThongTinBan.Size = new Size(435, 28);
-            lblThongTinBan.TabIndex = 1;
-            lblThongTinBan.Text = "Khu vực: Phòng VIP | Số khách: 4 | Giờ vào: 19:00";
-            // 
-            // lblTenBan
-            // 
-            lblTenBan.AutoSize = true;
-            lblTenBan.BackColor = Color.Transparent;
-            lblTenBan.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            lblTenBan.ForeColor = Color.FromArgb(128, 64, 0);
-            lblTenBan.Location = new Point(7, 5);
-            lblTenBan.Name = "lblTenBan";
-            lblTenBan.Size = new Size(175, 40);
-            lblTenBan.TabIndex = 0;
-            lblTenBan.Text = "BÀN VIP 01";
-            // 
-            // btnKhuTatCa
-            // 
-            btnKhuTatCa.BackColor = Color.Transparent;
-            btnKhuTatCa.FillColor = Color.FromArgb(255, 128, 0);
-            btnKhuTatCa.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnKhuTatCa.Location = new Point(17, 13);
-            btnKhuTatCa.MinimumSize = new Size(1, 1);
-            btnKhuTatCa.Name = "btnKhuTatCa";
-            btnKhuTatCa.Radius = 15;
-            btnKhuTatCa.RectColor = Color.Transparent;
-            btnKhuTatCa.Size = new Size(56, 27);
-            btnKhuTatCa.TabIndex = 0;
-            btnKhuTatCa.Text = "Tất cả";
-            btnKhuTatCa.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            // 
-            // btnKhuSanhChinh
-            // 
-            btnKhuSanhChinh.BackColor = Color.Transparent;
-            btnKhuSanhChinh.FillColor = Color.FromArgb(255, 128, 0);
-            btnKhuSanhChinh.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnKhuSanhChinh.Location = new Point(79, 13);
-            btnKhuSanhChinh.MinimumSize = new Size(1, 1);
-            btnKhuSanhChinh.Name = "btnKhuSanhChinh";
-            btnKhuSanhChinh.Radius = 15;
-            btnKhuSanhChinh.RectColor = Color.Transparent;
-            btnKhuSanhChinh.Size = new Size(93, 27);
-            btnKhuSanhChinh.TabIndex = 1;
-            btnKhuSanhChinh.Text = "Sảnh chính";
-            btnKhuSanhChinh.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            // 
-            // btnKhuSanVuon
-            // 
-            btnKhuSanVuon.BackColor = Color.Transparent;
-            btnKhuSanVuon.FillColor = Color.FromArgb(255, 128, 0);
-            btnKhuSanVuon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnKhuSanVuon.Location = new Point(178, 13);
-            btnKhuSanVuon.MinimumSize = new Size(1, 1);
-            btnKhuSanVuon.Name = "btnKhuSanVuon";
-            btnKhuSanVuon.Radius = 15;
-            btnKhuSanVuon.RectColor = Color.Transparent;
-            btnKhuSanVuon.Size = new Size(82, 27);
-            btnKhuSanVuon.TabIndex = 2;
-            btnKhuSanVuon.Text = "Sân vườn";
-            btnKhuSanVuon.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            // 
-            // btnKhuVIP
-            // 
-            btnKhuVIP.BackColor = Color.Transparent;
-            btnKhuVIP.FillColor = Color.FromArgb(255, 128, 0);
-            btnKhuVIP.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            btnKhuVIP.Location = new Point(266, 13);
-            btnKhuVIP.MinimumSize = new Size(1, 1);
-            btnKhuVIP.Name = "btnKhuVIP";
-            btnKhuVIP.Radius = 15;
-            btnKhuVIP.RectColor = Color.Transparent;
-            btnKhuVIP.Size = new Size(88, 27);
-            btnKhuVIP.TabIndex = 3;
-            btnKhuVIP.Text = "Phòng VIP";
-            btnKhuVIP.TipsFont = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            // 
-            // uiPanel1
-            // 
-            uiPanel1.Controls.Add(btnKhuVIP);
-            uiPanel1.Controls.Add(btnKhuSanVuon);
-            uiPanel1.Controls.Add(btnKhuSanhChinh);
-            uiPanel1.Controls.Add(btnKhuTatCa);
-            uiPanel1.Dock = DockStyle.Top;
-            uiPanel1.FillColor = Color.Gray;
-            uiPanel1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            uiPanel1.Location = new Point(0, 0);
-            uiPanel1.Margin = new Padding(4, 5, 4, 5);
-            uiPanel1.MinimumSize = new Size(1, 1);
-            uiPanel1.Name = "uiPanel1";
-            uiPanel1.RectColor = Color.Transparent;
-            uiPanel1.Size = new Size(543, 85);
-            uiPanel1.TabIndex = 0;
-            uiPanel1.Text = null;
-            uiPanel1.TextAlignment = ContentAlignment.MiddleCenter;
+            hidebtn.Anchor = AnchorStyles.Right;
+            hidebtn.FillColor = Color.FromArgb(192, 0, 0);
+            hidebtn.FillHoverColor = Color.FromArgb(201, 67, 63);
+            hidebtn.FillPressColor = Color.FromArgb(172, 50, 48);
+            hidebtn.Font = new Font("Microsoft Sans Serif", 12F);
+            hidebtn.Location = new Point(343, 3);
+            hidebtn.MinimumSize = new Size(1, 1);
+            hidebtn.Name = "hidebtn";
+            hidebtn.RectColor = Color.Empty;
+            hidebtn.RectSides = ToolStripStatusLabelBorderSides.None;
+            hidebtn.Size = new Size(38, 31);
+            hidebtn.Symbol = 61453;
+            hidebtn.TabIndex = 2;
+            hidebtn.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            hidebtn.Click += hidebtn_Click;
             // 
             // UC_SoDoBan
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(245, 245, 247);
-            Controls.Add(panelThucDon);
-            Controls.Add(panelKhuVucBan);
-            Controls.Add(panelChiTietBan);
-            Margin = new Padding(4, 5, 4, 5);
+            Controls.Add(Sodoban);
+            Margin = new Padding(0);
             Name = "UC_SoDoBan";
-            Size = new Size(1614, 1045);
-            panelChiTietBan.ResumeLayout(false);
-            uiPanel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvOrder).EndInit();
-            panelKhuVucBan.ResumeLayout(false);
-            panelThucDon.ResumeLayout(false);
-            uiPanel2.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
-            uiFlowLayoutPanel2.ResumeLayout(false);
-            uiPanel3.ResumeLayout(false);
-            uiPanel3.PerformLayout();
-            uiPanel1.ResumeLayout(false);
+            Size = new Size(1120, 633);
+            Sodoban.Panel1.ResumeLayout(false);
+            Sodoban.Panel2.ResumeLayout(false);
+            (Sodoban).EndInit();
+            Sodoban.ResumeLayout(false);
+            uiTableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)OrderInfo).EndInit();
+            TienInfo.ResumeLayout(false);
+            headder.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Sunny.UI.UIPanel panelChiTietBan;
-        private Sunny.UI.UIPanel panelKhuVucBan;
-        private Sunny.UI.UIPanel panelThucDon;
-        private Sunny.UI.UIFlowLayoutPanel flowPanelBan;
-        private Sunny.UI.UIPanel uiPanel2;
-        private Sunny.UI.UIFlowLayoutPanel uiFlowLayoutPanel1;
-        private Sunny.UI.UIPanel uiPanel4;
-        private Sunny.UI.UIDataGridView dgvOrder;
-        private Sunny.UI.UILabel lblTongTien;
-        private Sunny.UI.UIButton btnYeuCauThanhToan;
-        private TableLayoutPanel tableLayoutPanel1;
-        private Sunny.UI.UITextBox txtTimKiemMon;
-        private Sunny.UI.UIFlowLayoutPanel uiFlowLayoutPanel2;
-        private Sunny.UI.UIButton uiButton5;
-        private Sunny.UI.UIButton uiButton4;
-        private Sunny.UI.UIButton uiButton3;
-        private Sunny.UI.UIButton uiButton2;
-        private Sunny.UI.UIButton uiButton1;
-        private Sunny.UI.UIButton btnTatCa;
-        private Sunny.UI.UIPanel uiPanel3;
-        private Sunny.UI.UILabel lblThongTinBan;
-        private Sunny.UI.UILabel lblTenBan;
-        private Sunny.UI.UILabel uiLabel5;
-        private Sunny.UI.UIPanel uiPanel1;
-        private Sunny.UI.UIButton btnKhuVIP;
-        private Sunny.UI.UIButton btnKhuSanVuon;
-        private Sunny.UI.UIButton btnKhuSanhChinh;
-        private Sunny.UI.UIButton btnKhuTatCa;
+        private Sunny.UI.UISplitContainer Sodoban;
+        private Sunny.UI.UIFlowLayoutPanel fplSoDoBan;
+        private Sunny.UI.UITableLayoutPanel uiTableLayoutPanel1;
+        private Sunny.UI.UIDataGridView OrderInfo;
+        private Sunny.UI.UIFlowLayoutPanel featureBtn;
+        private Sunny.UI.UITableLayoutPanel TienInfo;
+        private Sunny.UI.UILabel lblTongtien;
+        private Sunny.UI.UIPanel lbltien;
+        private Sunny.UI.UITableLayoutPanel headder;
+        private Sunny.UI.UIButton status;
+        private Sunny.UI.UIPanel info;
+        private Sunny.UI.UIPanel TenBan;
+        private Sunny.UI.UISymbolButton hidebtn;
     }
 }
