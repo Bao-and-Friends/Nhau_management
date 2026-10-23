@@ -1,0 +1,165 @@
+<UserControl x:Class="RestaurantManagement.WPF.Views.Pages.StaffManagementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1100">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- Top Toolbar -->
+            <RowDefinition Height="60" />
+            <!-- Data List -->
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- 1. TOOLBAR -->
+        <Border Grid.Row="0" Margin="0,0,0,16">
+            <Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Danh sách Nhân sự &amp; Tài khoản" FontSize="20" FontWeight="Bold" 
+                               Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" />
+                    
+                    <Border Background="{StaticResource PrimarySoftBrush}" CornerRadius="12" Padding="10,4" Margin="14,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding TotalStaffCount, StringFormat='Tổng: {0} nhân viên'}" 
+                                   Foreground="{StaticResource PrimaryBrush}" FontWeight="Bold" FontSize="12" />
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="🔄 Tải lại" Background="{StaticResource SurfaceBrush}"
+                            BorderBrush="{StaticResource BorderSubtleBrush}" BorderThickness="1" Height="40" Padding="16,0"
+                            Foreground="{StaticResource TextSecondaryBrush}" FontWeight="SemiBold" Cursor="Hand" Margin="0,0,10,0"
+                            Command="{Binding LoadStaffListCommand}" />
+
+                    <!-- Nút ĐĂNG KÝ NHÂN VIÊN MỚI -->
+                    <Button Content="➕ Đăng ký nhân viên mới" Style="{StaticResource PrimaryButton}" Height="40" Padding="18,0"
+                            Command="{Binding OpenRegisterDialogCommand}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 2. BẢNG DANH SÁCH NHÂN VIÊN (DATAGRID HIỆN ĐẠI) -->
+        <Border Grid.Row="1" Style="{StaticResource ModernCard}" Padding="8">
+            <DataGrid ItemsSource="{Binding StaffList}" AutoGenerateColumns="False" 
+                      CanUserAddRows="False" IsReadOnly="True" GridLinesVisibility="Horizontal"
+                      HorizontalGridLinesBrush="{StaticResource BorderSubtleBrush}"
+                      HeadersVisibility="Column" Background="Transparent" BorderThickness="0"
+                      RowHeight="48" SelectionMode="Single">
+
+                <!-- Header Style -->
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#F8FAFC" />
+                        <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                        <Setter Property="FontSize" Value="13" />
+                        <Setter Property="Height" Value="42" />
+                        <Setter Property="Padding" Value="14,0" />
+                        <Setter Property="BorderThickness" Value="0,0,0,1" />
+                        <Setter Property="BorderBrush" Value="{StaticResource BorderSubtleBrush}" />
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <!-- Row Style -->
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F1F5F9" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+
+                <DataGrid.Columns>
+                    <!-- Mã NV -->
+                    <DataGridTextColumn Header="Mã NV" Binding="{Binding MaNV}" Width="90">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="14,0" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- Họ và tên -->
+                    <DataGridTextColumn Header="Họ và tên" Binding="{Binding HoTen}" Width="1.8*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="14,0" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- Tên đăng nhập -->
+                    <DataGridTextColumn Header="Tài khoản" Binding="{Binding TenDangNhap}" Width="1.2*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="14,0" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- Số điện thoại -->
+                    <DataGridTextColumn Header="Số điện thoại" Binding="{Binding SoDienThoai}" Width="1.2*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="14,0" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- Giới tính -->
+                    <DataGridTextColumn Header="Giới tính" Binding="{Binding GioiTinh}" Width="90">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="14,0" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- Chức vụ / Vai trò (Pill Badge) -->
+                    <DataGridTemplateColumn Header="Chức vụ" Width="1.2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Background="{Binding RoleBadgeBg}" CornerRadius="12" 
+                                        Padding="10,3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="14,0">
+                                    <TextBlock Text="{Binding VaiTro}" FontWeight="Bold" FontSize="12" 
+                                               Foreground="{Binding RoleBadgeForeground}" />
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Trạng thái -->
+                    <DataGridTextColumn Header="Trạng thái" Binding="{Binding TrangThai}" Width="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource TableAvailableBrush}" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="14,0" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</UserControl>

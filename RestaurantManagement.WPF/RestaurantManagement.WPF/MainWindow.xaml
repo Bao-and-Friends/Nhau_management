@@ -1,0 +1,156 @@
+<Window x:Class="RestaurantManagement.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:pages="clr-namespace:RestaurantManagement.WPF.Views.Pages"
+        xmlns:vms="clr-namespace:RestaurantManagement.WPF.ViewModels"
+        mc:Ignorable="d"
+        Title="The Gourmet Restaurant Management" 
+        Height="800" Width="1366"
+        MinHeight="720" MinWidth="1100"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource AppBackgroundBrush}">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <DataTemplate DataType="{x:Type vms:TableManagementViewModel}">
+            <pages:TableManagementView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:StaffManagementViewModel}">
+            <pages:StaffManagementView />
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <!-- Sidebar cố định bên trái (240px) -->
+            <ColumnDefinition Width="240" />
+            <!-- Vùng nội dung chính bên phải -->
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- ==================== 1. SIDEBAR BÊN TRÁI ==================== -->
+        <Border Grid.Column="0" Background="{StaticResource SidebarBgBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <!-- Header Logo -->
+                    <RowDefinition Height="70" />
+                    <!-- Danh sách Menu -->
+                    <RowDefinition Height="*" />
+                    <!-- Chân Sidebar (Đăng xuất) -->
+                    <RowDefinition Height="70" />
+                </Grid.RowDefinitions>
+
+                <!-- Logo & Tên nhà hàng -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0">
+                    <Border Width="40" Height="40" CornerRadius="8" Background="{StaticResource PrimaryBrush}">
+                        <TextBlock Text="TG" Foreground="White" FontWeight="Bold" FontSize="18" 
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="THE GOURMET" Foreground="{StaticResource TextLightBrush}" FontWeight="Bold" FontSize="15" />
+                        <TextBlock Text="Restaurant POS" Foreground="{StaticResource TextMutedBrush}" FontSize="11" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Các nút điều hướng chức năng -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="0,10">
+                        <RadioButton Content="🍽️  Sơ đồ bàn" Style="{StaticResource NavRadioButton}" 
+                                     IsChecked="True" Command="{Binding NavigateCommand}" CommandParameter="SoDoBan" />
+                        <RadioButton Content="📝  Order / POS" Style="{StaticResource NavRadioButton}" 
+                                     Command="{Binding NavigateCommand}" CommandParameter="OrderPos" />
+                        <RadioButton Content="💳  Thu ngân" Style="{StaticResource NavRadioButton}" 
+                                     Command="{Binding NavigateCommand}" CommandParameter="ThuNgan" />
+                        <RadioButton Content="🍲  Thực đơn" Style="{StaticResource NavRadioButton}" 
+                                     Command="{Binding NavigateCommand}" CommandParameter="ThucDon" />
+
+                        <!-- Phân quyền: Nhân viên & Cấp tài khoản CHỈ hiển thị khi là Quản lý -->
+                        <RadioButton Content="👥  Nhân viên &amp; Tài khoản" Style="{StaticResource NavRadioButton}" 
+                                     Visibility="{Binding IsManagerRole, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                     Command="{Binding NavigateCommand}" CommandParameter="NhanVien" />
+
+                        <RadioButton Content="📊  Báo cáo" Style="{StaticResource NavRadioButton}" 
+                                     Command="{Binding NavigateCommand}" CommandParameter="BaoCao" />
+                        <RadioButton Content="📦  Kho hàng" Style="{StaticResource NavRadioButton}" 
+                                     Command="{Binding NavigateCommand}" CommandParameter="KhoHang" />
+                        <RadioButton Content="💬  Tin nhắn nội bộ" Style="{StaticResource NavRadioButton}" 
+                                     Command="{Binding NavigateCommand}" CommandParameter="Chat" />
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Nút Đăng xuất ở chân Sidebar -->
+                <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="{StaticResource SidebarActiveBrush}">
+                    <Button Content="🚪 Đăng xuất" Command="{Binding LogoutCommand}"
+                            Background="Transparent" Foreground="#F87171" FontWeight="SemiBold"
+                            BorderThickness="0" Cursor="Hand" Margin="20,12" Height="42"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- ==================== 2. VÙNG CHÍNH BÊN PHẢI ==================== -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <!-- Top Header Bar -->
+                <RowDefinition Height="70" />
+                <!-- Dynamic Content View (Vùng hiển thị các trang) -->
+                <RowDefinition Height="*" />
+                <!-- Status Bar dưới cùng -->
+                <RowDefinition Height="32" />
+            </Grid.RowDefinitions>
+
+            <!-- TOP HEADER -->
+            <Border Grid.Row="0" Background="{StaticResource SurfaceBrush}" 
+                    BorderThickness="0,0,0,1" BorderBrush="{StaticResource BorderSubtleBrush}">
+                <Grid Margin="24,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Tiêu đề trang / Trạng thái hệ thống -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="● Đã kết nối Máy chủ" Foreground="{StaticResource TableAvailableBrush}" 
+                                   FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center" />
+                        <TextBlock Text=" | " Foreground="{StaticResource BorderStrongBrush}" Margin="10,0" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding CurrentTime}" Foreground="{StaticResource TextSecondaryBrush}" 
+                                   FontSize="13" VerticalAlignment="Center" />
+                    </StackPanel>
+
+                    <!-- Thông tin Nhân viên & Ca trực -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0">
+                            <TextBlock Text="{Binding EmployeeName}" Foreground="{StaticResource TextPrimaryBrush}" 
+                                       FontWeight="Bold" FontSize="14" HorizontalAlignment="Right" />
+                            <TextBlock Text="{Binding Role}" Foreground="{StaticResource TextSecondaryBrush}" 
+                                       FontSize="12" HorizontalAlignment="Right" />
+                        </StackPanel>
+                        <!-- Avatar tròn -->
+                        <Border Width="42" Height="42" CornerRadius="21" Background="{StaticResource PrimarySoftBrush}"
+                                BorderThickness="1.5" BorderBrush="{StaticResource PrimaryBrush}">
+                            <TextBlock Text="NV" Foreground="{StaticResource PrimaryBrush}" 
+                                       FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- CONTENT PRESENTER (Vùng nội dung tự động render các UserControl) -->
+            <Grid Grid.Row="1" Margin="20">
+                <ContentControl Content="{Binding CurrentViewModel}" />
+            </Grid>
+
+            <!-- STATUS BAR CHÂN TRANG -->
+            <Border Grid.Row="2" Background="{StaticResource SurfaceBrush}" 
+                    BorderThickness="0,1,0,0" BorderBrush="{StaticResource BorderSubtleBrush}">
+                <Grid Margin="20,0">
+                    <TextBlock Text="The Gourmet Management v2.0 - Clean MVVM (.NET 10)" 
+                               Foreground="{StaticResource TextMutedBrush}" FontSize="11" VerticalAlignment="Center" />
+                    <TextBlock Text="Đồng bộ Realtime TCP: Sẵn sàng" HorizontalAlignment="Right" 
+                               Foreground="{StaticResource TextMutedBrush}" FontSize="11" VerticalAlignment="Center" />
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

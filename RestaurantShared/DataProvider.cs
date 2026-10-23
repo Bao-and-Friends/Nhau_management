@@ -11,7 +11,7 @@ namespace RestaurantShared
 {
     public class DataProvider
     {
-        private string connectionStr = "Data Source=.;Initial Catalog=QuanLyQuanNhau;Integrated Security=True;Trust Server Certificate=True";
+        private string connectionStr = @"Data Source=.\SQLEXPRESS;Initial Catalog=QuanLyQuanNhau;Integrated Security=True;Trust Server Certificate=True";
         private static readonly Lazy<DataProvider> DP = new(() => new DataProvider());
 
         public static DataProvider Instance => DP.Value;

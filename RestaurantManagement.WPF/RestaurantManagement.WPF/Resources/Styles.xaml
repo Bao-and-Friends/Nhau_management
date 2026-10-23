@@ -1,0 +1,138 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="Colors.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+	<!-- Global DropShadow Effect cho Card -->
+	<DropShadowEffect x:Key="SoftCardShadow"
+                      BlurRadius="16"
+                      Direction="270"
+                      ShadowDepth="3"
+                      Opacity="0.06"
+                      Color="#0F172A" />
+
+	<!-- Style Card cơ sở (Bo góc 12px, nền trắng, đổ bóng mềm) -->
+	<Style x:Key="ModernCard" TargetType="Border">
+		<Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
+		<Setter Property="CornerRadius" Value="12" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="BorderBrush" Value="{StaticResource BorderSubtleBrush}" />
+		<Setter Property="Effect" Value="{StaticResource SoftCardShadow}" />
+	</Style>
+
+	<!-- Style Primary Button (Nút cam bo góc 8px, chữ trắng đậm) -->
+	<Style x:Key="PrimaryButton" TargetType="Button">
+		<Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
+		<Setter Property="Foreground" Value="{StaticResource TextLightBrush}" />
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="FontWeight" Value="SemiBold" />
+		<Setter Property="Height" Value="42" />
+		<Setter Property="Padding" Value="18,0" />
+		<Setter Property="Cursor" Value="Hand" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="8"
+                            SnapsToDevicePixels="True">
+						<ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Margin="{TemplateBinding Padding}" />
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryHoverBrush}" />
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryPressedBrush}" />
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter TargetName="border" Property="Background" Value="#E2E8F0" />
+							<Setter Property="Foreground" Value="#94A3B8" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- Style TextBox hiện đại (Bo góc 8px, viền mượt, đổi viền cam khi Focus) -->
+	<Style x:Key="ModernTextBox" TargetType="TextBox">
+		<Setter Property="Height" Value="42" />
+		<Setter Property="Padding" Value="12,0" />
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+		<Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
+		<Setter Property="BorderBrush" Value="{StaticResource BorderSubtleBrush}" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="TextBox">
+					<Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8"
+                            SnapsToDevicePixels="True">
+						<ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BorderStrongBrush}" />
+						</Trigger>
+						<Trigger Property="IsFocused" Value="True">
+							<Setter TargetName="border" Property="BorderBrush" Value="{StaticResource PrimaryBrush}" />
+							<Setter TargetName="border" Property="BorderThickness" Value="1.5" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	    <!-- Style cho các nút Menu Sidebar (Hiệu ứng Hover và Active bo góc mượt mà) -->
+	<Style x:Key="NavRadioButton" TargetType="RadioButton">
+		<Setter Property="Height" Value="48" />
+		<Setter Property="Margin" Value="12,3" />
+		<Setter Property="Foreground" Value="#94A3B8" />
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="FontWeight" Value="SemiBold" />
+		<Setter Property="Cursor" Value="Hand" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="RadioButton">
+					<Border x:Name="navBorder"
+                            Background="Transparent"
+                            CornerRadius="10"
+                            Padding="16,0"
+                            SnapsToDevicePixels="True">
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+							<!-- Vạch chỉ báo active bên trái -->
+							<Rectangle x:Name="activeIndicator" Width="4" Height="20" RadiusX="2" RadiusY="2"
+                                       Fill="{StaticResource PrimaryBrush}" Visibility="Collapsed" Margin="0,0,12,0"/>
+							<ContentPresenter VerticalAlignment="Center"/>
+						</StackPanel>
+					</Border>
+					<ControlTemplate.Triggers>
+						<!-- Hiệu ứng rê chuột (Hover) -->
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="navBorder" Property="Background" Value="{StaticResource SidebarHoverBrush}" />
+							<Setter Property="Foreground" Value="{StaticResource TextLightBrush}" />
+						</Trigger>
+						<!-- Trạng thái được chọn (Active) -->
+						<Trigger Property="IsChecked" Value="True">
+							<Setter TargetName="navBorder" Property="Background" Value="{StaticResource SidebarActiveBrush}" />
+							<Setter Property="Foreground" Value="{StaticResource TextLightBrush}" />
+							<Setter TargetName="activeIndicator" Property="Visibility" Value="Visible" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

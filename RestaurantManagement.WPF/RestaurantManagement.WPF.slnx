@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../RestaurantSever/RestaurantSever.csproj" />
+  <Project Path="../RestaurantShared/RestaurantShared.csproj" />
+  <Project Path="RestaurantManagement.WPF/RestaurantManagement.WPF.csproj" />
+</Solution>
