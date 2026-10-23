@@ -21,7 +21,7 @@ namespace RestaurantShared.DTO
 
             TenBan = row["TenBan"].ToString()!;
 
-            SucChua = SucChua = row["SucChua"] == DBNull.Value ? 0 : Convert.ToInt32(row["SucChua"]);
+            SucChua = row["SucChua"] == DBNull.Value ? 0 : Convert.ToInt32(row["SucChua"]);
 
             TrangThai = row["TrangThai"].ToString()!;
         }

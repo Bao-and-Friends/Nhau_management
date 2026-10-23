@@ -281,14 +281,9 @@ namespace RestaurantManagement.UI
         #endregion
 
         private TableLayoutPanel tableLayoutPanel1;
-        private Sunny.UI.UIPanel uiPanel2;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private Sunny.UI.UILabel uiLabelTitle;
-        private Sunny.UI.UITextBox uiTextBox1;
-        private Sunny.UI.UITextBox uiTextBox2;
-        private Sunny.UI.UIButton uiButton1;
-        private Sunny.UI.UILinkLabel uiLinkLabel1;
         private UIButton Dangnhap;
         private UITextBox pwtxt;
         private UIPanel formDangNhap;

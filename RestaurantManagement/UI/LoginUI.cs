@@ -5,14 +5,14 @@ namespace RestaurantManagement.UI
     using System.Resources;
     using RestaurantShared.DAO;
     using RestaurantShared.DTO;
+    using System.Net.Sockets;
+    using RestaurantManagement.UI.Network;
 
     public partial class LoginUI : UIForm
     {
-        private bool isPasswordVisible = false;
         public LoginUI()
         {
             InitializeComponent();
-
         }
 
 
@@ -34,10 +34,10 @@ namespace RestaurantManagement.UI
 
         private void Dangnhap_Click(object sender, EventArgs e)
         {
-            string usrname = username.Text;
+            string usrname = username.Text.Trim();
             string passwrd = pwtxt.Text;
             string IDNhanVien = login(usrname, passwrd);
-            if (IDNhanVien.CompareTo("")!=0)
+            if (IDNhanVien.CompareTo("") != 0)
             {
                 MainForm main = new MainForm();
                 this.Hide();
@@ -52,6 +52,7 @@ namespace RestaurantManagement.UI
         }
         private string login(string username, string password)
         {
+
             return AccountDAO.Instance.Login(username, password);
         }
     }
