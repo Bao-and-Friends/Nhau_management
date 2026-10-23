@@ -1,12 +1,13 @@
 namespace RestaurantManagement.UI
 
 {
-    using Sunny.UI;
-    using System.Resources;
+    using RestaurantManagement.UI.Network;
     using RestaurantShared.DAO;
     using RestaurantShared.DTO;
+    using Sunny.UI;
     using System.Net.Sockets;
-    using RestaurantManagement.UI.Network;
+    using System.Resources;
+    using System.Text.Json;
 
     public partial class LoginUI : UIForm
     {
@@ -32,22 +33,38 @@ namespace RestaurantManagement.UI
             }
         }
 
-        private void Dangnhap_Click(object sender, EventArgs e)
+        private async void Dangnhap_Click(object sender, EventArgs e)
         {
             string usrname = username.Text.Trim();
             string passwrd = pwtxt.Text;
-            string IDNhanVien = login(usrname, passwrd);
-            if (IDNhanVien.CompareTo("") != 0)
+            // 1. Kết nối tới Server nếu chưa kết nối
+            if (!TcpCustomer.Instance.ConnectServer())
             {
+                MessageBox.Show("Không thể kết nối đến Máy chủ (Server)! Vui lòng kiểm tra lại mạng hoặc mở Server.");
+                return;
+            }
+            // 2. Đóng gói NetworkPacket gửi qua TCP
+            var packet = new NetworkPacket
+            {
+                Action = "LOGIN",
+                Payload = JsonSerializer.Serialize(new LoginRequest(usrname, passwrd))
+            };
+            // 3. Chờ phản hồi từ Server
+            NetworkPacket? response = await TcpCustomer.Instance.SendRequestAsync(packet);
+            if (response != null && response.IsSuccess)
+            {
+                // Đọc dữ liệu nhân viên từ phản hồi của Server
+                NhanVienDATA? nv = JsonSerializer.Deserialize<NhanVienDATA>(response.Payload);
                 MainForm main = new MainForm();
+                main.Tag = nv; // Truyền trực tiếp dữ liệu nhân viên vào MainForm
                 this.Hide();
-                main.Tag = IDNhanVien;
                 main.ShowDialog();
+                pwtxt.Text = "";
                 this.Show();
             }
             else
             {
-                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!");
+                MessageBox.Show(response?.Message ?? "Đăng nhập thất bại hoặc máy chủ mất kết nối!");
             }
         }
         private string login(string username, string password)

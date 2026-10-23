@@ -16,7 +16,7 @@ namespace RestaurantShared.DAO
         public NhanVienDATA? GetNhanVienbyID(string id)
         {
             string query= @"select * from NHANVIEN where MaNV = @id";
-            DataTable data = DataProvider.Instance.ExecuteQuery(query, new SqlParameter("id", id));
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new SqlParameter("@id", id));
             if(data.Rows.Count >0)
             {
                 NhanVienDATA nv = new(data.Rows[0]);

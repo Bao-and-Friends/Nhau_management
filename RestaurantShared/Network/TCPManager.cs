@@ -14,6 +14,7 @@ namespace RestaurantShared.Network
 {
     public abstract class TCPManager
     {
+        private const int MaxPacketSize = 10 * 1024 * 1024;
         protected IPEndPoint iep = new(IPAddress.Loopback,8080);
         protected TcpClient? client = null;
 
@@ -28,35 +29,46 @@ namespace RestaurantShared.Network
             string json = Encoding.UTF8.GetString(data);
             return JsonSerializer.Deserialize<T>(json);
         }
-        public virtual bool Send<T>(T data)
+
+        public async Task<T?> ReceiveAsync<T>(NetworkStream stream)
         {
-            if (client == null || !client.Connected) return false;
-            if (data == null) return false;
-            NetworkStream stream = client.GetStream();
-            byte[] byteData = SerializeData(data);
-            return SendData(stream, byteData);
+            try
+            {
+                byte[]? lengthBuffer = await ReadExactBytesAsync(stream, 4);
+                if (lengthBuffer == null) return default;
+                int dataLength = BitConverter.ToInt32(lengthBuffer, 0);
+                if (dataLength <= 0 || dataLength > MaxPacketSize) return default;
+                byte[]? dataBuffer = await ReadExactBytesAsync(stream, dataLength);
+                if (dataBuffer == null) return default;
+                return DeserializeData<T>(dataBuffer);
+            }
+            catch
+            {
+                return default;
+            }
         }
 
-        public virtual T? Receive<T>()
+        public virtual async Task<bool> SendAsync<T>(T data)
+        {
+            if (client == null || !client.Connected || data == null) return false;
+            return await SendAsync(client.GetStream(), data);
+        }
+        public virtual async Task<T?> ReceiveAsync<T>()
         {
             if (client == null || !client.Connected) return default;
-            NetworkStream stream = client.GetStream();
-            if (ReceiveData(stream, out byte[]? byteData) && byteData != null)
-            {
-                return DeserializeData<T>(byteData);
-            }
-            return default;
+            return await ReceiveAsync<T>(client.GetStream());
         }
-
-        private bool SendData(NetworkStream stream, byte[] data)
+        public async Task<bool> SendAsync<T>(NetworkStream stream, T data)
         {
             try
             {
-                byte[] lengthPrefix = BitConverter.GetBytes(data.Length);
-
-                stream.Write(lengthPrefix, 0, 4);
-                stream.Write(data, 0, data.Length);
-                stream.Flush();
+                byte[] byteData = SerializeData(data);
+                byte[] lengthPrefix = BitConverter.GetBytes(byteData.Length);
+                byte[] packet = new byte[4 + byteData.Length];
+                Buffer.BlockCopy(lengthPrefix, 0, packet, 0, 4);
+                Buffer.BlockCopy(byteData, 0, packet, 4, byteData.Length);
+                await stream.WriteAsync(packet.AsMemory(0, packet.Length));
+                await stream.FlushAsync();
                 return true;
             }
             catch
@@ -64,34 +76,13 @@ namespace RestaurantShared.Network
                 return false;
             }
         }
-
-        private bool ReceiveData(NetworkStream stream, out byte[]? data)
-        {
-            data = null;
-            try
-            {
-                byte[]? lengthBuffer = ReadExactBytes(stream, 4);
-                if (lengthBuffer == null) return false;
-
-                int dataLength = BitConverter.ToInt32(lengthBuffer, 0);
-                if (dataLength <= 0) return false;
-
-                data = ReadExactBytes(stream, dataLength);
-                if (data == null) return false;
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        private byte[]? ReadExactBytes(NetworkStream stream, int count) // dùng để đọc đủ 4 byte
+        public async Task<byte[]?> ReadExactBytesAsync(NetworkStream stream, int count)
         {
             byte[] buffer = new byte[count];
             int totalRead = 0;
             while (totalRead < count)
             {
-                int read = stream.Read(buffer, totalRead, count - totalRead);
+                int read = await stream.ReadAsync(buffer.AsMemory(totalRead, count - totalRead));
                 if (read == 0) return null;
                 totalRead += read;
             }

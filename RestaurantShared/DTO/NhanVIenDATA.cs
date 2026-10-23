@@ -7,6 +7,9 @@ namespace RestaurantShared.DTO
 {
     public class NhanVienDATA
     {
+        public NhanVienDATA()
+        {
+        }
         public NhanVienDATA(
        string maNV,
        string hoTen,

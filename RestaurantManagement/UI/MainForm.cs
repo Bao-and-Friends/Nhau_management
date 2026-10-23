@@ -24,8 +24,7 @@ namespace RestaurantManagement.UI
             lblTime.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             timer1.Interval = 1000;
             timer1.Start();
-
-            NhanVienDATA nv = NhanVienDAO.Instance.GetNhanVienbyID((sender as MainForm).Tag as string);
+            NhanVienDATA nv = (sender as MainForm).Tag as NhanVienDATA;
             this.Tag = nv;
             chucVu.Text = nv.VaiTro;
             Ten.Text = nv.HoTen;
