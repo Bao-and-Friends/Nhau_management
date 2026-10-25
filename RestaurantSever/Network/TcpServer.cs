@@ -55,21 +55,21 @@ namespace RestaurantSever.Network
                 // Nhận NetworkPacket từ Client
                 NetworkPacket? request = await ReceiveAsync<NetworkPacket>(stream);
                 if (request == null) break; // Client đã ngắt kết nối
-                Console.WriteLine($"[Nhận lệnh]: {request.Action}");
+                Console.WriteLine($"[Nhận lệnh]: {request.Action} từ {clientSocket.Client.RemoteEndPoint}");
                 // Xử lý logic và tạo phản hồi
                 NetworkPacket response = ProcessRequest(request);
                 // Gửi phản hồi lại cho Client
                 await SendAsync(stream, response);
             }
+            Console.WriteLine($"[-] {clientSocket.Client.RemoteEndPoint} đã ngắt kết nối.");
             clientSocket.Close();
-            Console.WriteLine("[-] Client đã ngắt kết nối.");
         }
         // Bóc tách hành động nghiệp vụ
         private NetworkPacket ProcessRequest(NetworkPacket req)
         {
             switch (req.Action)
             {
-                case "LOGIN":
+                case NetworkAction.LOGIN:
                     var loginData = JsonSerializer.Deserialize<LoginRequest>(req.Payload);
                     string maNV = AccountDAO.Instance.Login(loginData?.Username ?? "", loginData?.Password ?? "");
 
@@ -78,23 +78,23 @@ namespace RestaurantSever.Network
                         NhanVienDATA? nv = NhanVienDAO.Instance.GetNhanVienbyID(maNV);
                         return new NetworkPacket
                         {
-                            Action = "LOGIN_RESPONSE",
+                            Action = NetworkAction.LOGIN_RESPONSE,
                             IsSuccess = true,
                             Message = "Đăng nhập thành công!",
                             Payload = JsonSerializer.Serialize(nv)
                         };
                     }
-                    return new NetworkPacket { Action = "LOGIN_RESPONSE", IsSuccess = false, Message = "Sai tài khoản hoặc mật khẩu!" };
-                case "GET_LIST_TABLES":
+                    return new NetworkPacket { Action = NetworkAction.LOGIN_RESPONSE, IsSuccess = false, Message = "Sai tài khoản hoặc mật khẩu!" };
+                case NetworkAction.GET_TABLE_LIST:
                     var tables = TableDAO.Instance.GetListTable();
                     return new NetworkPacket
                     {
-                        Action = "GET_TABLES_RESPONSE",
+                        Action = NetworkAction.GET_TABLE_LIST_RESPONSE,
                         IsSuccess = true,
                         Payload = JsonSerializer.Serialize(tables)
                     };
                 default:
-                    return new NetworkPacket { Action = "UNKNOWN", IsSuccess = false, Message = "Lệnh không hợp lệ" };
+                    return new NetworkPacket { Action = NetworkAction.UNKNOW, IsSuccess = false, Message = "Lệnh không hợp lệ" };
             }
         }
 

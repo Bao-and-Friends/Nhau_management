@@ -55,7 +55,7 @@ namespace RestaurantManagement.UI
                 // 2. Đóng gói NetworkPacket gửi qua TCP
                 var packet = new NetworkPacket
                 {
-                    Action = "LOGIN",
+                    Action = NetworkAction.LOGIN,
                     Payload = JsonSerializer.Serialize(new LoginRequest(usrname, passwrd))
                 }; 
                 // 3. Chờ phản hồi từ Server

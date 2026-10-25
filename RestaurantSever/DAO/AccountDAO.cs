@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using RestaurantShared;
 
-namespace RestaurantSever.DAO // Gợi ý: Nên chuyển sang namespace của riêng Project Server
+namespace RestaurantSever.DAO 
 {
     public class AccountDAO
     {
@@ -41,7 +41,7 @@ namespace RestaurantSever.DAO // Gợi ý: Nên chuyển sang namespace của ri
 
                 string hashPwd = row["MatKhau"]?.ToString()?.Trim() ?? string.Empty;
 
-                // 4. Bọc try-catch hoặc kiểm tra định dạng BCrypt để tránh crash Server nếu DB có dữ liệu rác
+                // 4.kiểm tra định dạng BCrypt để tránh crash Server nếu DB có dữ liệu rác
                 if (hashPwd.StartsWith("$2a$") || hashPwd.StartsWith("$2b$") || hashPwd.StartsWith("$2y$"))
                 {
                     bool isCorrect = BCrypt.Net.BCrypt.Verify(password, hashPwd);

@@ -1,4 +1,5 @@
-﻿using RestaurantShared.DTO;
+﻿using RestaurantManagement.UI.Network;
+using RestaurantShared.DTO;
 using Sunny.UI;
 using Sunny.UI.Win32;
 using System;
@@ -7,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Text.Json;
 using System.Windows.Forms;
 
 namespace RestaurantManagement.UI
@@ -16,40 +18,60 @@ namespace RestaurantManagement.UI
         public UC_SoDoBan()
         {
             InitializeComponent();
-            //LoadTable();
+            LoadTable();
         }
         public static readonly int TableHeight = 200;
         public static readonly int TableWidth = 200;
-        //private void LoadTable()
-        //{
-        //    List<TableDATA> listtable = TableDAO.Instance.GetListTable();
-        //    foreach (TableDATA ban in listtable)
-        //    {
-        //        UIButton btn = new UIButton() { Width = TableWidth, Height = TableHeight, ForeColor = Color.White, RectColor = Color.FromArgb(243, 249, 255) };
-        //        btn.Text = ban.TenBan + Environment.NewLine + ban.TrangThai;
-        //        btn.Tag = ban;
-        //        switch (ban.TrangThai)
-        //        {
-        //            case "Trống":
-        //                btn.FillColor = Color.Silver;
-        //                break;
+        private async void LoadTable()
+        {
+                var packet = new NetworkPacket
+                {
+                    Action = NetworkAction.GET_TABLE_LIST,
+                };
+                // 3. Chờ phản hồi từ Server
+                NetworkPacket? response = await TcpCustomer.Instance.SendRequestAndWaitResponseAsync(packet);
+                if (response != null)
+                {
+                    // Đọc dữ liệu nhân viên từ phản hồi của Server
+                    List<TableDATA>? listtable = JsonSerializer.Deserialize<List<TableDATA>>(response.Payload);
+                    if(listtable!= null)
+                {
+                    foreach (TableDATA ban in listtable)
+                    {
+                        UIButton btn = new UIButton() { Width = TableWidth, Height = TableHeight, ForeColor = Color.White, RectColor = Color.FromArgb(243, 249, 255) };
+                        string trangthai_VN = ban.TrangThai switch// biến định dạng chữ enum thành chữ tiếng việt cho đẹp
+                        {
+                            TableStatus.DA_DAT => "Đã Đặt",
+                            TableStatus.CO_KHACH => "Có Khách",
+                            TableStatus.CHO_DON => "Chờ Dọn",
+                            _ => "Trống"
+                        };
+                        btn.Text = ban.TenBan + Environment.NewLine + trangthai_VN;
+                        btn.Tag = ban;
+                        switch (ban.TrangThai)
+                        {
+                            case TableStatus.TRONG:
+                                btn.FillColor = Color.Silver;
+                                break;
 
-        //            case "Có Khách":
-        //                btn.FillColor = Color.FromArgb(46, 173, 114);
-        //                break;
+                            case TableStatus.CO_KHACH:
+                                btn.FillColor = Color.FromArgb(46, 173, 114);
+                                break;
 
-        //            case "Đã Đặt":
-        //                btn.FillColor = Color.FromArgb(74, 144, 226);
-        //                break;
+                            case TableStatus.DA_DAT:
+                                btn.FillColor = Color.FromArgb(74, 144, 226);
+                                break;
 
-        //            case "Chờ Dọn":
-        //                btn.FillColor = Color.DarkRed;
-        //                break;
-        //        }
-        //        btn.Click += btnban_click;
-        //        fplSoDoBan.Add(btn);
-        //    }
-        //}
+                            case TableStatus.CHO_DON:
+                                btn.FillColor = Color.DarkRed;
+                                break;
+                        }
+                        btn.Click += btnban_click;
+                        fplSoDoBan.Add(btn);
+                    }
+                }
+                }
+        }
         private void ShowBill(string tableid)
         {
 
@@ -64,11 +86,11 @@ namespace RestaurantManagement.UI
             TenBan.Text = ban.TenBan;
 
             // 2. Xác định trạng thái chuẩn hóa
-            string trangThai = ban.TrangThai?.Trim() ?? "Trống";
+            TableStatus trangThai = ban.TrangThai;
 
             // 3. Hiển thị thông tin Sức chứa + Giờ bắt đầu (chỉ hiện giờ khi bàn Có Khách / Đã Đặt)
             // Giả sử bạn thêm thuộc tính GioVao (DateTime?) vào TableDATA, hoặc tạm để chuỗi nếu chưa có
-            if (trangThai == "Có Khách" || trangThai == "Đã Đặt")
+            if (trangThai == TableStatus.CO_KHACH || trangThai == TableStatus.DA_DAT)
             {
                 // Nếu TableDATA đã có thuộc tính GioVao: ban.GioVao?.ToString("HH:mm") ?? "--:--"
                 string gioBatDau = "10:15"; // Thay bằng dữ liệu thực từ ban.GioVao hoặc Hóa đơn
@@ -82,14 +104,21 @@ namespace RestaurantManagement.UI
             // 4. Dùng Switch Expression chọn bộ màu (Nền, Chữ) gọn gàng
             (Color bgColor, Color textColor) = trangThai switch
             {
-                "Có Khách" => (Color.FromArgb(209, 250, 229), Color.FromArgb(6, 95, 70)),   // Xanh lá (Emerald)
-                "Đã Đặt" => (Color.FromArgb(219, 234, 254), Color.FromArgb(30, 64, 175)),  // Xanh dương (Blue)
-                "Chờ Dọn" => (Color.FromArgb(254, 226, 226), Color.FromArgb(153, 27, 27)),  // Đỏ nhạt (Red)
+                TableStatus.CO_KHACH => (Color.FromArgb(209, 250, 229), Color.FromArgb(6, 95, 70)),   // Xanh lá (Emerald)
+                TableStatus .DA_DAT=> (Color.FromArgb(219, 234, 254), Color.FromArgb(30, 64, 175)),  // Xanh dương (Blue)
+                TableStatus.CHO_DON=> (Color.FromArgb(254, 226, 226), Color.FromArgb(153, 27, 27)),  // Đỏ nhạt (Red)
                 _ => (Color.FromArgb(229, 231, 235), Color.FromArgb(55, 65, 81))    // Mặc định: Trống (Gray)
             };
 
             // 5. Gán trạng thái và màu sắc 1 lần duy nhất
-            status.Text = trangThai;
+            string trangthai_VN = ban.TrangThai switch// biến định dạng chữ enum thành chữ tiếng việt cho đẹp
+            {
+                TableStatus.DA_DAT => "Đã Đặt",
+                TableStatus.CO_KHACH => "Có Khách",
+                TableStatus.CHO_DON => "Chờ Dọn",
+                _ => "Trống"
+            };
+            status.Text = trangthai_VN;
             status.FillColor = bgColor;
             status.FillDisableColor = bgColor;
             status.ForeColor = textColor;
