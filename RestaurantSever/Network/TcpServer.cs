@@ -1,4 +1,4 @@
-﻿using RestaurantShared.DAO;
+﻿using RestaurantSever.DAO;
 using RestaurantShared.DTO;
 using RestaurantShared.Network;
 using System;
@@ -85,7 +85,7 @@ namespace RestaurantSever.Network
                         };
                     }
                     return new NetworkPacket { Action = "LOGIN_RESPONSE", IsSuccess = false, Message = "Sai tài khoản hoặc mật khẩu!" };
-                case "GET_TABLES":
+                case "GET_LIST_TABLES":
                     var tables = TableDAO.Instance.GetListTable();
                     return new NetworkPacket
                     {

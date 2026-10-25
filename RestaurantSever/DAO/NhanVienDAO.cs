@@ -1,20 +1,21 @@
 ﻿using Microsoft.Data.SqlClient;
-using RestaurantShared.DTO;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
+using RestaurantShared;
+using RestaurantShared.DTO;
 
-namespace RestaurantShared.DAO
+namespace RestaurantSever.DAO
 {
     public class NhanVienDAO
     {
         private static readonly Lazy<NhanVienDAO> NvDAO = new(() => new NhanVienDAO());
         public static NhanVienDAO Instance => NvDAO.Value;
-        public NhanVienDAO() { }
+        private NhanVienDAO() { }
 
         public NhanVienDATA? GetNhanVienbyID(string id)
         {
+            if (string.IsNullOrWhiteSpace(id))
+                return null;
             string query= @"select * from NHANVIEN where MaNV = @id";
             DataTable data = DataProvider.Instance.ExecuteQuery(query, new SqlParameter("@id", id));
             if(data.Rows.Count >0)

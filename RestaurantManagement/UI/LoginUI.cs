@@ -2,7 +2,6 @@ namespace RestaurantManagement.UI
 
 {
     using RestaurantManagement.UI.Network;
-    using RestaurantShared.DAO;
     using RestaurantShared.DTO;
     using Sunny.UI;
     using System.Net.Sockets;
@@ -58,7 +57,7 @@ namespace RestaurantManagement.UI
                 {
                     Action = "LOGIN",
                     Payload = JsonSerializer.Serialize(new LoginRequest(usrname, passwrd))
-                };
+                }; 
                 // 3. Chờ phản hồi từ Server
                 NetworkPacket? response = await TcpCustomer.Instance.SendRequestAndWaitResponseAsync(packet);
                 if (response != null && response.IsSuccess)

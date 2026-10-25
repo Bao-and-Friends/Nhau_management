@@ -2,10 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Reflection.Metadata;
-using System.Security.Cryptography;
 using System.Text;
-using System.Xml.XPath;
 
 namespace RestaurantShared
 {

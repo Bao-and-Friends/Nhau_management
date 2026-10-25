@@ -1,10 +1,10 @@
-﻿using RestaurantShared.DTO;
+﻿using Microsoft.Data.SqlClient;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
+using RestaurantShared;
+using RestaurantShared.DTO;
 
-namespace RestaurantShared.DAO
+namespace RestaurantSever.DAO
 {
     public class TableDAO
     {
