@@ -37,7 +37,7 @@ namespace RestaurantSever.Network
                     Console.WriteLine($"[+] Client kết nối: {clientSocket.Client.RemoteEndPoint}");
 
                     // Mỗi client được xử lý trên 1 Task riêng biệt
-                    HandleClientAsync(clientSocket);
+                   HandleClientAsync(clientSocket);
                 }
                 catch (Exception ex)
                 {

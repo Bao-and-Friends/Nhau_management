@@ -37,40 +37,54 @@ namespace RestaurantManagement.UI
         {
             string usrname = username.Text.Trim();
             string passwrd = pwtxt.Text;
-            // 1. Kết nối tới Server nếu chưa kết nối
-            if (!TcpCustomer.Instance.ConnectServer())
+            if (string.IsNullOrEmpty(usrname) || string.IsNullOrEmpty(passwrd))
             {
-                MessageBox.Show("Không thể kết nối đến Máy chủ (Server)! Vui lòng kiểm tra lại mạng hoặc mở Server.");
+                MessageBox.Show("Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu!");
                 return;
             }
-            // 2. Đóng gói NetworkPacket gửi qua TCP
-            var packet = new NetworkPacket
+            // Khóa nút để chống spam click
+            Dangnhap.Enabled = false;
+            try
             {
-                Action = "LOGIN",
-                Payload = JsonSerializer.Serialize(new LoginRequest(usrname, passwrd))
-            };
-            // 3. Chờ phản hồi từ Server
-            NetworkPacket? response = await TcpCustomer.Instance.SendRequestAsync(packet);
-            if (response != null && response.IsSuccess)
-            {
-                // Đọc dữ liệu nhân viên từ phản hồi của Server
-                NhanVienDATA? nv = JsonSerializer.Deserialize<NhanVienDATA>(response.Payload);
-                MainForm main = new MainForm();
-                main.Tag = nv; // Truyền trực tiếp dữ liệu nhân viên vào MainForm
-                this.Hide();
-                main.ShowDialog();
-                pwtxt.Text = "";
-                this.Show();
+                // 1. Kết nối tới Server nếu chưa kết nối
+                if (!TcpCustomer.Instance.ConnectServer())
+                {
+                    MessageBox.Show("Không thể kết nối đến Máy chủ! Vui lòng kiểm tra lại mạng");
+                    Dangnhap.Enabled = true;
+                    return;
+                }
+                // 2. Đóng gói NetworkPacket gửi qua TCP
+                var packet = new NetworkPacket
+                {
+                    Action = "LOGIN",
+                    Payload = JsonSerializer.Serialize(new LoginRequest(usrname, passwrd))
+                };
+                // 3. Chờ phản hồi từ Server
+                NetworkPacket? response = await TcpCustomer.Instance.SendRequestAndWaitResponseAsync(packet);
+                if (response != null && response.IsSuccess)
+                {
+                    // Đọc dữ liệu nhân viên từ phản hồi của Server
+                    NhanVienDATA? nv = JsonSerializer.Deserialize<NhanVienDATA>(response.Payload);
+                    MainForm main = new()
+                    {
+                        Tag = nv // Truyền trực tiếp dữ liệu nhân viên vào MainForm
+                    };
+                    Dangnhap.Enabled = true;
+                    this.Hide();
+                    main.ShowDialog();
+                    pwtxt.Text = "";
+                    this.Show();
+                }
+                else
+                {
+                    TcpCustomer.Instance.DisConnectServer();
+                    MessageBox.Show(response?.Message ?? "Đăng nhập thất bại hoặc máy chủ mất kết nối!");
+                }
             }
-            else
+            finally
             {
-                MessageBox.Show(response?.Message ?? "Đăng nhập thất bại hoặc máy chủ mất kết nối!");
+                Dangnhap.Enabled = true;
             }
-        }
-        private string login(string username, string password)
-        {
-
-            return AccountDAO.Instance.Login(username, password);
         }
     }
 }

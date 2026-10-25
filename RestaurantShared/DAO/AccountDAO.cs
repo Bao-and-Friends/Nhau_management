@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using BCrypt.Net;
+using Microsoft.Data.SqlClient;
 using RestaurantShared.DTO;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,17 @@ namespace RestaurantShared.DAO
 
         public string Login(string username,string password)
         {
-            string query = $"select * from TAIKHOAN where TenDangNhap = @username and MatKhau = @password";
-            DataTable data = DataProvider.Instance.ExecuteQuery(query, new("@username", username),new("@password", password));
-           if(data.Rows.Count >0)
+            string query = $"select MatKhau,MaNV from TAIKHOAN where TenDangNhap = @username";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new SqlParameter("@username", username));
+            if(data.Rows.Count >0)
             {
-                string IDNhanVien = data.Rows[0]["MaNV"].ToString();
-                return IDNhanVien;
+                string HashPwd = data.Rows[0]["MatKhau"].ToString()!;
+                bool isCorrect = BCrypt.Net.BCrypt.Verify(password,HashPwd);
+                if(isCorrect)
+                {
+                    return data.Rows[0]["MaNV"].ToString()!;
+                }
+
             }
             return "";
         }

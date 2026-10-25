@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using RestaurantManagement.UI.Network;
 using RestaurantShared.DAO;
 using RestaurantShared.DTO;
 using Sunny.UI;
@@ -76,6 +77,7 @@ namespace RestaurantManagement.UI
 
         private void DangXuat_Click(object sender, EventArgs e)
         {
+            TcpCustomer.Instance.DisConnectServer();
             this.Close();
         }
 

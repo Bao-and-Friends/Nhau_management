@@ -27,8 +27,35 @@ namespace RestaurantManagement.UI.Network
                 return false;
             }
         }
+        public bool DisConnectServer()
+        {
+            try
+            {
+                if (client != null)
+                {
+                    // 1. Đóng luồng dữ liệu trước (nếu bạn có lưu biến stream riêng)
+                    //stream?.Close();
+                    //stream?.Dispose();
+                    //stream = null;
+
+                    // 2. Đóng và giải phóng TcpClient (bất kể Connected đang true hay false)
+                    client.Close();
+                    client.Dispose();
+                    client = null;
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Ghi log nếu có lỗi phát sinh khi đóng socket
+                Console.WriteLine($"Lỗi khi ngắt kết nối: {ex.Message}");
+            }
+
+            return false;
+        }
         // Gửi 1 gói tin và chờ gói tin phản hồi từ Server
-        public async Task<NetworkPacket?> SendRequestAsync(NetworkPacket packet)
+        public async Task<NetworkPacket?> SendRequestAndWaitResponseAsync(NetworkPacket packet)
         {
             if (await SendAsync<NetworkPacket>(packet))
             {
