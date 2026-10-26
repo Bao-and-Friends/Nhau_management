@@ -179,6 +179,7 @@ namespace RestaurantManagement.UI
             Trochuyen.TabIndex = 1;
             Trochuyen.Text = "Trò chuyện";
             Trochuyen.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            Trochuyen.Click += Trochuyen_Click;
             // 
             // DangXuat
             // 
@@ -464,6 +465,7 @@ namespace RestaurantManagement.UI
             TitleColor = Color.FromArgb(152, 98, 61);
             TitleFont = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
             ZoomScaleRect = new Rectangle(15, 15, 800, 450);
+            FormClosed += MainForm_Close;
             Load += MainForm_Load;
             pnlHeadder.ResumeLayout(false);
             header.ResumeLayout(false);

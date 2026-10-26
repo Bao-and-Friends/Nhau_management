@@ -11,6 +11,8 @@ namespace RestaurantShared.DTO
         LOGIN_RESPONSE,
         GET_TABLE_LIST,
         GET_TABLE_LIST_RESPONSE,
+        REGISTER,  
+        REGISTER_RESPONSE
     }
     public class NetworkPacket
     {

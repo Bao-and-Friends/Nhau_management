@@ -1,9 +1,11 @@
-using System;
-using System.Drawing;
-using System.Windows.Forms;
 using RestaurantManagement.UI.Network;
 using RestaurantShared.DTO;
 using Sunny.UI;
+using System;
+using System.DirectoryServices.ActiveDirectory;
+using System.Drawing;
+using System.Text.Json;
+using System.Windows.Forms;
 
 namespace RestaurantManagement.UI
 {
@@ -52,11 +54,14 @@ namespace RestaurantManagement.UI
             SwitchUserControl(new UC_SoDoBan());
         }
 
-
+        private void MainForm_Close(object sender, EventArgs e)
+        {
+            TcpCustomer.Instance.DisConnectServer();
+        }
         //role permission
         private void IdentifyRole(string manv)
         {
-          
+
         }
         // Sự kiện click nút Sơ đồ bàn
         private void btnSoDoBan_Click(object sender, EventArgs e)
@@ -80,9 +85,50 @@ namespace RestaurantManagement.UI
 
         private void DangXuat_Click(object sender, EventArgs e)
         {
-            TcpCustomer.Instance.DisConnectServer();
             this.Close();
         }
 
+        private async void Trochuyen_Click(object sender, EventArgs e)
+        {
+         
+            Trochuyen.Enabled = false;
+            RegisterRequest request = new()
+            {
+                Username = "abc",
+                Password = "Password123!",
+                HoTen = "Lê Văn C",
+                GioiTinh = "Nam",
+                VaiTro = "Thu Ngân",
+                NgaySinh = new DateTime(1999, 11, 20),
+                SDT = "0938112233",
+                Email = "levanc@quannhau.com",
+                DiaChi = "Đông Hòa, Dĩ An, Bình Dương"
+            };
+
+            try
+            {
+                    NetworkPacket packet = new()
+                    {
+                        Action = NetworkAction.REGISTER,
+                        Payload = JsonSerializer.Serialize(request)
+                    };
+
+                    var response = await TcpCustomer.Instance.SendRequestAndWaitResponseAsync(packet);
+
+                    if (response != null)
+                    {
+                         MessageBox.Show(response.Message,"Thông báo");
+                    }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"lỗi: {ex.ToString()}", "Thông báo");
+            }
+            finally
+            {
+                Trochuyen.Enabled = true;
+            }
+        }
+     
     }
 }

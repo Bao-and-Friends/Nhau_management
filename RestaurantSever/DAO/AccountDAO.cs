@@ -1,7 +1,9 @@
 ﻿using Microsoft.Data.SqlClient;
+using RestaurantShared;
+using RestaurantShared.DTO;
 using System;
 using System.Data;
-using RestaurantShared;
+using System.Transactions;
 
 namespace RestaurantSever.DAO 
 {
@@ -53,6 +55,87 @@ namespace RestaurantSever.DAO
             }
 
             return string.Empty;
+        }
+        // 1. Hàm kiểm tra trùng Tên đăng nhập
+        public bool CheckUsernameExists(string username)
+        {
+            string query = "SELECT COUNT(1) FROM TAIKHOAN WHERE TenDangNhap = @user";
+            SqlParameter[] parameters = { new SqlParameter("@user", username.Trim()) };
+
+            object? result = DataProvider.Instance.ExecuteScalar(query, parameters);
+            return Convert.ToInt32(result) > 0;
+        }
+
+        // 2. Hàm thêm Tài Khoản (Khớp 100% với 5 cột trong bảng TAIKHOAN của bạn)
+        public bool InsertAccount(string maNV, string username, string password)
+        {
+            if (string.IsNullOrWhiteSpace(maNV) || string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+                return false;
+
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+
+            string query = "INSERT INTO TAIKHOAN(MaNV, TenDangNhap, MatKhau, TrangThai, NgayTao) " +
+                           "VALUES(@manv, @user, @pass, N'Hoạt động', GETDATE())";
+
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+            new SqlParameter("@manv", maNV.Trim()),
+            new SqlParameter("@user", username.Trim()),
+            new SqlParameter("@pass", hashedPassword)
+            };
+
+            int result = DataProvider.Instance.ExecuteNonQuery(query, parameters);
+            return result > 0;
+        }
+
+        // 3. Hàm điều phối Transaction Đăng ký (Trả về Tuple gồm cờ bool và thông báo)
+        public (bool IsSuccess, string Message) RegisterAccount(RegisterRequest req)
+        {
+            try
+            {
+                // Kiểm tra trùng tên đăng nhập trước khi mở Transaction
+                if (CheckUsernameExists(req.Username))
+                {
+                    return (false, $"Tên đăng nhập '{req.Username}' đã tồn tại! Vui lòng chọn tên khác.");
+                }
+
+                using (var scope = new TransactionScope())
+                {
+                    // Tự động lấy mã NV mới nhất (VD: NV03)
+                    string newMaNV = NhanVienDAO.Instance.GenerateNextMaNV();
+
+                    // Thêm vào bảng NHANVIEN trước để có khóa chính
+                    bool nvAdded = NhanVienDAO.Instance.InsertNhanVien(
+                        newMaNV, req.HoTen, req.GioiTinh, req.VaiTro,
+                        req.NgaySinh, req.SDT, req.Email, req.DiaChi
+                    );
+
+                    if (!nvAdded)
+                        return (false, "Dữ liệu thông tin nhân viên không hợp lệ!");
+
+                    // Thêm vào bảng TAIKHOAN với mã newMaNV vừa tạo
+                    bool tkAdded = InsertAccount(newMaNV, req.Username, req.Password);
+
+                    if (!tkAdded)
+                        return (false, "Không thể tạo tài khoản lúc này.");
+
+                    // Chốt lưu cả 2 bảng
+                    scope.Complete();
+                    return (true, $"Đăng ký thành công! Mã nhân viên mới là: {newMaNV}");
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                // Mã lỗi 2627 hoặc 2601 của SQL Server là lỗi trùng lặp khóa (Unique/Primary Key)
+                if (sqlEx.Number == 2627 || sqlEx.Number == 2601)
+                    return (false, "Tên đăng nhập hoặc Mã nhân viên đã bị trùng trong hệ thống!");
+
+                return (false, $"Lỗi cơ sở dữ liệu: {sqlEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Lỗi hệ thống: {ex.Message}");
+            }
         }
     }
 }

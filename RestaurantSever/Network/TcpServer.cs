@@ -93,6 +93,24 @@ namespace RestaurantSever.Network
                         IsSuccess = true,
                         Payload = JsonSerializer.Serialize(tables)
                     };
+                case NetworkAction.REGISTER:
+                    var registerData = JsonSerializer.Deserialize<RegisterRequest>(req.Payload);
+                    if (registerData != null)
+                    {
+                        var result = AccountDAO.Instance.RegisterAccount(registerData);
+                        return new NetworkPacket
+                        {
+                            Action = NetworkAction.REGISTER_RESPONSE,
+                            IsSuccess = result.IsSuccess,
+                            Message = result.Message
+                        };
+                    }
+                    return new NetworkPacket
+                    {
+                        Action = NetworkAction.REGISTER_RESPONSE,
+                        IsSuccess = false,
+                        Message = "không nhận được phản hồi từ máy chủ!"
+                    };
                 default:
                     return new NetworkPacket { Action = NetworkAction.UNKNOW, IsSuccess = false, Message = "Lệnh không hợp lệ" };
             }
