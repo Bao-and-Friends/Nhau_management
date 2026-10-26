@@ -33,11 +33,11 @@ namespace RestaurantSever.Network
             {
                 try
                 {
-                    TcpClient clientSocket = await server.AcceptTcpClientAsync();
+                    TcpClient clientSocket = await server.AcceptTcpClientAsync().ConfigureAwait(false);
                     Console.WriteLine($"[+] Client kết nối: {clientSocket.Client.RemoteEndPoint}");
 
                     // Mỗi client được xử lý trên 1 Task riêng biệt
-                   HandleClientAsync(clientSocket);
+                   await HandleClientAsync(clientSocket);
                 }
                 catch (Exception ex)
                 {
@@ -47,22 +47,45 @@ namespace RestaurantSever.Network
             }
         }
         // Vòng lặp nhận và xử lý gói tin của 1 Client cụ thể
-        private async void HandleClientAsync(TcpClient clientSocket)
+        private async Task HandleClientAsync(TcpClient clientSocket)
         {
-            NetworkStream stream = clientSocket.GetStream();
-            while (clientSocket.Connected)
+            // Bọc cả clientSocket và stream trong using
+            using (clientSocket)
+            await using (NetworkStream stream = clientSocket.GetStream())
             {
-                // Nhận NetworkPacket từ Client
-                NetworkPacket? request = await ReceiveAsync<NetworkPacket>(stream);
-                if (request == null) break; // Client đã ngắt kết nối
-                Console.WriteLine($"[Nhận lệnh]: {request.Action} từ {clientSocket.Client.RemoteEndPoint}");
-                // Xử lý logic và tạo phản hồi
-                NetworkPacket response = ProcessRequest(request);
-                // Gửi phản hồi lại cho Client
-                await SendAsync(stream, response);
+                string clientEndPoint = clientSocket.Client.RemoteEndPoint?.ToString() ?? "Unknown";
+
+                try
+                {
+                    while (clientSocket.Connected)
+                    {
+                        // 1. Nhận gói tin
+                        NetworkPacket? request = await ReceiveAsync<NetworkPacket>(stream);
+                        if (request == null) break; // Client ngắt kết nối chủ động
+
+                        Console.WriteLine($"[Nhận lệnh]: {request.Action} từ {clientEndPoint}");
+
+                        // 2. Xử lý nghiệp vụ
+                        NetworkPacket response = ProcessRequest(request);
+
+                        // 3. Gửi phản hồi
+                        await SendAsync(stream, response);
+                    }
+                }
+                catch (IOException)
+                {
+                    // Xảy ra khi Client ngắt kết nối đột ngột giữa chừng
+                    Console.WriteLine($"[!] Kết nối từ {clientEndPoint} bị đứt đột ngột.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[Lỗi xử lý Client {clientEndPoint}]: {ex.Message}");
+                }
+                finally
+                {
+                    Console.WriteLine($"[-] {clientEndPoint} đã ngắt kết nối.");
+                }
             }
-            Console.WriteLine($"[-] {clientSocket.Client.RemoteEndPoint} đã ngắt kết nối.");
-            clientSocket.Close();
         }
         // Bóc tách hành động nghiệp vụ
         private NetworkPacket ProcessRequest(NetworkPacket req)

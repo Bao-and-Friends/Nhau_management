@@ -1,4 +1,4 @@
-﻿using RestaurantShared.DTO;
+using RestaurantShared.DTO;
 using RestaurantShared.Network;
 using System;
 using System.Collections.Generic;
@@ -57,9 +57,9 @@ namespace RestaurantManagement.UI.Network
         // Gửi 1 gói tin và chờ gói tin phản hồi từ Server
         public async Task<NetworkPacket?> SendRequestAndWaitResponseAsync(NetworkPacket packet)
         {
-            if (await SendAsync<NetworkPacket>(packet))
+            if (await SendAsync<NetworkPacket>(packet).ConfigureAwait(false))
             {
-                return await ReceiveAsync<NetworkPacket>();
+                return await ReceiveAsync<NetworkPacket>().ConfigureAwait(false);
             }
             return null;
         }

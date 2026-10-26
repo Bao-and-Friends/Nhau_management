@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -34,11 +34,11 @@ namespace RestaurantShared.Network
         {
             try
             {
-                byte[]? lengthBuffer = await ReadExactBytesAsync(stream, 4);
+                byte[]? lengthBuffer = await ReadExactBytesAsync(stream, 4).ConfigureAwait(false);
                 if (lengthBuffer == null) return default;
                 int dataLength = BitConverter.ToInt32(lengthBuffer, 0);
                 if (dataLength <= 0 || dataLength > MaxPacketSize) return default;
-                byte[]? dataBuffer = await ReadExactBytesAsync(stream, dataLength);
+                byte[]? dataBuffer = await ReadExactBytesAsync(stream, dataLength).ConfigureAwait(false);
                 if (dataBuffer == null) return default;
                 return DeserializeData<T>(dataBuffer);
             }
@@ -51,13 +51,15 @@ namespace RestaurantShared.Network
         public virtual async Task<bool> SendAsync<T>(T data)
         {
             if (client == null || !client.Connected || data == null) return false;
-            return await SendAsync(client.GetStream(), data);
+            return await SendAsync(client.GetStream(), data).ConfigureAwait(false);
         }
+
         public virtual async Task<T?> ReceiveAsync<T>()
         {
             if (client == null || !client.Connected) return default;
-            return await ReceiveAsync<T>(client.GetStream());
+            return await ReceiveAsync<T>(client.GetStream()).ConfigureAwait(false);
         }
+
         public async Task<bool> SendAsync<T>(NetworkStream stream, T data)
         {
             try
@@ -67,8 +69,8 @@ namespace RestaurantShared.Network
                 byte[] packet = new byte[4 + byteData.Length];
                 Buffer.BlockCopy(lengthPrefix, 0, packet, 0, 4);
                 Buffer.BlockCopy(byteData, 0, packet, 4, byteData.Length);
-                await stream.WriteAsync(packet.AsMemory(0, packet.Length));
-                await stream.FlushAsync();
+                await stream.WriteAsync(packet.AsMemory(0, packet.Length)).ConfigureAwait(false);
+                await stream.FlushAsync().ConfigureAwait(false);
                 return true;
             }
             catch
@@ -76,21 +78,18 @@ namespace RestaurantShared.Network
                 return false;
             }
         }
+
         public async Task<byte[]?> ReadExactBytesAsync(NetworkStream stream, int count)
         {
             byte[] buffer = new byte[count];
             int totalRead = 0;
             while (totalRead < count)
             {
-                int read = await stream.ReadAsync(buffer.AsMemory(totalRead, count - totalRead));
+                int read = await stream.ReadAsync(buffer.AsMemory(totalRead, count - totalRead)).ConfigureAwait(false);
                 if (read == 0) return null;
                 totalRead += read;
             }
             return buffer;
         }
-
-
-
-
     }
 }
