@@ -38,7 +38,6 @@ namespace RestaurantShared
 
         public int ExecuteNonQuery(string query, params SqlParameter[] parameters)
         {
-            int data = 0;
             using SqlConnection connection = new(connectionStr);
 
             connection.Open();
@@ -51,15 +50,12 @@ namespace RestaurantShared
             }
 
 
-            data = cmd.ExecuteNonQuery();
-            connection.Close();
-
+            int data = cmd.ExecuteNonQuery();
             return data;
         }
 
         public object ExecuteScalar(string query, params SqlParameter[] parameters)
         {
-            object data = 0;
             using SqlConnection connection = new(connectionStr);
 
             connection.Open();
@@ -70,10 +66,7 @@ namespace RestaurantShared
             {
                 cmd.Parameters.AddRange(parameters);
             }
-            data = cmd.ExecuteScalar();
-
-            connection.Close();
-
+            object data = cmd.ExecuteScalar();
             return data;
         }
 

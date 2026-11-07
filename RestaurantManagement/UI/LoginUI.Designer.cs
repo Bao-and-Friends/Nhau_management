@@ -167,6 +167,7 @@ namespace RestaurantManagement.UI
             QuenMatKhau.Text = "Quên Mật Khẩu?";
             QuenMatKhau.TextAlign = ContentAlignment.MiddleCenter;
             QuenMatKhau.VisitedLinkColor = Color.FromArgb(230, 80, 80);
+            QuenMatKhau.Click += QuenMatKhau_Click;
             // 
             // Dangnhap
             // 
@@ -233,6 +234,7 @@ namespace RestaurantManagement.UI
             pwtxt.ForeDisableColor = Color.Empty;
             pwtxt.ForeReadOnlyColor = Color.Empty;
             pwtxt.Icon = (Image)resources.GetObject("pwtxt.Icon");
+            pwtxt.ImeMode = ImeMode.Disable;
             pwtxt.IntValue = 123456;
             pwtxt.Location = new Point(71, 352);
             pwtxt.Margin = new Padding(4, 5, 4, 5);

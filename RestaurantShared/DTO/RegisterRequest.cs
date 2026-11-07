@@ -6,8 +6,6 @@ namespace RestaurantShared.DTO
 {
     public class RegisterRequest
     {
-        public string MaTK { get; set; } = string.Empty;
-        public string MaNV { get; set; } = string.Empty;
         public string HoTen { get; set; } = string.Empty;
         public string GioiTinh { get; set; } = string.Empty;
         public string VaiTro { get; set; } = string.Empty;

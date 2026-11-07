@@ -3,6 +3,7 @@ using RestaurantShared;
 using RestaurantShared.DTO;
 using System;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Transactions;
 
 namespace RestaurantSever.DAO 
@@ -23,7 +24,7 @@ namespace RestaurantSever.DAO
             string cleanUsername = username.Trim();
 
             // 2. Lấy thêm cột TrangThai (nếu bảng TAIKHOAN của bạn có cột này)
-            string query = "SELECT MatKhau, MaNV, TrangThai FROM TAIKHOAN WHERE TenDangNhap = @username";
+            string query = "SELECT MatKhau, MaNV, TrangThai, Email FROM TAIKHOAN WHERE TenDangNhap = @username";
 
             DataTable data = DataProvider.Instance.ExecuteQuery(
                 query,
@@ -65,6 +66,19 @@ namespace RestaurantSever.DAO
             object? result = DataProvider.Instance.ExecuteScalar(query, parameters);
             return Convert.ToInt32(result) > 0;
         }
+        public string GetEmailByUsername(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+                return string.Empty;
+            string query = "SELECT Email FROM TAIKHOAN WHERE TenDangNhap = @username";
+
+            object data = DataProvider.Instance.ExecuteScalar(
+                query,
+                new SqlParameter("@username", username.Trim())
+            );
+            if (data == null || data == DBNull.Value) return string.Empty;
+            return data.ToString()!;
+        }
 
         // 2. Hàm thêm Tài Khoản (Khớp 100% với 5 cột trong bảng TAIKHOAN của bạn)
         public bool InsertAccount(string maNV, string username, string password)
@@ -80,6 +94,27 @@ namespace RestaurantSever.DAO
             SqlParameter[] parameters = new SqlParameter[]
             {
             new SqlParameter("@manv", maNV.Trim()),
+            new SqlParameter("@user", username.Trim()),
+            new SqlParameter("@pass", hashedPassword)
+            };
+
+            int result = DataProvider.Instance.ExecuteNonQuery(query, parameters);
+            return result > 0;
+        }
+
+        public bool ChangePassword(string username, string password)
+        {
+
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+                return false;
+
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+
+            string query = @"UPDATE TAIKHOAN
+                             SET MatKhau = @pass
+                             WHERE TenDangNhap = @user";
+            SqlParameter[] parameters = new SqlParameter[]
+            {
             new SqlParameter("@user", username.Trim()),
             new SqlParameter("@pass", hashedPassword)
             };

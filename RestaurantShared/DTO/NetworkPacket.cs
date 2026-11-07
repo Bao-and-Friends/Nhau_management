@@ -12,7 +12,16 @@ namespace RestaurantShared.DTO
         GET_TABLE_LIST,
         GET_TABLE_LIST_RESPONSE,
         REGISTER,  
-        REGISTER_RESPONSE
+        REGISTER_RESPONSE,
+        FORGET_PASSWORD,
+        FORGET_PASSWORD_RESPONSE,
+        OTP_VERIFY,
+        OTP_VERIFY_RESPONSE,
+        OTP_RESEND,
+        OTP_RESEND_RESPONSE,
+        CHANGE_PASSWORD,
+        CHANGE_PASSWORD_RESPONSE
+
     }
     public class NetworkPacket
     {

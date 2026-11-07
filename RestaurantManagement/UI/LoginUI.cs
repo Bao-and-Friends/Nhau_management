@@ -57,7 +57,7 @@ namespace RestaurantManagement.UI
                 {
                     Action = NetworkAction.LOGIN,
                     Payload = JsonSerializer.Serialize(new LoginRequest(usrname, passwrd))
-                }; 
+                };
                 // 3. Chờ phản hồi từ Server
                 NetworkPacket? response = await TcpCustomer.Instance.SendRequestAndWaitResponseAsync(packet);
                 if (response != null && response.IsSuccess)
@@ -84,6 +84,12 @@ namespace RestaurantManagement.UI
             {
                 Dangnhap.Enabled = true;
             }
+        }
+
+        private void QuenMatKhau_Click(object sender, EventArgs e)
+        {
+            TestQMK test = new();
+            test.Show();
         }
     }
 }

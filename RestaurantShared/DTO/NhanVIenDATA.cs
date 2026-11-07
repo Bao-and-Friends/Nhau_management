@@ -16,8 +16,7 @@ namespace RestaurantShared.DTO
             string soDienThoai,
             string diaChi,
             string vaiTro,
-            string trangThai,
-            string email 
+            string trangThai
             )
         {
             MaNV = maNV;
@@ -28,7 +27,6 @@ namespace RestaurantShared.DTO
             DiaChi = diaChi;
             VaiTro = vaiTro;
             TrangThai = trangThai;
-            Email = email;
         }
 
         public NhanVienDATA(DataRow row)
@@ -41,7 +39,6 @@ namespace RestaurantShared.DTO
             DiaChi = row["DiaChi"] == DBNull.Value ? "Chưa có địa chỉ" : row["DiaChi"].ToString()!;
             VaiTro = row["VaiTro"] == DBNull.Value ? string.Empty : row["VaiTro"].ToString()!;
             TrangThai = row["TrangThai"] == DBNull.Value ? string.Empty : row["TrangThai"].ToString()!;
-            Email =  row["Email"] == DBNull.Value? string.Empty: row["Email"].ToString()!;
         }
 
         public string MaNV { get; set; } = string.Empty;
@@ -52,7 +49,6 @@ namespace RestaurantShared.DTO
         public string DiaChi { get; set; } = string.Empty;
         public string VaiTro { get; set; } = string.Empty;
         public string TrangThai { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
 
 
     }
