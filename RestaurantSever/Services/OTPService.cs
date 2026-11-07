@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Runtime.Caching;
-using System.Xml.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
+using System.Xml.Linq;
 
 namespace RestaurantSever.Services
 {
@@ -17,7 +18,7 @@ namespace RestaurantSever.Services
 
         public string CreateOTP()
         {
-           return new Random().Next(100000, 999999).ToString();
+            return RandomNumberGenerator.GetInt32(100000, 1000000).ToString();
         }
 
         public bool isOTPSended(string username)

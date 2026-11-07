@@ -1,5 +1,6 @@
 ﻿using RestaurantManagement.UI.Network;
 using RestaurantShared.DTO;
+using RestaurantShared.DTO.SQLData;
 using Sunny.UI;
 using Sunny.UI.Win32;
 using System;

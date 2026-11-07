@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace RestaurantShared.DTO
+namespace RestaurantShared.DTO.SQLData
 {
     public class NhanVienDATA
     {

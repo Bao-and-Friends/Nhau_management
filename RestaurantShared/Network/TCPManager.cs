@@ -15,7 +15,6 @@ namespace RestaurantShared.Network
     public abstract class TCPManager
     {
         private const int MaxPacketSize = 10 * 1024 * 1024;
-        protected IPEndPoint iep = new(IPAddress.Any,8080);
         protected TcpClient? client = null;
 
         public byte[] SerializeData<T>(T obj)

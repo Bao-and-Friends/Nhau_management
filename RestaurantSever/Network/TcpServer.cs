@@ -1,7 +1,12 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using RestaurantSever.DAO;
 using RestaurantSever.Services;
+using RestaurantShared;
 using RestaurantShared.DTO;
+using RestaurantShared.DTO.Configuration;
+using RestaurantShared.DTO.Request.Authentication;
+using RestaurantShared.DTO.SQLData;
 using RestaurantShared.Network;
 using System;
 using System.Collections.Generic;
@@ -22,6 +27,7 @@ namespace RestaurantSever.Network
         public static TcpServer Instance => sv.Value;
         private TcpServer() { }
         private TcpListener? server;
+        private IPEndPoint iep = new(IPAddress.Any, AppConfig.Instance.serverconfig!.PortListen);
 
         public void StartServer()
         {
@@ -41,7 +47,7 @@ namespace RestaurantSever.Network
                     Console.WriteLine($"[+] Client kết nối: {clientSocket.Client.RemoteEndPoint}");
 
                     // Mỗi client được xử lý trên 1 Task riêng biệt
-                   await HandleClientAsync(clientSocket);
+                   _ = HandleClientAsync(clientSocket);
                 }
                 catch (Exception ex)
                 {
@@ -100,7 +106,7 @@ namespace RestaurantSever.Network
                     return Process_LOGIN(req);
 
                 case NetworkAction.GET_TABLE_LIST:
-                    return Process_GET_TABLE_LIST(req);
+                    return Process_GET_TABLE_LIST();
 
                 case NetworkAction.REGISTER:
                     return Process_REGISTER(req);
@@ -140,7 +146,7 @@ namespace RestaurantSever.Network
             }
             return new NetworkPacket { Action = NetworkAction.LOGIN_RESPONSE, IsSuccess = false, Message = "Sai tài khoản hoặc mật khẩu!" };
         }
-        private NetworkPacket Process_GET_TABLE_LIST(NetworkPacket req)
+        private NetworkPacket Process_GET_TABLE_LIST()
         {
             var tables = TableDAO.Instance.GetListTable();
             return new NetworkPacket

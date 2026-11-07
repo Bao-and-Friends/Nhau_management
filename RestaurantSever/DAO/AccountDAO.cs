@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using RestaurantShared;
-using RestaurantShared.DTO;
+using RestaurantShared.DTO.Request.Authentication;
 using System;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;

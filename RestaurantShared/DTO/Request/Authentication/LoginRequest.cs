@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RestaurantShared.DTO
+namespace RestaurantShared.DTO.Request.Authentication
 {
     public class LoginRequest
     {

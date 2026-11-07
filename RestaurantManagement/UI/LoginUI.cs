@@ -3,6 +3,8 @@ namespace RestaurantManagement.UI
 {
     using RestaurantManagement.UI.Network;
     using RestaurantShared.DTO;
+    using RestaurantShared.DTO.Request.Authentication;
+    using RestaurantShared.DTO.SQLData;
     using Sunny.UI;
     using System.Net.Sockets;
     using System.Resources;

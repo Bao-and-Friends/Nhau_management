@@ -1,9 +1,13 @@
 ﻿using RestaurantSever.DAO;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using RestaurantShared.DTO.Configuration;
+using RestaurantShared;
+using Microsoft.Extensions.Configuration;
 
 namespace RestaurantSever.Services
 {
@@ -12,9 +16,8 @@ namespace RestaurantSever.Services
         private static readonly Lazy<MailService> Mail = new(() => new MailService());
         public static MailService Instance => Mail.Value;
         private MailService() { }
-
-        private string BEmail = "totribao17891@gmail.com";
-        private string AppPassword = "kkwg ihms csfb qyok";
+        private string BEmail = AppConfig.Instance.emailconfig!.SenderEmail;
+        private string AppPassword = AppConfig.Instance.emailconfig!.AppPassword;
 
         public MailMessage? CreateMail(string to,string subject,string body)
         {

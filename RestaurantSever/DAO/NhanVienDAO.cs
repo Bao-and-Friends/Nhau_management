@@ -2,7 +2,7 @@
 using System;
 using System.Data;
 using RestaurantShared;
-using RestaurantShared.DTO;
+using RestaurantShared.DTO.SQLData;
 
 namespace RestaurantSever.DAO
 {

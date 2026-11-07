@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RestaurantShared.DTO
+namespace RestaurantShared.DTO.Request.Authentication
 {
     public class ChangePasswordRequest
     {

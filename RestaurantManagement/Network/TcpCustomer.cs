@@ -1,3 +1,4 @@
+using RestaurantShared;
 using RestaurantShared.DTO;
 using RestaurantShared.Network;
 using System;
@@ -13,13 +14,12 @@ namespace RestaurantManagement.UI.Network
         private static readonly Lazy<TcpCustomer> CLIENT = new(() => new TcpCustomer());
         public static TcpCustomer Instance => CLIENT.Value;
         private TcpCustomer() { }
-        public bool ConnectServer(string ip = "127.0.0.1", int port = 8080)
+        public bool ConnectServer()
         {
             try
             {
                 if (client != null && client.Connected) return true;
-                client = new TcpClient();
-                client.Connect(ip, port);
+                client = new TcpClient(AppConfig.Instance.clientconfig!.IpServer, AppConfig.Instance.clientconfig.PortSever);
                 return true;
             }
             catch
@@ -40,7 +40,6 @@ namespace RestaurantManagement.UI.Network
 
                     // 2. Đóng và giải phóng TcpClient (bất kể Connected đang true hay false)
                     client.Close();
-                    client.Dispose();
                     client = null;
 
                     return true;

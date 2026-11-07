@@ -1,5 +1,6 @@
 ﻿using RestaurantManagement.UI.Network;
 using RestaurantShared.DTO;
+using RestaurantShared.DTO.Request.Authentication;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -63,9 +64,9 @@ namespace RestaurantManagement.UI
                 otp.ShowDialog();
                 this.Close();
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}", "Lỗi");
             }
             finally
             {

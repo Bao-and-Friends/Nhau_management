@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path=".gitignore" />
+    <File Path="appsettings.json" />
   </Folder>
   <Project Path="../RestaurantSever/RestaurantSever.csproj" Id="3ef7b3c3-8537-4961-866b-64506d2f2089" />
   <Project Path="../RestaurantShared/RestaurantShared.csproj" Id="2e729e49-1037-4962-8b3b-f2868c99244e" />
