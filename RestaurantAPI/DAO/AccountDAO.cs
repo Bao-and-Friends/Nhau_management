@@ -1,4 +1,8 @@
-﻿namespace RestaurantAPI.Data
+﻿using Dapper; // 👈 Nhớ thêm using Dapper
+using Microsoft.Data.SqlClient;
+using RestaurantAPI.DAO;
+
+namespace RestaurantAPI.Data
 {
     public class AccountDAO(DapperContext context)
     {
@@ -28,12 +32,13 @@
             }
             return (false, string.Empty, "Mật khẩu không chính xác!");
         }
-        
+
         public async Task<string?> GetEmailByUsernameAsync(string username)
         {
             string query = "SELECT Email FROM TAIKHOAN WHERE TenDangNhap = @Username";
             return await context.ExecuteScalarAsync<string>(query, new { Username = username.Trim() });
         }
+
         public async Task<bool> ChangePasswordAsync(string username, string newPassword)
         {
             string hash = BCrypt.Net.BCrypt.HashPassword(newPassword);
@@ -41,13 +46,24 @@
             int rows = await context.ExecuteAsync(query, new { MatKhau = hash, Username = username.Trim() });
             return rows > 0;
         }
-        public async Task<bool> InsertAccountAsync(string maNV, string username, string password)
+
+        // 👉 CẬP NHẬT HÀM NÀY: Nhận thêm conn và trans tùy chọn
+        public async Task<bool> InsertAccountAsync(
+            string maNV, string username, string passwordHash,
+            SqlConnection? conn = null, SqlTransaction? trans = null)
         {
-            string hash = BCrypt.Net.BCrypt.HashPassword(password);
             string query = @"INSERT INTO TAIKHOAN (MaNV, TenDangNhap, MatKhau, TrangThai, NgayTao)
                              VALUES (@MaNV, @Username, @MatKhau, N'Hoạt động', GETDATE())";
-            int rows = await context.ExecuteAsync(query, new { MaNV = maNV, Username = username, MatKhau = hash });
-            return rows > 0;
+
+            var param = new { MaNV = maNV, Username = username, MatKhau = passwordHash };
+
+            if (conn != null)
+            {
+                int rows = await conn.ExecuteAsync(query, param, trans);
+                return rows > 0;
+            }
+
+            return (await context.ExecuteAsync(query, param)) > 0;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace RestaurantManagement.UI
+﻿namespace RestaurantClient.UI
 {
     partial class changePassword
     {

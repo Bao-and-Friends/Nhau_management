@@ -1,6 +1,6 @@
 ﻿using RestaurantShared.Models.SQLData;
 
-namespace RestaurantAPI.Data
+namespace RestaurantAPI.DAO
 {
     public class TableDAO(DapperContext context)
     {

@@ -1,4 +1,4 @@
-using RestaurantManagement.Services;
+using RestaurantClient.Services;
 using Sunny.UI;
 
 namespace RestaurantManagement.UI

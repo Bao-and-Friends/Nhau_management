@@ -1,4 +1,5 @@
-using RestaurantManagement.Services;
+using RestaurantClient.Services;
+using RestaurantClient.UI.Authentication;
 using RestaurantShared.Models.SQLData;
 using Sunny.UI;
 using System.Text.Json;
@@ -25,6 +26,7 @@ namespace RestaurantManagement.UI
             //2.Lấy dữ liệu nhân viên an toàn từ this.Tag(không cần ép kiểu qua sender)
             if (this.Tag is StaffDATA nv)
             {
+                IdentifyRole(nv.VaiTro);
                 Ten.Text = nv.HoTen;
                 chucVu.Text = nv.VaiTro;
 
@@ -48,11 +50,13 @@ namespace RestaurantManagement.UI
             SwitchUserControl(new UC_SoDoBan());
         }
 
-      
+
         //role permission
         private void IdentifyRole(string role)
         {
-
+            // Ví dụ: Nút Trochuyen đổi thành nút Quản lý nhân viên/Tạo tài khoản
+            // Chỉ hiển thị cho Quản lý
+            
         }
         // Sự kiện click nút Sơ đồ bàn
         private void btnSoDoBan_Click(object sender, EventArgs e)
@@ -80,47 +84,10 @@ namespace RestaurantManagement.UI
             this.Close();
         }
 
-        //private async void Trochuyen_Click(object sender, EventArgs e)
-        //{
-         
-        //    Trochuyen.Enabled = false;
-        //    RegisterRequest request = new()
-        //    {
-        //        Username = "abc",
-        //        Password = "Password123!",
-        //        HoTen = "Lê Văn C",
-        //        GioiTinh = "Nam",
-        //        VaiTro = "Thu Ngân",
-        //        NgaySinh = new DateTime(1999, 11, 20),
-        //        SDT = "0938112233",
-        //        Email = "levanc@quannhau.com",
-        //        DiaChi = "Đông Hòa, Dĩ An, Bình Dương"
-        //    };
-
-        //    try
-        //    {
-        //            NetworkPacket packet = new()
-        //            {
-        //                Action = NetworkAction.REGISTER,
-        //                Payload = JsonSerializer.Serialize(request)
-        //            };
-
-        //            var response = await TcpCustomer.Instance.SendRequestAndWaitResponseAsync(packet);
-
-        //            if (response != null)
-        //            {
-        //                 MessageBox.Show(response.Message,"Thông báo");
-        //            }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"lỗi: {ex.ToString()}", "Thông báo");
-        //    }
-        //    finally
-        //    {
-        //        Trochuyen.Enabled = true;
-        //    }
-        //}
-     
+        private void Trochuyen_Click(object sender, EventArgs e)
+        {
+            var form = new RegisterAccountUI();
+            form.ShowDialog();
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 
-namespace RestaurantAPI.Data
+namespace RestaurantAPI.DAO
 {
     public class DapperContext
     {

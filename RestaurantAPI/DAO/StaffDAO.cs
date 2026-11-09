@@ -1,4 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Dapper; // 👈 Nhớ thêm using Dapper
+using Microsoft.Data.SqlClient;
+using RestaurantAPI.DAO;
 using RestaurantShared.Models.SQLData;
 
 namespace RestaurantAPI.Data
@@ -10,6 +12,7 @@ namespace RestaurantAPI.Data
             string query = "SELECT * FROM NHANVIEN WHERE MaNV = @MaNV";
             return await context.QueryFirstOrDefaultAsync<StaffDATA>(query, new { MaNV = maNV });
         }
+
         public async Task<string> GenerateNextMaNVAsync()
         {
             string query = "SELECT TOP 1 MaNV FROM NHANVIEN ORDER BY LEN(MaNV) DESC, MaNV DESC";
@@ -20,12 +23,17 @@ namespace RestaurantAPI.Data
             }
             return "NV01";
         }
-        public async Task<bool> InsertAsync(string maNV, string hoTen, string gioiTinh, string vaiTro,
-                                           DateTimeOffset? ngaySinh, string? sdt, string? email, string? diaChi)
+
+        // 👉 CẬP NHẬT HÀM NÀY: Nhận thêm conn và trans tùy chọn
+        public async Task<bool> InsertAsync(
+            string maNV, string hoTen, string gioiTinh, string vaiTro,
+            DateTimeOffset? ngaySinh, string? sdt, string? email, string? diaChi,
+            SqlConnection? conn = null, SqlTransaction? trans = null)
         {
             string query = @"INSERT INTO NHANVIEN (MaNV, HoTen, GioiTinh, VaiTro, NgaySinh, SoDienThoai, Email, DiaChi)
                              VALUES (@MaNV, @HoTen, @GioiTinh, @VaiTro, @NgaySinh, @SDT, @Email, @DiaChi)";
-            int rows = await context.ExecuteAsync(query, new
+
+            var param = new
             {
                 MaNV = maNV,
                 HoTen = hoTen,
@@ -35,9 +43,17 @@ namespace RestaurantAPI.Data
                 SDT = sdt,
                 Email = email,
                 DiaChi = diaChi
-            });
-            return rows > 0;
-        }
+            };
 
+            // Nếu được truyền Connection & Transaction từ Unit of Work:
+            if (conn != null)
+            {
+                int rows = await conn.ExecuteAsync(query, param, trans);
+                return rows > 0;
+            }
+
+            // Nếu chạy độc lập:
+            return (await context.ExecuteAsync(query, param)) > 0;
+        }
     }
 }

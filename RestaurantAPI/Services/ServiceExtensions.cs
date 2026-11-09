@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.WebSockets;
 using Microsoft.IdentityModel.Tokens;
+using RestaurantAPI.DAO;
 using RestaurantAPI.Data;
 using RestaurantAPI.Models.Configuration;
 using System.Text;
@@ -17,10 +19,14 @@ namespace RestaurantAPI.Services
             services.AddScoped<TableDAO>();
             services.AddScoped<AccountDAO>();
             services.AddScoped<StaffDAO>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             // Nghiệp vụ (JWT, Mail, OTP)
             services.AddScoped<AuthService>();
             services.AddScoped<MailService>();
             services.AddScoped<OTPService>();
+            services.AddScoped<TableService>();
+            services.AddScoped<AccountService>();
+            services.AddScoped<StaffService>();
             return services;
         }
         // 2. Gom toàn bộ phần cấu hình JWT Token vào đây

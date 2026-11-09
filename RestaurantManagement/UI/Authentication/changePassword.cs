@@ -1,6 +1,6 @@
-﻿using RestaurantManagement.Services;
-using System.Text.Json;
-namespace RestaurantManagement.UI
+﻿using RestaurantClient.Services;
+
+namespace RestaurantClient.UI
 {
     public partial class changePassword : Form
     {

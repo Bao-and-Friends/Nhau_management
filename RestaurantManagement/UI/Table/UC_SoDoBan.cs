@@ -1,4 +1,4 @@
-﻿using RestaurantManagement.Services;
+﻿using RestaurantClient.Services;
 using RestaurantShared.Models.SQLData;
 using Sunny.UI;
 

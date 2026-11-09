@@ -179,7 +179,7 @@ namespace RestaurantManagement.UI
             Trochuyen.TabIndex = 1;
             Trochuyen.Text = "Trò chuyện";
             Trochuyen.TipsFont = new Font("Microsoft Sans Serif", 9F);
-            //Trochuyen.Click += Trochuyen_Click;
+            Trochuyen.Click += Trochuyen_Click;
             // 
             // DangXuat
             // 
