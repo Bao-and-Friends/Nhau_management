@@ -2,7 +2,7 @@
 using System.Data;
 using System.Text.Json.Serialization;
 
-namespace RestaurantAPI.Models.SQLData
+namespace RestaurantShared.Models.SQLData
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum TableStatus

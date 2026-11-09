@@ -1,5 +1,4 @@
-﻿using Dapper;
-using RestaurantAPI.Models.SQLData;
+﻿using RestaurantShared.Models.SQLData;
 
 namespace RestaurantAPI.Data
 {

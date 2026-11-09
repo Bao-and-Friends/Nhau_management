@@ -1,8 +1,4 @@
-﻿using Dapper;
-using Microsoft.Data.SqlClient;
-using RestaurantAPI.Models.SQLData;
-
-namespace RestaurantAPI.Data
+﻿namespace RestaurantAPI.Data
 {
     public class AccountDAO(DapperContext context)
     {

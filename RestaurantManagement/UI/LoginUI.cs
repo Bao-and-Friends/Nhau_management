@@ -1,15 +1,9 @@
+using RestaurantManagement.Services;
+using Sunny.UI;
+
 namespace RestaurantManagement.UI
-
 {
-    using RestaurantManagement.UI.Network;
-    using RestaurantShared.DTO;
-    using RestaurantShared.DTO.Request.Authentication;
-    using RestaurantShared.DTO.SQLData;
-    using Sunny.UI;
-    using System.Net.Sockets;
-    using System.Resources;
-    using System.Text.Json;
-
+ 
     public partial class LoginUI : UIForm
     {
         public LoginUI()
@@ -47,39 +41,17 @@ namespace RestaurantManagement.UI
             Dangnhap.Enabled = false;
             try
             {
-                // 1. Kết nối tới Server nếu chưa kết nối
-                if (!TcpCustomer.Instance.ConnectServer())
+                var (isSuccess, message) = await ApiService.LoginAsync(usrname, passwrd);
+                if (isSuccess)
                 {
-                    MessageBox.Show("Không thể kết nối đến Máy chủ! Vui lòng kiểm tra lại mạng");
-                    Dangnhap.Enabled = true;
-                    return;
-                }
-                // 2. Đóng gói NetworkPacket gửi qua TCP
-                var packet = new NetworkPacket
-                {
-                    Action = NetworkAction.LOGIN,
-                    Payload = JsonSerializer.Serialize(new LoginRequest(usrname, passwrd))
-                };
-                // 3. Chờ phản hồi từ Server
-                NetworkPacket? response = await TcpCustomer.Instance.SendRequestAndWaitResponseAsync(packet);
-                if (response != null && response.IsSuccess)
-                {
-                    // Đọc dữ liệu nhân viên từ phản hồi của Server
-                    NhanVienDATA? nv = JsonSerializer.Deserialize<NhanVienDATA>(response.Payload);
-                    MainForm main = new()
-                    {
-                        Tag = nv // Truyền trực tiếp dữ liệu nhân viên vào MainForm
-                    };
-                    Dangnhap.Enabled = true;
+                    MainForm main = new() { Tag = ApiService.Staff };
                     this.Hide();
                     main.ShowDialog();
-                    pwtxt.Text = "";
                     this.Show();
                 }
                 else
                 {
-                    TcpCustomer.Instance.DisConnectServer();
-                    MessageBox.Show(response?.Message ?? "Đăng nhập thất bại hoặc máy chủ mất kết nối!");
+                    MessageBox.Show(message);
                 }
             }
             finally

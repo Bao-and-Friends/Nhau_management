@@ -1,13 +1,7 @@
-using RestaurantManagement.UI.Network;
-using RestaurantShared.DTO;
-using RestaurantShared.DTO.Request.Authentication;
-using RestaurantShared.DTO.SQLData;
+using RestaurantManagement.Services;
+using RestaurantShared.Models.SQLData;
 using Sunny.UI;
-using System;
-using System.DirectoryServices.ActiveDirectory;
-using System.Drawing;
 using System.Text.Json;
-using System.Windows.Forms;
 
 namespace RestaurantManagement.UI
 {
@@ -21,8 +15,6 @@ namespace RestaurantManagement.UI
         }
 
         // Khởi tạo có truyền thông tin từ màn hình Đăng nhập
-
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             // 1. Khởi chạy đồng hồ thời gian thực
@@ -30,8 +22,8 @@ namespace RestaurantManagement.UI
             timer1.Interval = 1000;
             timer1.Start();
 
-            // 2. Lấy dữ liệu nhân viên an toàn từ this.Tag (không cần ép kiểu qua sender)
-            if (this.Tag is NhanVienDATA nv)
+            //2.Lấy dữ liệu nhân viên an toàn từ this.Tag(không cần ép kiểu qua sender)
+            if (this.Tag is StaffDATA nv)
             {
                 Ten.Text = nv.HoTen;
                 chucVu.Text = nv.VaiTro;
@@ -56,12 +48,9 @@ namespace RestaurantManagement.UI
             SwitchUserControl(new UC_SoDoBan());
         }
 
-        private void MainForm_Close(object sender, EventArgs e)
-        {
-            TcpCustomer.Instance.DisConnectServer();
-        }
+      
         //role permission
-        private void IdentifyRole(string manv)
+        private void IdentifyRole(string role)
         {
 
         }
@@ -87,50 +76,51 @@ namespace RestaurantManagement.UI
 
         private void DangXuat_Click(object sender, EventArgs e)
         {
+            ApiService.Logout();
             this.Close();
         }
 
-        private async void Trochuyen_Click(object sender, EventArgs e)
-        {
+        //private async void Trochuyen_Click(object sender, EventArgs e)
+        //{
          
-            Trochuyen.Enabled = false;
-            RegisterRequest request = new()
-            {
-                Username = "abc",
-                Password = "Password123!",
-                HoTen = "Lê Văn C",
-                GioiTinh = "Nam",
-                VaiTro = "Thu Ngân",
-                NgaySinh = new DateTime(1999, 11, 20),
-                SDT = "0938112233",
-                Email = "levanc@quannhau.com",
-                DiaChi = "Đông Hòa, Dĩ An, Bình Dương"
-            };
+        //    Trochuyen.Enabled = false;
+        //    RegisterRequest request = new()
+        //    {
+        //        Username = "abc",
+        //        Password = "Password123!",
+        //        HoTen = "Lê Văn C",
+        //        GioiTinh = "Nam",
+        //        VaiTro = "Thu Ngân",
+        //        NgaySinh = new DateTime(1999, 11, 20),
+        //        SDT = "0938112233",
+        //        Email = "levanc@quannhau.com",
+        //        DiaChi = "Đông Hòa, Dĩ An, Bình Dương"
+        //    };
 
-            try
-            {
-                    NetworkPacket packet = new()
-                    {
-                        Action = NetworkAction.REGISTER,
-                        Payload = JsonSerializer.Serialize(request)
-                    };
+        //    try
+        //    {
+        //            NetworkPacket packet = new()
+        //            {
+        //                Action = NetworkAction.REGISTER,
+        //                Payload = JsonSerializer.Serialize(request)
+        //            };
 
-                    var response = await TcpCustomer.Instance.SendRequestAndWaitResponseAsync(packet);
+        //            var response = await TcpCustomer.Instance.SendRequestAndWaitResponseAsync(packet);
 
-                    if (response != null)
-                    {
-                         MessageBox.Show(response.Message,"Thông báo");
-                    }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"lỗi: {ex.ToString()}", "Thông báo");
-            }
-            finally
-            {
-                Trochuyen.Enabled = true;
-            }
-        }
+        //            if (response != null)
+        //            {
+        //                 MessageBox.Show(response.Message,"Thông báo");
+        //            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"lỗi: {ex.ToString()}", "Thông báo");
+        //    }
+        //    finally
+        //    {
+        //        Trochuyen.Enabled = true;
+        //    }
+        //}
      
     }
 }

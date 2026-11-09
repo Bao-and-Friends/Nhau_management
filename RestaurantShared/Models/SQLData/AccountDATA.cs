@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace RestaurantAPI.Models.SQLData
+namespace RestaurantShared.Models.SQLData
 {
     public class AccountDATA
     {

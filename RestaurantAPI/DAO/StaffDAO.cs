@@ -1,5 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using RestaurantAPI.Models.SQLData;
+using RestaurantShared.Models.SQLData;
 
 namespace RestaurantAPI.Data
 {

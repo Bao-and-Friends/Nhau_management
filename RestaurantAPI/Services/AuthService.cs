@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantAPI.Models.Configuration;
-using RestaurantAPI.Models.SQLData;
+using RestaurantShared.Models.SQLData;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -18,8 +18,6 @@ namespace RestaurantAPI.Services
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, staff.MaNV),
-                new Claim(ClaimTypes.Name, username),
-                new Claim("FullName", staff.HoTen),
                 new Claim(ClaimTypes.Role, staff.VaiTro)
             };
             var token = new JwtSecurityToken(
