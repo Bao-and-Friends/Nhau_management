@@ -5,6 +5,8 @@
     <TargetFramework>net10.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
+	  <UseWPF>true</UseWPF>
+    <StartupObject>RestaurantClient.App</StartupObject>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>Resources\The_Gourmet_Logo.ico</ApplicationIcon>
   </PropertyGroup>
