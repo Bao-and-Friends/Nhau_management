@@ -1,0 +1,33 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Brand / Palette Colors -->
+    <SolidColorBrush x:Key="ColorPrimary" Color="#0F172A" />
+    <SolidColorBrush x:Key="ColorPrimaryDark" Color="#020617" />
+    <SolidColorBrush x:Key="ColorAccent" Color="#2563EB" />
+    <SolidColorBrush x:Key="ColorAccentHover" Color="#1D4ED8" />
+
+    <!-- Neutral Backgrounds -->
+    <SolidColorBrush x:Key="ColorAppBg" Color="#F1F5F9" />
+    <SolidColorBrush x:Key="ColorCardBg" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="ColorBorder" Color="#E2E8F0" />
+    <SolidColorBrush x:Key="ColorSidebarBg" Color="#1E293B" />
+    <SolidColorBrush x:Key="ColorSidebarActive" Color="#334155" />
+
+    <!-- Typography Colors -->
+    <SolidColorBrush x:Key="ColorTextPrimary" Color="#0F172A" />
+    <SolidColorBrush x:Key="ColorTextSecondary" Color="#64748B" />
+    <SolidColorBrush x:Key="ColorTextMuted" Color="#94A3B8" />
+    <SolidColorBrush x:Key="ColorTextWhite" Color="#FFFFFF" />
+
+    <!-- Table Status Colors (Khớp Enum TableStatus trong C#) -->
+    <SolidColorBrush x:Key="ColorTableEmpty" Color="#94A3B8" />
+    <SolidColorBrush x:Key="ColorTableOccupied" Color="#10B981" />
+    <SolidColorBrush x:Key="ColorTableReserved" Color="#3B82F6" />
+    <SolidColorBrush x:Key="ColorTableWaiting" Color="#EF4444" />
+
+    <!-- Status Badges Light Fills -->
+    <SolidColorBrush x:Key="ColorBadgeEmptyBg" Color="#F1F5F9" />
+    <SolidColorBrush x:Key="ColorBadgeOccupiedBg" Color="#D1FAE5" />
+    <SolidColorBrush x:Key="ColorBadgeReservedBg" Color="#DBEAFE" />
+    <SolidColorBrush x:Key="ColorBadgeWaitingBg" Color="#FEE2E2" />
+</ResourceDictionary>

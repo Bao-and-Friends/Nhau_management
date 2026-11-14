@@ -1,0 +1,21 @@
+<UserControl x:Class="RestaurantClient.UI.Authentication.OtpVerificationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1100">
+    <Grid Background="{StaticResource ColorAppBg}">
+        <Border Width="420" Style="{StaticResource CardContainerStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="32">
+            <StackPanel>
+                <TextBlock Text="Xác Thực Mã OTP" FontSize="20" FontWeight="Bold" Foreground="{StaticResource ColorTextPrimary}" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                <TextBlock Text="Mã OTP 6 số đã được gửi qua email. Vui lòng nhập mã trước khi hết hạn (2 phút)." FontSize="13" Foreground="{StaticResource ColorTextSecondary}" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,20"/>
+
+                <TextBlock Text="Mã OTP:" FontWeight="SemiBold" Foreground="{StaticResource ColorTextPrimary}" Margin="0,0,0,6"/>
+                <TextBox x:Name="txtOtp" Style="{StaticResource ModernTextBoxStyle}" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Margin="0,0,0,24"/>
+
+                <Button x:Name="btnVerifyOtp" Content="XÁC NHẬN MÃ OTP" Style="{StaticResource PrimaryButtonStyle}" Height="45" Click="BtnVerifyOtp_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

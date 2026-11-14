@@ -1,0 +1,88 @@
+<Window x:Class="RestaurantClient.UI.Main.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="The Gourmet Restaurant - Quản Lý Nhà Hàng" 
+        Height="900" Width="1440"
+        MinHeight="768" MinWidth="1200"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource ColorAppBg}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ================= TOP HEADER ================= -->
+        <Border Grid.Row="0" Background="{StaticResource ColorPrimary}" BorderBrush="#334155" BorderThickness="0,0,0,1" Padding="20,0">
+            <Grid>
+                <!-- Brand Title -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="🍽️" FontSize="26" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="THE GOURMET RESTAURANT" FontSize="16" FontWeight="Bold" Foreground="{StaticResource ColorTextWhite}"/>
+                        <TextBlock Text="HỆ THỐNG VẬN HÀNH &amp; QUẢN TRỊ NHÀ HÀNG" FontSize="11" Foreground="#94A3B8"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Real-time Clock -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="🕒 " FontSize="14" Foreground="#94A3B8" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="lblClock" Text="14/11/2026 20:00:00" FontSize="14" FontWeight="SemiBold" Foreground="#E2E8F0" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Current Staff Profile & Logout -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Border Width="36" Height="36" CornerRadius="18" Background="{StaticResource ColorAccent}" Margin="0,0,10,0">
+                        <TextBlock Text="👤" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <StackPanel VerticalAlignment="Center" Margin="0,0,16,0">
+                        <TextBlock x:Name="lblStaffName" Text="Nguyễn Quốc Huy" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource ColorTextWhite}"/>
+                        <TextBlock x:Name="lblStaffRole" Text="Quản Lý" FontSize="11" Foreground="#60A5FA"/>
+                    </StackPanel>
+                    <Button Content="Đăng Xuất 🚪" Style="{StaticResource PrimaryButtonStyle}" Background="#334155" FontSize="12" Padding="12,6" Click="BtnLogout_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ================= MAIN BODY ================= -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- LEFT SIDEBAR MENU -->
+            <Border Grid.Column="0" Background="{StaticResource ColorSidebarBg}" BorderBrush="#334155" BorderThickness="0,0,1,0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="8,16,8,16">
+                        <TextBlock Text="PHÂN HỆ NGHIỆP VỤ" FontSize="11" FontWeight="Bold" Foreground="#64748B" Margin="12,0,0,8"/>
+
+                        <Button Content="🏠 Tổng Quan (Dashboard)" Style="{StaticResource SidebarButtonStyle}" Click="Nav_Dashboard_Click"/>
+                        <Button Content="🪑 Sơ Đồ Bàn Ăn" Style="{StaticResource SidebarButtonStyle}" Click="Nav_TableMap_Click"/>
+                        <Button Content="📝 Phục Vụ / Gọi Món" Style="{StaticResource SidebarButtonStyle}" Click="Nav_Serving_Click"/>
+                        <Button Content="💳 Thu Ngân &amp; Bill" Style="{StaticResource SidebarButtonStyle}" Click="Nav_Cashier_Click"/>
+
+                        <Separator Background="#334155" Margin="8,12"/>
+
+                        <TextBlock Text="QUẢN TRỊ &amp; BÁO CÁO" FontSize="11" FontWeight="Bold" Foreground="#64748B" Margin="12,0,0,8"/>
+
+                        <Button Content="🍔 Thực Đơn Món Ăn" Style="{StaticResource SidebarButtonStyle}" Click="Nav_Food_Click"/>
+                        <Button Content="👥 Quản Lý Nhân Sự" Style="{StaticResource SidebarButtonStyle}" Click="Nav_Staff_Click"/>
+                        <Button Content="📊 Báo Cáo Doanh Thu" Style="{StaticResource SidebarButtonStyle}" Click="Nav_Revenue_Click"/>
+                        <Button Content="📦 Quản Lý Kho Hàng" Style="{StaticResource SidebarButtonStyle}" Click="Nav_Inventory_Click"/>
+
+                        <Separator Background="#334155" Margin="8,12"/>
+
+                        <TextBlock Text="CÁ NHÂN &amp; KẾT NỐI" FontSize="11" FontWeight="Bold" Foreground="#64748B" Margin="12,0,0,8"/>
+
+                        <Button Content="👤 Hồ Sơ Tài Khoản" Style="{StaticResource SidebarButtonStyle}" Click="Nav_Profile_Click"/>
+                        <Button Content="💬 Kênh Chat Nội Bộ" Style="{StaticResource SidebarButtonStyle}" Click="Nav_Chat_Click"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <!-- CENTRAL WORKSPACE -->
+            <ContentControl Grid.Column="1" x:Name="mainContent" Margin="0"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,58 @@
+<Window x:Class="RestaurantClient.UI.Cashier.PaymentDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Xác Nhận Thanh Toán &amp; Đóng Hóa Đơn" 
+        Height="480" Width="440"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="{StaticResource ColorCardBg}">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,16">
+            <TextBlock Text="Xác Nhận Thanh Toán" FontSize="20" FontWeight="Bold" Foreground="{StaticResource ColorTextPrimary}"/>
+            <TextBlock Text="Bàn B02 - Tổng tiền: 982.800 đ" FontSize="14" Foreground="{StaticResource ColorTextSecondary}" Margin="0,2,0,0"/>
+        </StackPanel>
+
+        <!-- Payment Methods -->
+        <StackPanel Grid.Row="1" Margin="0,0,0,16">
+            <TextBlock Text="Phương thức thanh toán:" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="{StaticResource ColorTextPrimary}"/>
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Content="💵 Tiền Mặt" IsChecked="True" Margin="0,0,24,0"/>
+                <RadioButton Content="📲 Chuyển Khoản / QR" Margin="0,0,24,0"/>
+                <RadioButton Content="💳 Thẻ Ngân Hàng"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Cash received input -->
+        <StackPanel Grid.Row="2" Margin="0,0,0,16">
+            <TextBlock Text="Tiền khách đưa:" FontWeight="SemiBold" Margin="0,0,0,6" Foreground="{StaticResource ColorTextPrimary}"/>
+            <TextBox Style="{StaticResource ModernTextBoxStyle}" Text="1.000.000"/>
+        </StackPanel>
+
+        <!-- Change amount -->
+        <Border Grid.Row="3" Background="{StaticResource ColorAppBg}" CornerRadius="8" Padding="12" Margin="0,0,0,20">
+            <Grid>
+                <TextBlock Text="Tiền thừa trả khách:" FontWeight="SemiBold" VerticalAlignment="Center" Foreground="{StaticResource ColorTextPrimary}"/>
+                <TextBlock Text="17.200 đ" FontWeight="Bold" FontSize="18" Foreground="{StaticResource ColorTableOccupied}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- Action buttons -->
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Hủy Bỏ" Height="40" Margin="0,0,8,0" Background="{StaticResource ColorCardBg}" BorderBrush="{StaticResource ColorBorder}" BorderThickness="1" Foreground="{StaticResource ColorTextSecondary}" Click="BtnCancel_Click"/>
+            <Button Grid.Column="1" Content="In &amp; Hoàn Tất" Height="40" Style="{StaticResource PrimaryButtonStyle}" Margin="8,0,0,0" Click="BtnConfirm_Click"/>
+        </Grid>
+    </Grid>
+</Window>

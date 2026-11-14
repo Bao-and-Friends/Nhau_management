@@ -1,0 +1,40 @@
+<UserControl x:Class="RestaurantClient.UI.Inventory.InventoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1100">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock Text="Quản Lý Kho Nguyên Vật Liệu" FontSize="24" FontWeight="Bold" Foreground="{StaticResource ColorTextPrimary}"/>
+                <TextBlock Text="Theo dõi tồn kho thực phẩm, cảnh báo nguyên liệu sắp hết và nhập kho" FontSize="14" Foreground="{StaticResource ColorTextSecondary}" Margin="0,4,0,0"/>
+            </StackPanel>
+            <Button Content="📦 Tạo Phiếu Nhập Kho" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right"/>
+        </Grid>
+
+        <Border Grid.Row="1" Style="{StaticResource CardContainerStyle}" Margin="0,0,0,16" Padding="12">
+            <TextBox Style="{StaticResource ModernTextBoxStyle}" Text="🔍 Tìm kiếm nguyên liệu, gia vị, đồ uống trong kho..."/>
+        </Border>
+
+        <Border Grid.Row="2" Style="{StaticResource CardContainerStyle}">
+            <DataGrid x:Name="dgInventory" AutoGenerateColumns="False" CanUserAddRows="False" GridLinesVisibility="Horizontal" HeadersVisibility="Column" Background="Transparent" BorderThickness="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã Kho" Binding="{Binding Id}" Width="100"/>
+                    <DataGridTextColumn Header="Tên Nguyên Liệu / Hàng Hóa" Binding="{Binding Name}" Width="250"/>
+                    <DataGridTextColumn Header="Đơn Vị Tính" Binding="{Binding Unit}" Width="120"/>
+                    <DataGridTextColumn Header="Số Lượng Tồn" Binding="{Binding Quantity}" Width="140"/>
+                    <DataGridTextColumn Header="Định Mức Tối Thiểu" Binding="{Binding MinThreshold}" Width="160"/>
+                    <DataGridTextColumn Header="Tình Trạng" Binding="{Binding Status}" Width="150"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</UserControl>
