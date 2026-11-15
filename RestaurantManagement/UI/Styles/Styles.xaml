@@ -98,14 +98,14 @@
         </Setter>
     </Style>
 
-    <!-- Modern Rounded Input Field for Login Form -->
+    <!-- Modern Rounded Input Field for Forms -->
     <Style x:Key="ModernRoundedTextBoxStyle" TargetType="TextBox">
         <Setter Property="Background" Value="{StaticResource ColorInputBg}" />
         <Setter Property="Foreground" Value="{StaticResource ColorTextDark}" />
         <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="Height" Value="52" />
+        <Setter Property="Height" Value="56" />
         <Setter Property="Padding" Value="16,12" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
@@ -121,7 +121,15 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
                             <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ColorAccent}" />
-                            <Setter TargetName="border" Property="BorderThickness" Value="1.5" />
+                            <Setter TargetName="border" Property="BorderThickness" Value="2" />
+                        </Trigger>
+                        <Trigger Property="Tag" Value="Error">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ColorAlertRed}" />
+                            <Setter TargetName="border" Property="BorderThickness" Value="2" />
+                        </Trigger>
+                        <Trigger Property="Tag" Value="Valid">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ColorSuccess}" />
+                            <Setter TargetName="border" Property="BorderThickness" Value="2" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -135,7 +143,7 @@
         <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="Height" Value="52" />
+        <Setter Property="Height" Value="56" />
         <Setter Property="Padding" Value="16,12" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
@@ -151,7 +159,15 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
                             <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ColorAccent}" />
-                            <Setter TargetName="border" Property="BorderThickness" Value="1.5" />
+                            <Setter TargetName="border" Property="BorderThickness" Value="2" />
+                        </Trigger>
+                        <Trigger Property="Tag" Value="Error">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ColorAlertRed}" />
+                            <Setter TargetName="border" Property="BorderThickness" Value="2" />
+                        </Trigger>
+                        <Trigger Property="Tag" Value="Valid">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ColorSuccess}" />
+                            <Setter TargetName="border" Property="BorderThickness" Value="2" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -159,20 +175,20 @@
         </Setter>
     </Style>
 
-    <!-- Pill Login Button Style -->
+    <!-- Pill Button Style (Figma NutChinh, Login & Forgot Password) -->
     <Style x:Key="LoginPillButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource ColorAccent}" />
         <Setter Property="Foreground" Value="{StaticResource ColorTextWhite}" />
         <Setter Property="FontSize" Value="15" />
         <Setter Property="FontWeight" Value="SemiBold" />
-        <Setter Property="Height" Value="54" />
+        <Setter Property="Height" Value="56" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="border"
                             Background="{TemplateBinding Background}"
-                            CornerRadius="27">
+                            CornerRadius="28">
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="16" Direction="270" ShadowDepth="4" Opacity="0.18" Color="#2563EB"/>
                         </Border.Effect>
@@ -183,7 +199,52 @@
                             <Setter TargetName="border" Property="Background" Value="{StaticResource ColorAccentHover}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="border" Property="Opacity" Value="0.6" />
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource ColorButtonDisabled}" />
+                            <Setter Property="Foreground" Value="{StaticResource ColorTextDisabled}" />
+                            <Setter Property="Cursor" Value="Arrow" />
+                            <Setter TargetName="border" Property="Effect" Value="{x:Null}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- 6-Box OTP Individual Digit Style (Figma ChSXacMinh) -->
+    <Style x:Key="OtpDigitBoxStyle" TargetType="TextBox">
+        <Setter Property="Width" Value="76" />
+        <Setter Property="Height" Value="64" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{StaticResource ColorPrimary}" />
+        <Setter Property="Background" Value="{StaticResource ColorInputBg}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="MaxLength" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="14">
+                        <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ColorAccent}" />
+                            <Setter TargetName="border" Property="BorderThickness" Value="2" />
+                        </Trigger>
+                        <Trigger Property="Tag" Value="Error">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ColorAlertRed}" />
+                            <Setter TargetName="border" Property="BorderThickness" Value="2" />
+                        </Trigger>
+                        <Trigger Property="Tag" Value="Warning">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ColorWarning}" />
+                            <Setter TargetName="border" Property="BorderThickness" Value="2" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

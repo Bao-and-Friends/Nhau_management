@@ -74,6 +74,31 @@ namespace RestaurantClient.UI.Main
             mainContent.Content = dashboard;
         }
 
+        private void LoadLoginView()
+        {
+            var loginView = new LoginView();
+            loginView.LoginSuccess += (s, ev) =>
+            {
+                UpdateUserProfileHeader();
+                LoadDashboardView();
+            };
+            loginView.ForgotPasswordRequested += (s, ev) =>
+            {
+                LoadForgotPasswordView();
+            };
+            mainContent.Content = loginView;
+        }
+
+        private void LoadForgotPasswordView()
+        {
+            var forgotPasswordView = new ForgotPasswordView();
+            forgotPasswordView.BackToLoginRequested += (s, ev) =>
+            {
+                LoadLoginView();
+            };
+            mainContent.Content = forgotPasswordView;
+        }
+
         private void OnDashboardNavigateRequested(object? sender, string target)
         {
             switch (target)
@@ -152,13 +177,7 @@ namespace RestaurantClient.UI.Main
             if (result == MessageBoxResult.Yes)
             {
                 ApiService.Logout();
-                var loginView = new LoginView();
-                loginView.LoginSuccess += (s, ev) =>
-                {
-                    UpdateUserProfileHeader();
-                    LoadDashboardView();
-                };
-                mainContent.Content = loginView;
+                LoadLoginView();
             }
         }
     }

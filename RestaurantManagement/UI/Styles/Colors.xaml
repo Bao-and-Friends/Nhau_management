@@ -16,6 +16,7 @@
     <SolidColorBrush x:Key="ColorSidebarBg" Color="#1E293B" />
     <SolidColorBrush x:Key="ColorSidebarActive" Color="#334155" />
     <SolidColorBrush x:Key="ColorSidebarHover" Color="#293548" />
+    <SolidColorBrush x:Key="ColorButtonDisabled" Color="#DCE3EF" />
 
     <!-- Typography Colors -->
     <SolidColorBrush x:Key="ColorTextPrimary" Color="#0F172A" />
@@ -25,9 +26,11 @@
     <SolidColorBrush x:Key="ColorTextBrandMuted" Color="#B8C5D9" />
     <SolidColorBrush x:Key="ColorTextWhite" Color="#FFFFFF" />
     <SolidColorBrush x:Key="ColorTextSidebarInactive" Color="#CBD5E1" />
+    <SolidColorBrush x:Key="ColorTextDisabled" Color="#64748B" />
 
     <!-- Status & Metric Colors -->
     <SolidColorBrush x:Key="ColorSuccess" Color="#10B981" />
+    <SolidColorBrush x:Key="ColorSuccessDark" Color="#15803D" />
     <SolidColorBrush x:Key="ColorSuccessLight" Color="#D1FAE5" />
     <SolidColorBrush x:Key="ColorAlertRed" Color="#DC2626" />
     <SolidColorBrush x:Key="ColorAlertBg" Color="#FEF2F2" />
