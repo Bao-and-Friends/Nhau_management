@@ -1,5 +1,7 @@
+using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using RestaurantClient.Services;
 
 namespace RestaurantClient.UI.Authentication
@@ -7,6 +9,7 @@ namespace RestaurantClient.UI.Authentication
     public partial class LoginView : UserControl
     {
         public event EventHandler? LoginSuccess;
+        public event EventHandler? ForgotPasswordRequested;
 
         public LoginView()
         {
@@ -45,6 +48,11 @@ namespace RestaurantClient.UI.Authentication
             {
                 btnLogin.IsEnabled = true;
             }
+        }
+
+        private void BtnForgotPassword_Click(object sender, MouseButtonEventArgs e)
+        {
+            ForgotPasswordRequested?.Invoke(this, EventArgs.Empty);
         }
     }
 }

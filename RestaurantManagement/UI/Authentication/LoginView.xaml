@@ -4,34 +4,263 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="1100">
-    <Grid Background="{StaticResource ColorAppBg}">
-        <Border Width="420" Style="{StaticResource CardContainerStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="32">
-            <StackPanel>
-                <!-- Brand Header -->
-                <StackPanel HorizontalAlignment="Center" Margin="0,0,0,24">
-                    <TextBlock Text="🍽️" FontSize="44" HorizontalAlignment="Center"/>
-                    <TextBlock Text="THE GOURMET" FontSize="22" FontWeight="Bold" Foreground="{StaticResource ColorTextPrimary}" HorizontalAlignment="Center" Margin="0,8,0,2"/>
-                    <TextBlock Text="Hệ Thống Quản Lý Nhà Hàng" FontSize="13" Foreground="{StaticResource ColorTextSecondary}" HorizontalAlignment="Center"/>
+             d:DesignHeight="900" d:DesignWidth="1440"
+             FontFamily="Segoe UI, Inter"
+             Background="{StaticResource ColorAppBg}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid MinWidth="1200" MinHeight="800" Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/> <!-- Status Island -->
+                <RowDefinition Height="*"/>    <!-- Main Dual-Card Section -->
+                <RowDefinition Height="Auto"/> <!-- Footer Copyright -->
+            </Grid.RowDefinitions>
+
+            <!-- Status Island: Figma node 15:43 -->
+            <Border Grid.Row="0" 
+                    Background="{StaticResource ColorPrimary}" 
+                    CornerRadius="22" 
+                    Height="44" 
+                    Width="256" 
+                    HorizontalAlignment="Center" 
+                    Margin="0,16,0,24">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="4" Opacity="0.08" Color="#0F172A"/>
+                </Border.Effect>
+                <TextBlock Text="ĐĂNG NHẬP" 
+                           FontSize="16" 
+                           FontWeight="Bold" 
+                           Foreground="{StaticResource ColorTextWhite}" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"/>
+            </Border>
+
+            <!-- Main Dual-Card Presentation Area -->
+            <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="1200">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="480"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="580"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- ================= LEFT COLUMN: BRAND & SHOWCASE ================= -->
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <!-- Brand Card: Figma node 15:3 -->
+                    <Border Background="{StaticResource ColorPrimary}" 
+                            CornerRadius="32" 
+                            Padding="40" 
+                            Margin="0,0,0,24">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="32" Direction="270" ShadowDepth="8" Opacity="0.08" Color="#0F172A"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <!-- Workspace name -->
+                            <TextBlock Text="Nhà hàng Gourmet" 
+                                       FontSize="22" 
+                                       FontWeight="SemiBold" 
+                                       Foreground="{StaticResource ColorTextWhite}" 
+                                       Margin="0,0,0,24"/>
+
+                            <!-- Eyebrow -->
+                            <TextBlock Text="KHÔNG GIAN LÀM VIỆC" 
+                                       FontSize="11" 
+                                       FontWeight="SemiBold" 
+                                       Foreground="{StaticResource ColorTextBrandMuted}" 
+                                       Margin="0,0,0,16"/>
+
+                            <!-- Headline -->
+                            <TextBlock Text="Làm việc hiệu quả,&#x0a;bắt đầu từ đây." 
+                                       FontSize="34" 
+                                       FontWeight="SemiBold" 
+                                       Foreground="{StaticResource ColorTextWhite}" 
+                                       LineHeight="44" 
+                                       Margin="0,0,0,20"/>
+
+                            <!-- Description -->
+                            <TextBlock Text="Một không gian để quản lý công việc và kết nối." 
+                                       FontSize="15" 
+                                       Foreground="{StaticResource ColorTextBrandMuted}" 
+                                       Margin="0,0,0,28"/>
+
+                            <!-- Message Pill: Figma node 15:8 -->
+                            <Border Background="{StaticResource ColorSidebarBg}" 
+                                    CornerRadius="15" 
+                                    Height="32" 
+                                    HorizontalAlignment="Left" 
+                                    Padding="16,6">
+                                <TextBlock Text="Sẵn sàng cho một ngày hiệu quả" 
+                                           FontSize="11" 
+                                           FontWeight="Medium" 
+                                           Foreground="{StaticResource ColorTextWhite}" 
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Feature Support Cards Row: Figma node 15:45 & 15:52 -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Productivity Card -->
+                        <Border Grid.Column="0" 
+                                Background="{StaticResource ColorCardBg}" 
+                                BorderBrush="{StaticResource ColorBorder}" 
+                                BorderThickness="1" 
+                                CornerRadius="28" 
+                                Padding="20">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="4" Opacity="0.04" Color="#0F172A"/>
+                            </Border.Effect>
+                            <StackPanel>
+                                <Border Background="{StaticResource ColorAppBg}" CornerRadius="16" Width="44" Height="32" HorizontalAlignment="Left" Margin="0,0,0,16">
+                                    <TextBlock Text="🎯" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="Tập trung điều&#x0a;quan trọng." 
+                                           FontSize="16" 
+                                           FontWeight="SemiBold" 
+                                           Foreground="{StaticResource ColorTextDark}" 
+                                           LineHeight="22" 
+                                           Margin="0,0,0,8"/>
+                                <TextBlock Text="Sắp xếp gọn gàng.&#x0a;Làm việc nhẹ nhàng hơn." 
+                                           FontSize="11" 
+                                           Foreground="{StaticResource ColorTextSecondary}" 
+                                           LineHeight="16"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Security Card -->
+                        <Border Grid.Column="2" 
+                                Background="{StaticResource ColorCardBg}" 
+                                BorderBrush="{StaticResource ColorBorder}" 
+                                BorderThickness="1" 
+                                CornerRadius="28" 
+                                Padding="20">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="4" Opacity="0.04" Color="#0F172A"/>
+                            </Border.Effect>
+                            <StackPanel>
+                                <Border Background="{StaticResource ColorAppBg}" CornerRadius="16" Width="44" Height="32" HorizontalAlignment="Left" Margin="0,0,0,16">
+                                    <TextBlock Text="🛡️" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="An toàn và&#x0a;bảo mật." 
+                                           FontSize="16" 
+                                           FontWeight="SemiBold" 
+                                           Foreground="{StaticResource ColorTextDark}" 
+                                           LineHeight="22" 
+                                           Margin="0,0,0,8"/>
+                                <TextBlock Text="An tâm mỗi lần&#x0a;truy cập." 
+                                           FontSize="11" 
+                                           Foreground="{StaticResource ColorTextSecondary}" 
+                                           LineHeight="16"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
                 </StackPanel>
 
-                <!-- Username Input -->
-                <TextBlock Text="Tên đăng nhập:" FontWeight="SemiBold" Foreground="{StaticResource ColorTextPrimary}" Margin="0,0,0,6"/>
-                <TextBox x:Name="txtUsername" Style="{StaticResource ModernTextBoxStyle}" Text="admin" Margin="0,0,0,16"/>
+                <!-- ================= RIGHT COLUMN: LOGIN FORM CARD ================= -->
+                <!-- Figma node 15:10 -->
+                <Border Grid.Column="2" 
+                        Background="{StaticResource ColorCardBg}" 
+                        BorderBrush="{StaticResource ColorBorder}" 
+                        BorderThickness="1" 
+                        CornerRadius="32" 
+                        Padding="48" 
+                        VerticalAlignment="Center">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="36" Direction="270" ShadowDepth="8" Opacity="0.06" Color="#0F172A"/>
+                    </Border.Effect>
 
-                <!-- Password Input -->
-                <TextBlock Text="Mật khẩu:" FontWeight="SemiBold" Foreground="{StaticResource ColorTextPrimary}" Margin="0,0,0,6"/>
-                <PasswordBox x:Name="txtPassword" Style="{StaticResource ModernPasswordBoxStyle}" Password="admin" Margin="0,0,0,16"/>
+                    <StackPanel>
+                        <!-- Top Accent Pill: Figma node 15:41 -->
+                        <Border Background="{StaticResource ColorPrimary}" 
+                                CornerRadius="3" 
+                                Width="52" 
+                                Height="6" 
+                                HorizontalAlignment="Center" 
+                                Margin="0,0,0,32"/>
 
-                <!-- Remember / Forgot password -->
-                <Grid Margin="0,0,0,24">
-                    <CheckBox Content="Ghi nhớ đăng nhập" VerticalAlignment="Center" Foreground="{StaticResource ColorTextSecondary}"/>
-                    <TextBlock Text="Quên mật khẩu?" Foreground="{StaticResource ColorAccent}" HorizontalAlignment="Right" VerticalAlignment="Center" Cursor="Hand" TextDecorations="Underline"/>
-                </Grid>
+                        <!-- Form Heading: Figma node 15:12 -->
+                        <TextBlock Text="Chào mừng trở lại!" 
+                                   FontSize="30" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{StaticResource ColorTextDark}" 
+                                   Margin="0,0,0,8"/>
+                        <TextBlock Text="Đăng nhập để tiếp tục công việc." 
+                                   FontSize="15" 
+                                   Foreground="{StaticResource ColorTextSecondary}" 
+                                   Margin="0,0,0,28"/>
 
-                <!-- Login Button -->
-                <Button x:Name="btnLogin" Content="ĐĂNG NHẬP" Style="{StaticResource PrimaryButtonStyle}" Height="45" Click="BtnLogin_Click"/>
-            </StackPanel>
-        </Border>
-    </Grid>
+                        <!-- Username/Email Field: Figma node 15:16 -->
+                        <TextBlock Text="Email hoặc tên đăng nhập" 
+                                   FontSize="14" 
+                                   FontWeight="Medium" 
+                                   Foreground="{StaticResource ColorTextDark}" 
+                                   Margin="0,0,0,8"/>
+                        <TextBox x:Name="txtUsername" 
+                                 Style="{StaticResource ModernRoundedTextBoxStyle}" 
+                                 Text="admin" 
+                                 Margin="0,0,0,20"/>
+
+                        <!-- Password Field: Figma node 15:20 -->
+                        <TextBlock Text="Mật khẩu" 
+                                   FontSize="14" 
+                                   FontWeight="Medium" 
+                                   Foreground="{StaticResource ColorTextDark}" 
+                                   Margin="0,0,0,8"/>
+                        <PasswordBox x:Name="txtPassword" 
+                                     Style="{StaticResource ModernRoundedPasswordBoxStyle}" 
+                                     Password="admin" 
+                                     Margin="0,0,0,20"/>
+
+                        <!-- Remember Me and Forgot Password: Figma node 15:28 -->
+                        <Grid Margin="0,0,0,28">
+                            <CheckBox x:Name="chkRememberMe" 
+                                      Content="Ghi nhớ đăng nhập" 
+                                      FontSize="13" 
+                                      Foreground="{StaticResource ColorTextSecondary}" 
+                                      VerticalAlignment="Center"/>
+
+                            <TextBlock x:Name="btnForgotPassword" 
+                                       Text="Quên mật khẩu?" 
+                                       FontSize="13" 
+                                       FontWeight="SemiBold" 
+                                       Foreground="{StaticResource ColorAccent}" 
+                                       HorizontalAlignment="Right" 
+                                       VerticalAlignment="Center" 
+                                       Cursor="Hand" 
+                                       MouseLeftButtonUp="BtnForgotPassword_Click"/>
+                        </Grid>
+
+                        <!-- Submit Button: Figma node 15:33 -->
+                        <Button x:Name="btnLogin" 
+                                Style="{StaticResource LoginPillButtonStyle}" 
+                                Margin="0,0,0,20" 
+                                Click="BtnLogin_Click">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="Đăng nhập" FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource ColorTextWhite}" Margin="0,0,8,0"/>
+                                <TextBlock Text="➔" FontSize="14" FontWeight="Bold" Foreground="{StaticResource ColorTextWhite}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Sign-up Prompt: Figma node 15:38 -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Chưa có tài khoản? " FontSize="13" Foreground="{StaticResource ColorTextSecondary}"/>
+                            <TextBlock Text="Đăng ký" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource ColorAccent}" Cursor="Hand"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Footer: Figma node 15:42 -->
+            <TextBlock Grid.Row="2" 
+                       Text="© 2026 Nhà hàng Gourmet" 
+                       FontSize="12" 
+                       Foreground="#475569" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,24,0,16"/>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

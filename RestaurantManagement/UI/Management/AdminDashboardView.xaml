@@ -4,89 +4,194 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="1100">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+             d:DesignHeight="836" d:DesignWidth="1200"
+             FontFamily="Segoe UI, Inter"
+             Background="{StaticResource ColorAppBg}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <!-- Content_Workspace: Figma node 9:66 -->
         <Grid Margin="24">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/> <!-- Frame 10: Title -->
+                <RowDefinition Height="Auto"/> <!-- Frame 15: 4 KPI Cards -->
+                <RowDefinition Height="Auto"/> <!-- Frame 16: Quick Actions -->
+                <RowDefinition Height="Auto"/> <!-- Frame 22: Recent Activity -->
             </Grid.RowDefinitions>
 
-            <!-- Title -->
-            <StackPanel Grid.Row="0" Margin="0,0,0,20">
-                <TextBlock Text="Bảng Điều Khiển Quản Lý (Admin Dashboard)" FontSize="24" FontWeight="Bold" Foreground="{StaticResource ColorTextPrimary}"/>
-                <TextBlock Text="Tổng quan vận hành, chỉ số doanh thu và trạng thái phòng bàn thời gian thực" FontSize="14" Foreground="{StaticResource ColorTextSecondary}" Margin="0,4,0,0"/>
+            <!-- ================= FRAME 10: HEADER ================= -->
+            <StackPanel Grid.Row="0" Margin="0,0,0,24">
+                <TextBlock Text="BẢNG ĐIỀU KHIỂN QUẢN LÝ" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Foreground="{StaticResource ColorTextPrimary}"/>
+                <TextBlock Text="Tổng quan vận hành, chỉ số doanh thu và trạng thái phòng bàn thời gian thực" 
+                           FontSize="14" 
+                           Foreground="{StaticResource ColorTextSecondary}" 
+                           Margin="0,4,0,0"/>
             </StackPanel>
 
-            <!-- 4 Metric Cards (KPI) -->
-            <UniformGrid Grid.Row="1" Columns="4" Margin="0,0,0,24">
-                <!-- Card 1: Total Tables -->
-                <Border Style="{StaticResource CardContainerStyle}" Margin="0,0,12,0">
+            <!-- ================= FRAME 15: 4 METRIC KPI CARDS ================= -->
+            <Grid Grid.Row="1" Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Frame 11: Tổng số bàn -->
+                <Border Grid.Column="0" Style="{StaticResource MetricCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="TỔNG SỐ BÀN" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource ColorTextSecondary}"/>
-                        <TextBlock Text="32 Bàn" FontSize="28" FontWeight="Bold" Foreground="{StaticResource ColorTextPrimary}" Margin="0,8,0,4"/>
-                        <TextBlock Text="Công suất phục vụ: 65%" FontSize="12" Foreground="{StaticResource ColorTableOccupied}"/>
+                        <TextBlock Text="TỔNG SỐ BÀN" 
+                                   FontSize="12" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{StaticResource ColorTextSecondary}"/>
+                        <TextBlock x:Name="lblTotalTables" 
+                                   Text="32 Bàn" 
+                                   FontSize="28" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{StaticResource ColorTextPrimary}" 
+                                   Margin="0,10,0,10"/>
+                        <TextBlock Text="Công suất phục vụ: 65%" 
+                                   FontSize="12" 
+                                   Foreground="{StaticResource ColorSuccess}"/>
                     </StackPanel>
                 </Border>
 
-                <!-- Card 2: Occupied -->
-                <Border Style="{StaticResource CardContainerStyle}" Margin="6,0,6,0">
+                <!-- Frame 14: Bàn đang có khách -->
+                <Border Grid.Column="2" Style="{StaticResource MetricCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="BÀN ĐANG CÓ KHÁCH" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource ColorTextSecondary}"/>
-                        <TextBlock Text="21 Bàn" FontSize="28" FontWeight="Bold" Foreground="{StaticResource ColorTableOccupied}" Margin="0,8,0,4"/>
-                        <TextBlock Text="Đang phục vụ liên tục" FontSize="12" Foreground="{StaticResource ColorTextSecondary}"/>
+                        <TextBlock Text="BÀN ĐANG CÓ KHÁCH" 
+                                   FontSize="12" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{StaticResource ColorTextSecondary}"/>
+                        <TextBlock x:Name="lblOccupiedTables" 
+                                   Text="21 Bàn" 
+                                   FontSize="28" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{StaticResource ColorSuccess}" 
+                                   Margin="0,10,0,10"/>
+                        <TextBlock Text="Đang phục vụ liên tục" 
+                                   FontSize="12" 
+                                   Foreground="{StaticResource ColorSuccess}"/>
                     </StackPanel>
                 </Border>
 
-                <!-- Card 3: Empty -->
-                <Border Style="{StaticResource CardContainerStyle}" Margin="6,0,6,0">
+                <!-- Frame 12: Bàn còn trống -->
+                <Border Grid.Column="4" Style="{StaticResource MetricCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="BÀN CÒN TRỐNG" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource ColorTextSecondary}"/>
-                        <TextBlock Text="11 Bàn" FontSize="28" FontWeight="Bold" Foreground="{StaticResource ColorTableEmpty}" Margin="0,8,0,4"/>
-                        <TextBlock Text="Sẵn sàng đón khách mới" FontSize="12" Foreground="{StaticResource ColorTextSecondary}"/>
+                        <TextBlock Text="BÀN CÒN TRỐNG" 
+                                   FontSize="12" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{StaticResource ColorTextSecondary}"/>
+                        <TextBlock x:Name="lblEmptyTables" 
+                                   Text="11 Bàn" 
+                                   FontSize="28" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{StaticResource ColorTextSecondary}" 
+                                   Margin="0,10,0,10"/>
+                        <TextBlock Text="Sẵn sàng đón khách mới" 
+                                   FontSize="12" 
+                                   Foreground="{StaticResource ColorSuccess}"/>
                     </StackPanel>
                 </Border>
 
-                <!-- Card 4: Today Revenue -->
-                <Border Style="{StaticResource CardContainerStyle}" Margin="12,0,0,0">
+                <!-- Frame 13: Doanh thu hôm nay -->
+                <Border Grid.Column="6" Style="{StaticResource MetricCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="DOANH THU HÔM NAY" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource ColorTextSecondary}"/>
-                        <TextBlock Text="18.450.000 đ" FontSize="28" FontWeight="Bold" Foreground="{StaticResource ColorAccent}" Margin="0,8,0,4"/>
-                        <TextBlock Text="Đã hoàn thành 52 hóa đơn" FontSize="12" Foreground="{StaticResource ColorTextSecondary}"/>
+                        <TextBlock Text="DOANH THU HÔM NAY" 
+                                   FontSize="12" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{StaticResource ColorTextSecondary}"/>
+                        <TextBlock x:Name="lblTodayRevenue" 
+                                   Text="18.450.000 đ" 
+                                   FontSize="28" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{StaticResource ColorAccent}" 
+                                   Margin="0,10,0,10"/>
+                        <TextBlock Text="Đã hoàn thành 52 hóa đơn" 
+                                   FontSize="12" 
+                                   Foreground="{StaticResource ColorSuccess}"/>
                     </StackPanel>
                 </Border>
-            </UniformGrid>
+            </Grid>
 
-            <!-- Quick Action Shortcuts -->
-            <Border Grid.Row="2" Style="{StaticResource CardContainerStyle}" Margin="0,0,0,24">
-                <StackPanel>
-                    <TextBlock Text="LỐI TẮT THAO TÁC QUẢN TRỊ" FontSize="14" FontWeight="Bold" Foreground="{StaticResource ColorTextPrimary}" Margin="0,0,0,12"/>
-                    <WrapPanel>
-                        <Button Content="➕ Thêm Nhân Viên Mới" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,12,8"/>
-                        <Button Content="🍔 Cập Nhật Thực Đơn Món" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,12,8"/>
-                        <Button Content="📦 Kiểm Tra Kho Nguyên Liệu" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,12,8"/>
-                        <Button Content="📊 Báo Cáo Doanh Thu Chi Tiết" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,12,8"/>
-                    </WrapPanel>
+            <!-- ================= FRAME 16: LỐI TẮT THAO TÁC QUẢN TRỊ ================= -->
+            <Border Grid.Row="2" Style="{StaticResource CardContainerStyle}" Margin="0,0,0,24" Padding="16">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="LỐI TẮT THAO TÁC QUẢN TRỊ" 
+                               FontSize="14" 
+                               FontWeight="Bold" 
+                               Foreground="{StaticResource ColorTextPrimary}" 
+                               HorizontalAlignment="Center" 
+                               Margin="0,0,0,12"/>
+
+                    <!-- Frame 21: Action buttons container -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <!-- Frame 17: Thêm nhân viên -->
+                        <Button x:Name="btnQuickAddStaff" 
+                                Content="➕  Thêm Nhân Viên Mới" 
+                                Style="{StaticResource PrimaryButtonStyle}" 
+                                Margin="0,0,12,0" 
+                                Click="BtnQuickAddStaff_Click"/>
+
+                        <!-- Frame 18: Cập nhật món ăn -->
+                        <Button x:Name="btnQuickUpdateFood" 
+                                Content="🍔  Cập Nhật Món Ăn" 
+                                Style="{StaticResource PrimaryButtonStyle}" 
+                                Margin="0,0,12,0" 
+                                Click="BtnQuickUpdateFood_Click"/>
+
+                        <!-- Frame 19: Kiểm tra tồn kho -->
+                        <Button x:Name="btnQuickCheckInventory" 
+                                Content="📦  Kiểm Tra Tồn Kho" 
+                                Style="{StaticResource PrimaryButtonStyle}" 
+                                Margin="0,0,12,0" 
+                                Click="BtnQuickCheckInventory_Click"/>
+
+                        <!-- Frame 20: Báo cáo doanh thu -->
+                        <Button x:Name="btnQuickRevenueReport" 
+                                Content="📊  Báo Cáo Doanh Thu Chi Tiết" 
+                                Style="{StaticResource PrimaryButtonStyle}" 
+                                Click="BtnQuickRevenueReport_Click"/>
+                    </StackPanel>
                 </StackPanel>
             </Border>
 
-            <!-- Recent Activity Stream -->
-            <Border Grid.Row="3" Style="{StaticResource CardContainerStyle}">
+            <!-- ================= FRAME 22: HOẠT ĐỘNG GẦN ĐÂY VÀ CẢNH BÁO TỨC THỜI ================= -->
+            <Border Grid.Row="3" Style="{StaticResource CardContainerStyle}" Padding="16">
                 <StackPanel>
-                    <TextBlock Text="HOẠT ĐỘNG GẦN ĐÂY VÀ CẢNH BÁO TỨC THỜI" FontSize="14" FontWeight="Bold" Foreground="{StaticResource ColorTextPrimary}" Margin="0,0,0,12"/>
-                    <StackPanel>
-                        <Border Background="{StaticResource ColorAppBg}" CornerRadius="6" Padding="12,8" Margin="0,0,0,6">
-                            <TextBlock Text="• 20:15 - Bàn VIP01 vừa thanh toán hóa đơn: 2.450.000 đ (Thu ngân: Dương Bảo)" Foreground="{StaticResource ColorTextPrimary}"/>
-                        </Border>
-                        <Border Background="{StaticResource ColorAppBg}" CornerRadius="6" Padding="12,8" Margin="0,0,0,6">
-                            <TextBlock Text="• 20:02 - Bàn B04 vừa gọi thêm món: 02 Bò Fuji Nướng, 04 Bia Heineken" Foreground="{StaticResource ColorTextPrimary}"/>
-                        </Border>
-                        <Border Background="#FEF2F2" CornerRadius="6" Padding="12,8">
-                            <TextBlock Text="• ⚠️ Cảnh báo: Nguyên liệu 'Thịt Bò Mỹ' trong kho sắp hết (dưới định mức 5kg)" Foreground="#DC2626" FontWeight="SemiBold"/>
-                        </Border>
-                    </StackPanel>
+                    <TextBlock Text="HOẠT ĐỘNG GẦN ĐÂY VÀ CẢNH BÁO TỨC THỜI" 
+                               FontSize="14" 
+                               FontWeight="Bold" 
+                               Foreground="{StaticResource ColorTextPrimary}" 
+                               Margin="0,0,0,12"/>
+
+                    <!-- Frame 23: Activity 1 -->
+                    <Border Background="{StaticResource ColorAppBg}" CornerRadius="6" Padding="12,8" Margin="0,0,0,8">
+                        <TextBlock Text="• 20:15 - Bàn VIP01 vừa thanh toán hóa đơn: 2.450.000 đ (Thu ngân: Lê Dương Bảo)" 
+                                   FontSize="13" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{StaticResource ColorTextPrimary}"/>
+                    </Border>
+
+                    <!-- Frame 24: Activity 2 -->
+                    <Border Background="{StaticResource ColorAppBg}" CornerRadius="6" Padding="12,8" Margin="0,0,0,8">
+                        <TextBlock Text="• 20:02 - Bàn B04 vừa gọi thêm món: 02 Bò Fuji Nướng, 04 Bia Heineken" 
+                                   FontSize="13" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{StaticResource ColorTextPrimary}"/>
+                    </Border>
+
+                    <!-- Frame 25: Activity 3 (Alert) -->
+                    <Border Background="{StaticResource ColorAlertBg}" CornerRadius="6" Padding="12,8">
+                        <TextBlock Text="• ⚠️ Cảnh báo: Nguyên liệu 'Thịt Bò Fuji' trong kho sắp hết (còn 4.5kg dưới mức tối thiểu)" 
+                                   FontSize="13" 
+                                   FontWeight="SemiBold" 
+                                   Foreground="{StaticResource ColorAlertRed}"/>
+                    </Border>
                 </StackPanel>
             </Border>
         </Grid>
