@@ -47,6 +47,7 @@ namespace RestaurantManagement.UI
                     MainForm main = new() { Tag = ApiService.Staff };
                     this.Hide();
                     main.ShowDialog();
+                    pwtxt.Text = "";
                     this.Show();
                 }
                 else

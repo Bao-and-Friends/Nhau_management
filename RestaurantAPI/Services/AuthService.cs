@@ -84,7 +84,7 @@ namespace RestaurantAPI.Services
                 new Claim(ClaimTypes.NameIdentifier, staff.MaNV),
                 new Claim(ClaimTypes.Name, username),
                 new Claim("FullName", staff.HoTen),
-                new Claim(ClaimTypes.Role, staff.VaiTro)
+                new Claim(ClaimTypes.Role, staff.VaiTro.Trim())
             };
 
             var token = new JwtSecurityToken(

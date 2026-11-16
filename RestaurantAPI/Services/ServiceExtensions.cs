@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using RestaurantAPI.DAO;
 using RestaurantAPI.Data;
 using RestaurantAPI.Models.Configuration;
+using System.Security.Claims;
 using System.Text;
 
 namespace RestaurantAPI.Services
@@ -43,6 +44,8 @@ namespace RestaurantAPI.Services
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
+                    RoleClaimType = ClaimTypes.Role,
+                    NameClaimType = ClaimTypes.Name,
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
