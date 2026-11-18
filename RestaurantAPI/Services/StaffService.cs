@@ -1,6 +1,8 @@
-﻿namespace RestaurantAPI.Services
+﻿using RestaurantAPI.Services.Interface;
+
+namespace RestaurantAPI.Services
 {
-    public class StaffService
+    public class StaffService : IStaffService
     {
     }
 }

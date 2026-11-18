@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RestaurantAPI.Data;
-using RestaurantAPI.Services;
+using RestaurantAPI.Services.Interface;
 
 namespace RestaurantAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TableController(TableService tableService) : ControllerBase
+    public class TableController(ITableService tableService) : ControllerBase
     {
         [Authorize]
         [HttpGet]

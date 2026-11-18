@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using RestaurantAPI.Services;
+using RestaurantAPI.Services.Interface;
 using RestaurantShared.DTOs;
 
 namespace RestaurantAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthController(AuthService authService) : ControllerBase
+    public class AuthController(IAuthService authService) : ControllerBase
     {
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)

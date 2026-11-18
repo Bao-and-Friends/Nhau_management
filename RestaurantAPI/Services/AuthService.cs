@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using RestaurantAPI.DAO; 
+using RestaurantAPI.DAO.Interface;
 using RestaurantAPI.Models.Configuration;
+using RestaurantAPI.Services.Interface;
 using RestaurantShared.Models.SQLData;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -12,18 +13,19 @@ namespace RestaurantAPI.Services
     
     public class AuthService(
         IOptions<JwtConfig> config,
-        IUnitOfWork uow, 
+       IAccountRepository AccRepo, 
+       IStaffRepository StaffRepo,
         OTPService otpService,
-        MailService mailService)
+        MailService mailService) : IAuthService
     {
         // 1. NGHIỆP VỤ ĐĂNG NHẬP
         public async Task<(bool IsSuccess, string? Token, StaffDATA? Staff, string Message)> LoginAsync(string username, string password)
         {
-            var (isSuccess, maNV, message) = await uow.Accounts.ValidateLoginAsync(username, password);
+            var (isSuccess, nvId, message) = await AccRepo.ValidateLoginAsync(username, password);
             if (!isSuccess)
                 return (false, null, null, message);
 
-            var staff = await uow.Staffs.GetByIdAsync(maNV);
+            var staff = await StaffRepo.GetByIdAsync(nvId);
             if (staff == null)
                 return (false, null, null, "Không tìm thấy thông tin nhân viên!");
 
@@ -34,7 +36,7 @@ namespace RestaurantAPI.Services
         // 2. NGHIỆP VỤ GỬI OTP QUÊN MẬT KHẨU
         public async Task<(bool IsSuccess, string Message)> SendForgotPasswordOtpAsync(string username)
         {
-            string? email = await uow.Accounts.GetEmailByUsernameAsync(username);
+            string? email = await AccRepo.GetEmailByUsernameAsync(username);
             if (string.IsNullOrEmpty(email))
                 return (false, "Tài khoản không tồn tại hoặc chưa cập nhật email!");
 
@@ -69,8 +71,6 @@ namespace RestaurantAPI.Services
             return (true, "Xác thực OTP thành công!");
         }
 
-        // 4. NGHIỆP VỤ ĐỔI MẬT KHẨU
-    
 
         // 5. HÀM SINH TOKEN (Dùng nội bộ)
         public string GenerateToken(StaffDATA staff, string username)

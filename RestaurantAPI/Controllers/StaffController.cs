@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using RestaurantAPI.DAO;
-using RestaurantAPI.Data;
-using RestaurantAPI.Services;
+using RestaurantAPI.Services.Interface;
 
 namespace RestaurantAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StaffController(IUnitOfWork uow): ControllerBase
+    public class StaffController(IStaffService staffService): ControllerBase
     {
     }
 }
