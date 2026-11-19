@@ -1,0 +1,1 @@
+using System.Windows; namespace QuanLyNhaHang.Dialogs; public partial class OrderDialog : Window { public OrderDialog() { InitializeComponent(); } }

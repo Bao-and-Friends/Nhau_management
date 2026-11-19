@@ -1,0 +1,1 @@
+using System.Windows.Controls; namespace QuanLyNhaHang.Views; public partial class SignupView : UserControl { public SignupView() { InitializeComponent(); } }

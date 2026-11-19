@@ -1,0 +1,1 @@
+using System.Windows; namespace QuanLyNhaHang; public partial class App : Application {}

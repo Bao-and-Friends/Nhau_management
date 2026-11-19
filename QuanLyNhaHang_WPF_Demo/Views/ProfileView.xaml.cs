@@ -1,0 +1,1 @@
+using System.Windows.Controls; namespace QuanLyNhaHang.Views; public partial class ProfileView : UserControl { public ProfileView() { InitializeComponent(); } }

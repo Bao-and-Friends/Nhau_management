@@ -1,0 +1,1 @@
+using System.Windows; namespace QuanLyNhaHang.Dialogs; public partial class FormDialog : Window { public FormDialog() { InitializeComponent(); } }

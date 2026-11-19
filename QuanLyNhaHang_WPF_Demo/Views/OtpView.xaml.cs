@@ -1,0 +1,1 @@
+using System.Windows.Controls; namespace QuanLyNhaHang.Views; public partial class OtpView : UserControl { public OtpView() { InitializeComponent(); } }

@@ -1,0 +1,1 @@
+using System.Windows.Controls; namespace QuanLyNhaHang.Views; public partial class ForgotView : UserControl { public ForgotView() { InitializeComponent(); } }
