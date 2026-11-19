@@ -1,0 +1,67 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Auth Backgrounds (Figma 5:11) -->
+    <SolidColorBrush x:Key="Brush.Auth.Background" Color="#6D98C5"/>
+    <SolidColorBrush x:Key="Brush.Auth.Shell" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="Brush.Auth.Brand" Color="#FAFCFF"/>
+    <SolidColorBrush x:Key="Brush.Auth.LogoBg" Color="#E8F1FA"/>
+
+    <!-- App Shell & Surfaces (Figma 6:2) -->
+    <SolidColorBrush x:Key="Brush.App.Background" Color="#F5F7FB"/>
+    <SolidColorBrush x:Key="Brush.Sidebar.Background" Color="#14243D"/>
+    <SolidColorBrush x:Key="Brush.Sidebar.NavActive" Color="#345373"/>
+    <SolidColorBrush x:Key="Brush.Sidebar.NavHover" Color="#223652"/>
+    <SolidColorBrush x:Key="Brush.Card.Background" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="Brush.Surface.Subtle" Color="#F8FAFC"/>
+
+    <!-- Borders & Dividers -->
+    <SolidColorBrush x:Key="Brush.Border" Color="#E1E8F1"/>
+    <SolidColorBrush x:Key="Brush.Border.Focus" Color="#2867BB"/>
+    <SolidColorBrush x:Key="Brush.Divider" Color="#EEF2F6"/>
+
+    <!-- Typography (Figma Design Tokens) -->
+    <SolidColorBrush x:Key="Brush.Text.Primary" Color="#193559"/>
+    <SolidColorBrush x:Key="Brush.Text.Dark" Color="#1D2E48"/>
+    <SolidColorBrush x:Key="Brush.Text.Secondary" Color="#6B7B90"/>
+    <SolidColorBrush x:Key="Brush.Text.Muted" Color="#93A1B2"/>
+    <SolidColorBrush x:Key="Brush.Text.Nav" Color="#BFCFE1"/>
+    <SolidColorBrush x:Key="Brush.Text.NavSub" Color="#9CB2CC"/>
+    <SolidColorBrush x:Key="Brush.Text.White" Color="#FFFFFF"/>
+
+    <!-- Brand Accents -->
+    <SolidColorBrush x:Key="Brush.Accent.Primary" Color="#F97316"/>
+    <SolidColorBrush x:Key="Brush.Accent.PrimaryHover" Color="#EA580C"/>
+    <SolidColorBrush x:Key="Brush.Accent.PrimaryPressed" Color="#C2410C"/>
+    <SolidColorBrush x:Key="Brush.Accent.Secondary" Color="#2867BB"/>
+    <SolidColorBrush x:Key="Brush.Accent.SecondaryHover" Color="#1D4ED8"/>
+    <SolidColorBrush x:Key="Brush.Accent.SecondaryLight" Color="#EFF6FF"/>
+
+    <!-- Button Specific Brushes (Figma 6:154 & 6:73) -->
+    <SolidColorBrush x:Key="Brush.Button.SecondaryBg" Color="#EDF2F9"/>
+    <SolidColorBrush x:Key="Brush.Button.SecondaryHover" Color="#DCE6F2"/>
+    <SolidColorBrush x:Key="Brush.Button.SecondaryPressed" Color="#CBD9EB"/>
+    <SolidColorBrush x:Key="Brush.Button.SecondaryBorder" Color="#CBD5E1"/>
+    <SolidColorBrush x:Key="Brush.Button.QuickBg" Color="#F2F6FC"/>
+    <SolidColorBrush x:Key="Brush.Button.QuickHover" Color="#E4ECF7"/>
+
+    <!-- Status Filters (Figma 6:136) -->
+    <SolidColorBrush x:Key="Brush.Filter.ActiveBg" Color="#14243D"/>
+    <SolidColorBrush x:Key="Brush.Filter.ActiveFg" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="Brush.Filter.InactiveBg" Color="#EDF2F9"/>
+    <SolidColorBrush x:Key="Brush.Filter.InactiveFg" Color="#334155"/>
+    <SolidColorBrush x:Key="Brush.Filter.InactiveBorder" Color="#D5E0EA"/>
+
+    <!-- Table Status Badges -->
+    <SolidColorBrush x:Key="Brush.Status.Empty" Color="#16A34A"/>
+    <SolidColorBrush x:Key="Brush.Status.EmptyBg" Color="#DCFCE7"/>
+    <SolidColorBrush x:Key="Brush.Status.Occupied" Color="#F97316"/>
+    <SolidColorBrush x:Key="Brush.Status.OccupiedBg" Color="#FFEDD5"/>
+    <SolidColorBrush x:Key="Brush.Status.Reserved" Color="#2563EB"/>
+    <SolidColorBrush x:Key="Brush.Status.ReservedBg" Color="#DBEAFE"/>
+    <SolidColorBrush x:Key="Brush.Status.Cleaning" Color="#64748B"/>
+    <SolidColorBrush x:Key="Brush.Status.CleaningBg" Color="#F1F5F9"/>
+    <SolidColorBrush x:Key="Brush.Status.Danger" Color="#EF4444"/>
+    <SolidColorBrush x:Key="Brush.Status.DangerBg" Color="#FEE2E2"/>
+
+</ResourceDictionary>

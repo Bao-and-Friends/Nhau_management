@@ -1,0 +1,84 @@
+<UserControl x:Class="RestaurantModern.Views.MenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Categories & Search Bar (Figma 6:524) -->
+        <Border Grid.Row="0" Style="{StaticResource Card}" Padding="16" Margin="0,0,0,16">
+            <DockPanel LastChildFill="True">
+                <!-- Button / + Thêm món (Figma 6:530) -->
+                <Button DockPanel.Dock="Right" Content="+ Thêm món ăn mới" Click="AddDish_Click" Style="{StaticResource PrimaryButton}" Height="40" Padding="16,4"/>
+
+                <TextBox DockPanel.Dock="Right" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                         Width="260" Height="40" VerticalContentAlignment="Center" Margin="0,0,16,0"
+                         ToolTip="Tìm theo tên món hoặc mã món..."/>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="Tất cả" Command="{Binding FilterCommand}" CommandParameter="Tất cả" Style="{StaticResource SecondaryButton}" Height="34" Padding="12,2" Margin="0,0,6,0"/>
+                    <Button Content="Lẩu &amp; Nướng" Command="{Binding FilterCommand}" CommandParameter="Lẩu &amp; Nướng" Style="{StaticResource SecondaryButton}" Height="34" Padding="12,2" Margin="0,0,6,0"/>
+                    <Button Content="Món chính" Command="{Binding FilterCommand}" CommandParameter="Món chính" Style="{StaticResource SecondaryButton}" Height="34" Padding="12,2" Margin="0,0,6,0"/>
+                    <Button Content="Hải sản" Command="{Binding FilterCommand}" CommandParameter="Hải sản" Style="{StaticResource SecondaryButton}" Height="34" Padding="12,2" Margin="0,0,6,0"/>
+                    <Button Content="Khai vị" Command="{Binding FilterCommand}" CommandParameter="Khai vị" Style="{StaticResource SecondaryButton}" Height="34" Padding="12,2" Margin="0,0,6,0"/>
+                    <Button Content="Đồ uống" Command="{Binding FilterCommand}" CommandParameter="Đồ uống" Style="{StaticResource SecondaryButton}" Height="34" Padding="12,2"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Dishes Grid (WrapPanel) -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding FilteredDishes}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource Card}" Width="265" Height="190" Margin="0,0,16,16" Padding="16">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <DockPanel Grid.Row="0">
+                                    <TextBlock DockPanel.Dock="Left" Text="{Binding Icon}" FontSize="24" Margin="0,0,10,0"/>
+                                    <Border DockPanel.Dock="Right" Background="{StaticResource Brush.Accent.SecondaryLight}" CornerRadius="6" Padding="8,3">
+                                        <TextBlock Text="{Binding DanhMuc}" Foreground="{StaticResource Brush.Accent.Secondary}" FontSize="11" FontWeight="Bold"/>
+                                    </Border>
+                                    <TextBlock Text="{Binding MaMon}" Foreground="{StaticResource Brush.Text.Muted}" FontSize="12" VerticalAlignment="Center"/>
+                                </DockPanel>
+
+                                <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="0,6,0,0">
+                                    <TextBlock Text="{Binding TenMon}" FontWeight="Bold" FontSize="14.5" TextWrapping="Wrap" MaxHeight="40"/>
+                                    <TextBlock Text="{Binding DonGia, StringFormat='{}{0:N0} đ'}" Foreground="{StaticResource Brush.Accent.Primary}" FontWeight="Bold" FontSize="15" Margin="0,4,0,0"/>
+                                </StackPanel>
+
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Grid.Column="0" Content="{Binding StatusText}" 
+                                            Command="{Binding DataContext.ToggleAvailabilityCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource SecondaryButton}" Height="32" Margin="0,0,6,0"/>
+
+                                    <Button Grid.Column="1" Content="Sửa" Click="EditDish_Click" Tag="{Binding}" 
+                                            Style="{StaticResource SecondaryButton}" Height="32" Padding="10,0"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
