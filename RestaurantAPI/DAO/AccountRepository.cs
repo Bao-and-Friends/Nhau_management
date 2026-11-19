@@ -13,26 +13,10 @@ namespace RestaurantAPI.DAO
             return count > 0;
         }
 
-        public async Task<(bool IsSuccess, int NVId, string Message)> ValidateLoginAsync(string username, string password)
+        public async Task<AccountDATA?> GetByUsernameAsync(string username)
         {
-            string query = "SELECT MatKhau, NVId, TrangThai FROM TAIKHOAN WHERE TenDangNhap = @Username";
-            var account = await session.Connect.QueryFirstOrDefaultAsync<AccountDATA>(query, new { Username = username.Trim() }, session.Transaction);
-            if (account == null)
-                return (false, 0, "Tài khoản không tồn tại!");
-
-            string trangThai = account.TrangThai?.ToString()?.Trim() ?? string.Empty;
-            if (trangThai.Equals("Khóa", StringComparison.OrdinalIgnoreCase) || trangThai == "0")
-                return (false, 0, "Tài khoản đã bị khóa!");
-
-            string hashPwd = account.MatKhau?.ToString()?.Trim() ?? string.Empty;
-            if (hashPwd.StartsWith("$2a$") || hashPwd.StartsWith("$2b$") || hashPwd.StartsWith("$2y$"))
-            {
-                if (BCrypt.Net.BCrypt.Verify(password, hashPwd))
-                {
-                    return (true, account.NVId, "Đăng nhập thành công!");
-                }
-            }
-            return (false, 0, "Mật khẩu không chính xác!");
+            string query = "SELECT Id, NVId, TenDangNhap, MatKhau, TrangThai, NgayTao, Email FROM TAIKHOAN WHERE TenDangNhap = @Username";
+            return await session.Connect.QueryFirstOrDefaultAsync<AccountDATA>(query, new { Username = username.Trim() }, session.Transaction);
         }
 
         public async Task<string?> GetEmailByUsernameAsync(string username)
@@ -41,11 +25,10 @@ namespace RestaurantAPI.DAO
             return await session.Connect.ExecuteScalarAsync<string>(query, new { Username = username.Trim() }, session.Transaction);
         }
 
-        public async Task<bool> ChangePasswordAsync(string username, string newPassword)
+        public async Task<bool> UpdatePasswordHashAsync(string username, string passwordHash)
         {
-            string hash = BCrypt.Net.BCrypt.HashPassword(newPassword);
             string query = "UPDATE TAIKHOAN SET MatKhau = @MatKhau WHERE TenDangNhap = @Username";
-            int rows = await session.Connect.ExecuteAsync(query, new { MatKhau = hash, Username = username.Trim() }, session.Transaction);
+            int rows = await session.Connect.ExecuteAsync(query, new { MatKhau = passwordHash, Username = username.Trim() }, session.Transaction);
             return rows > 0;
         }
 

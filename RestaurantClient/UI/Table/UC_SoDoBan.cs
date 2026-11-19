@@ -16,11 +16,16 @@ namespace RestaurantManagement.UI
         private async void LoadTable()
         {
 
-            // Đọc dữ liệu nhân viên từ phản hồi của Server
-            List<TableDATA>? listtable = await ApiService.GetTablesAsync();
-            if (listtable != null)
+            // Đọc dữ liệu bàn từ phản hồi của Server
+            var result = await ApiService.GetTablesAsync();
+            if (result.IsError)
             {
-                foreach (TableDATA ban in listtable)
+                MessageBox.Show(result.FirstError.Description, "Lỗi tải bàn");
+                return;
+            }
+
+            List<TableDATA> listtable = result.Value;
+            foreach (TableDATA ban in listtable)
                 {
                     UIButton btn = new UIButton() { Width = TableWidth, Height = TableHeight, ForeColor = Color.White, RectColor = Color.FromArgb(243, 249, 255) };
                     string trangThai = string.IsNullOrWhiteSpace(ban.TrangThai) ? "Trống" : ban.TrangThai.Trim();
@@ -47,7 +52,6 @@ namespace RestaurantManagement.UI
                     btn.Click += btnban_click;
                     fplSoDoBan.Add(btn);
                 }
-            }
         }
         private void ShowBill(string tableid)
         {

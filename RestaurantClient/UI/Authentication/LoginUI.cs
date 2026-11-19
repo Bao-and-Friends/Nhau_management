@@ -41,8 +41,8 @@ namespace RestaurantManagement.UI
             Dangnhap.Enabled = false;
             try
             {
-                var (isSuccess, message) = await ApiService.LoginAsync(usrname, passwrd);
-                if (isSuccess)
+                var result = await ApiService.LoginAsync(usrname, passwrd);
+                if (!result.IsError)
                 {
                     MainForm main = new() { Tag = ApiService.Staff };
                     this.Hide();
@@ -52,7 +52,7 @@ namespace RestaurantManagement.UI
                 }
                 else
                 {
-                    MessageBox.Show(message);
+                    MessageBox.Show(result.FirstError.Description);
                 }
             }
             finally

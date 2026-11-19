@@ -9,7 +9,7 @@ namespace RestaurantAPI.DAO
         public async Task<StaffDATA?> GetByIdAsync(int id)
         {
             string query = @"
-        SELECT Id, MaNV, HoTen, GioiTinh, VaiTro, NgaySinh, SoDienThoai, DiaChi 
+        SELECT MaNV, HoTen, GioiTinh, VaiTro, NgaySinh, SoDienThoai, DiaChi 
         FROM NHANVIEN 
         WHERE Id = @Id";
             return await session.Connect.QueryFirstOrDefaultAsync<StaffDATA>(query, new { Id = id }, session.Transaction);
@@ -18,7 +18,7 @@ namespace RestaurantAPI.DAO
         public async Task<StaffDATA?> GetByMaNVAsync(string maNV)
         {
             string query = @"
-        SELECT Id, MaNV, HoTen, GioiTinh, VaiTro, NgaySinh, SoDienThoai, DiaChi 
+        SELECT MaNV, HoTen, GioiTinh, VaiTro, NgaySinh, SoDienThoai, DiaChi 
         FROM NHANVIEN 
         WHERE MaNV = @MaNV";
             return await session.Connect.QueryFirstOrDefaultAsync<StaffDATA>(query, new { MaNV = maNV.Trim() }, session.Transaction);

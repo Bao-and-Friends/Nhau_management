@@ -1,6 +1,7 @@
+using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RestaurantAPI.Services;
+using RestaurantAPI.Common;
 using RestaurantAPI.Services.Interface;
 using RestaurantShared.DTOs;
 
@@ -14,18 +15,21 @@ namespace RestaurantAPI.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterAccountRequest request)
         {
-            var (isSuccess, message) = await accountService.RegisterStaffAccountAsync(request);
-            return isSuccess 
-                ? Ok(new ApiResponse(true, message)) 
-                : BadRequest(new ApiResponse(false, message));
+            var result = await accountService.RegisterStaffAccountAsync(request);
+            return result.Match(
+                _ => Ok(new ApiResponse(true, "Tạo nhân viên thành công!")),
+                errors => this.Problem(errors)
+            );
         }
+
         [HttpPost("change-password")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
         {
-            var (isSuccess, message) = await accountService.ChangePasswordAsync(request.Username, request.NewPassword);
-            return isSuccess
-                ? Ok(new ApiResponse(true, message))
-                : BadRequest(new ApiResponse(false, message));
+            var result = await accountService.ChangePasswordAsync(request.Username, request.NewPassword);
+            return result.Match(
+                _ => Ok(new ApiResponse(true, "Đổi mật khẩu thành công!")),
+                errors => this.Problem(errors)
+            );
         }
     }
 }

@@ -32,11 +32,15 @@ namespace RestaurantClient.UI
             try
             {
                 // 👉 GỌI API ĐỔI MẬT KHẨU:
-                var (isSuccess, message) = await ApiService.ChangePasswordAsync(username, password);
-                MessageBox.Show(message, "Thông báo");
-                if (isSuccess)
+                var result = await ApiService.ChangePasswordAsync(username, password);
+                if (!result.IsError)
                 {
+                    MessageBox.Show("Đổi mật khẩu thành công!", "Thông báo");
                     this.Close(); // Đổi xong thì đóng form để quay về đăng nhập
+                }
+                else
+                {
+                    MessageBox.Show(result.FirstError.Description, "Thông báo");
                 }
             }
             catch (Exception ex)

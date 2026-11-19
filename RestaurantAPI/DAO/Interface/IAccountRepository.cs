@@ -5,9 +5,9 @@ namespace RestaurantAPI.DAO.Interface
     public interface IAccountRepository
     {
         Task<bool> CheckUsernameExistsAsync(string username);
-        Task<(bool IsSuccess, int NVId, string Message)> ValidateLoginAsync(string username, string password);
+        Task<AccountDATA?> GetByUsernameAsync(string username);
         Task<string?> GetEmailByUsernameAsync(string username);
-        Task<bool> ChangePasswordAsync(string username, string newPassword);
+        Task<bool> UpdatePasswordHashAsync(string username, string passwordHash);
         Task<bool> InsertAccountAsync(int nvId, string username, string passwordHash, string? email);
     }
 }

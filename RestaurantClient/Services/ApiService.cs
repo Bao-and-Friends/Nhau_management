@@ -1,3 +1,4 @@
+using ErrorOr;
 using Microsoft.Extensions.Configuration;
 using RestaurantShared.DTOs;
 using RestaurantShared.Models.SQLData;
@@ -23,7 +24,7 @@ namespace RestaurantClient.Services
         /// <summary>
         /// Gọi API Đăng nhập (POST api/auth/login)
         /// </summary>
-        public static async Task<(bool IsSuccess, string Message)> LoginAsync(string username, string password)
+        public static async Task<ErrorOr<Success>> LoginAsync(string username, string password)
         {
             try
             {
@@ -37,18 +38,17 @@ namespace RestaurantClient.Services
 
                     // 👉 GẮN TOKEN VÀO HEADER ĐỂ CÁC REQUEST SAU TỰ CÓ QUYỀN
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                    return (true, "Đăng nhập thành công!");
+                    return Result.Success;
                 }
                 else
                 {
-                    // Lấy câu thông báo lỗi từ Server (nếu có)
                     string msg = string.IsNullOrWhiteSpace(result?.Message) ? "Đăng nhập thất bại!" : result.Message;
-                    return (false, msg);
+                    return Error.Unauthorized("Auth.Failed", msg);
                 }
             }
             catch (Exception ex)
             {
-                return (false, $"Lỗi kết nối máy chủ: {ex.Message}");
+                return Error.Failure("Network.Error", $"Lỗi kết nối máy chủ: {ex.Message}");
             }
         }
 
@@ -59,73 +59,99 @@ namespace RestaurantClient.Services
             client.DefaultRequestHeaders.Authorization = null;
         }
 
-        public static async Task<List<TableDATA>?> GetTablesAsync()
+        public static async Task<ErrorOr<List<TableDATA>>> GetTablesAsync()
         {
             try
             {
-                return await client.GetFromJsonAsync<List<TableDATA>>("api/table");
+                var response = await client.GetAsync("api/table");
+                if (response.IsSuccessStatusCode)
+                {
+                    var data = await response.Content.ReadFromJsonAsync<List<TableDATA>>();
+                    return data ?? new List<TableDATA>();
+                }
+
+                return Error.Failure("Table.LoadFailed", $"Lỗi máy chủ: {(int)response.StatusCode} {response.ReasonPhrase}");
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                return Error.Failure("Network.Error", $"Lỗi kết nối máy chủ: {ex.Message}");
             }
         }
 
-        public static async Task<(bool IsSuccess, string Message)> ForgotPasswordAsync(string username)
+        public static async Task<ErrorOr<Success>> ForgotPasswordAsync(string username)
         {
             try
             {
                 var response = await client.PostAsJsonAsync("api/auth/forgot-password", new ForgotPasswordRequest(username));
                 var result = await response.Content.ReadFromJsonAsync<ApiResponse>();
-                return (response.IsSuccessStatusCode, result?.Message ?? (response.IsSuccessStatusCode ? "Thành công!" : "Thất bại!"));
+                if (response.IsSuccessStatusCode && (result?.IsSuccess ?? false))
+                {
+                    return Result.Success;
+                }
+
+                return Error.Failure("Auth.OtpFailed", result?.Message ?? "Gửi OTP thất bại!");
             }
             catch (Exception ex)
             {
-                return (false, ex.Message);
+                return Error.Failure("Network.Error", ex.Message);
             }
         }
 
-        public static async Task<(bool IsSuccess, string Message)> VerifyOtpAsync(string username, string otp)
+        public static async Task<ErrorOr<Success>> VerifyOtpAsync(string username, string otp)
         {
             try
             {
                 var response = await client.PostAsJsonAsync("api/auth/verify-otp", new VerifyOtpRequest(username, otp));
                 var result = await response.Content.ReadFromJsonAsync<ApiResponse>();
-                return (response.IsSuccessStatusCode, result?.Message ?? (response.IsSuccessStatusCode ? "Thành công!" : "Thất bại!"));
+                if (response.IsSuccessStatusCode && (result?.IsSuccess ?? false))
+                {
+                    return Result.Success;
+                }
+
+                return Error.Validation("Auth.OtpInvalid", result?.Message ?? "Mã OTP không chính xác hoặc đã hết hạn!");
             }
             catch (Exception ex)
             {
-                return (false, ex.Message);
+                return Error.Failure("Network.Error", ex.Message);
             }
         }
 
-        public static async Task<(bool IsSuccess, string Message)> ChangePasswordAsync(string username, string newPassword)
+        public static async Task<ErrorOr<Success>> ChangePasswordAsync(string username, string newPassword)
         {
             try
             {
                 var response = await client.PostAsJsonAsync("api/account/change-password", new ChangePasswordRequest(username, newPassword));
                 var result = await response.Content.ReadFromJsonAsync<ApiResponse>();
-                return (response.IsSuccessStatusCode, result?.Message ?? (response.IsSuccessStatusCode ? "Thành công!" : "Thất bại!"));
+                if (response.IsSuccessStatusCode && (result?.IsSuccess ?? false))
+                {
+                    return Result.Success;
+                }
+
+                return Error.Failure("Account.ChangePasswordFailed", result?.Message ?? "Đổi mật khẩu thất bại!");
             }
             catch (Exception ex)
             {
-                return (false, ex.Message);
+                return Error.Failure("Network.Error", ex.Message);
             }
         }
 
-        public static async Task<(bool IsSuccess, string Message)> RegisterAccountAsync(RegisterAccountRequest request)
+        public static async Task<ErrorOr<Success>> RegisterAccountAsync(RegisterAccountRequest request)
         {
             try
             {
                 var response = await client.PostAsJsonAsync("api/account/register", request);
                 var result = await response.Content.ReadFromJsonAsync<ApiResponse>();
+                if (response.IsSuccessStatusCode && (result?.IsSuccess ?? false))
+                {
+                    return Result.Success;
+                }
 
-                string msg = result?.Message ?? (response.IsSuccessStatusCode ? "Tạo tài khoản thành công!" : "Tạo tài khoản thất bại!");
-                return (response.IsSuccessStatusCode, msg);
+                string msg = result?.Message ?? "Tạo tài khoản thất bại!";
+                return Error.Failure("Account.RegisterFailed", msg);
             }
             catch (Exception ex)
             {
-                return (false, $"Lỗi kết nối máy chủ: {ex.Message}");
+                return Error.Failure("Network.Error", $"Lỗi kết nối máy chủ: {ex.Message}");
             }
         }
     }

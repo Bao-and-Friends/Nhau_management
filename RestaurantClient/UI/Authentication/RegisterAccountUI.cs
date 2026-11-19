@@ -67,18 +67,18 @@ namespace RestaurantClient.UI.Authentication
             btnSave.Enabled = false;
             btnSave.Text = "Đang tạo...";
             // 3. Gọi Web API
-            var (isSuccess, message) = await ApiService.RegisterAccountAsync(request);
+            var result = await ApiService.RegisterAccountAsync(request);
             btnSave.Enabled = true;
             btnSave.Text = "Tạo Tài Khoản";
-            if (isSuccess)
+            if (!result.IsError)
             {
-                MessageBox.Show(message,"Thông Báo", MessageBoxButtons.OK);
+                MessageBox.Show("Tạo nhân viên thành công!","Thông Báo", MessageBoxButtons.OK);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             else
             {
-                UIMessageBox.ShowError(message);
+                UIMessageBox.ShowError(result.FirstError.Description);
             }
         }
 

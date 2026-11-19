@@ -19,15 +19,18 @@ namespace RestaurantManagement.UI
             SendOTP.Enabled = false;
             try
             {
-                var (isSuccess, message) = await ApiService.ForgotPasswordAsync(usrname);
-
-                MessageBox.Show(message, "Thông báo");
-                if (isSuccess)
+                var result = await ApiService.ForgotPasswordAsync(usrname);
+                if (!result.IsError)
                 {
+                    MessageBox.Show("Mã OTP đã được gửi về email của bạn.", "Thông báo");
                     this.Hide();
                     OTP otpForm = new() { Tag = usrname }; // Truyền username sang form OTP
                     otpForm.ShowDialog();
                     this.Close();
+                }
+                else
+                {
+                    MessageBox.Show(result.FirstError.Description, "Thông báo");
                 }
             }
             catch (Exception ex)

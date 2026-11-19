@@ -27,14 +27,18 @@ namespace RestaurantManagement.UI
             try
             {
                 // 👉 GỌI API XÁC THỰC OTP:
-                var (isSuccess, message) = await ApiService.VerifyOtpAsync(username, otp);
-                MessageBox.Show(message, "Thông báo");
-                if (isSuccess)
+                var result = await ApiService.VerifyOtpAsync(username, otp);
+                if (!result.IsError)
                 {
+                    MessageBox.Show("Xác thực OTP thành công!", "Thông báo");
                     this.Hide();
                     changePassword changeForm = new() { Tag = username }; // Truyền username sang form đổi mật khẩu
                     changeForm.ShowDialog();
                     this.Close();
+                }
+                else
+                {
+                    MessageBox.Show(result.FirstError.Description, "Thông báo");
                 }
             }
             catch (Exception ex)
@@ -53,8 +57,15 @@ namespace RestaurantManagement.UI
             ResendOTPbtn.Enabled = false;
             try
             {
-                var (isSuccess, message) = await ApiService.ForgotPasswordAsync(username);
-                MessageBox.Show(message, "Thông báo");
+                var result = await ApiService.ForgotPasswordAsync(username);
+                if (!result.IsError)
+                {
+                    MessageBox.Show("Mã OTP đã được gửi lại!", "Thông báo");
+                }
+                else
+                {
+                    MessageBox.Show(result.FirstError.Description, "Thông báo");
+                }
             }
             catch (Exception ex)
             {
