@@ -1,0 +1,38 @@
+<UserControl x:Class="RestaurantModern.Views.StockView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <Border Style="{StaticResource Card}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <DockPanel Grid.Row="0" Margin="0,0,0,16">
+                    <Button DockPanel.Dock="Right" Content="+ Nhập kho nguyên liệu" Style="{StaticResource PrimaryButton}" Height="38"/>
+                    <StackPanel>
+                        <TextBlock Text="Danh mục tồn kho nguyên vật liệu" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock Text="Cảnh báo định mức tối thiểu tự động để chuẩn bị nguồn hàng" Foreground="{StaticResource Brush.Text.Secondary}" FontSize="12" Margin="0,3,0,0"/>
+                    </StackPanel>
+                </DockPanel>
+
+                <DataGrid Grid.Row="1" ItemsSource="{Binding StockItems}" 
+                          AutoGenerateColumns="False" CanUserAddRows="False"
+                          Background="Transparent" BorderThickness="0" RowHeaderWidth="0"
+                          GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource Brush.Border}"
+                          RowHeight="44" FontSize="13.5">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="MÃ NL" Binding="{Binding MaNL}" Width="90"/>
+                        <DataGridTextColumn Header="TÊN NGUYÊN LIỆU" Binding="{Binding TenNL}" Width="*"/>
+                        <DataGridTextColumn Header="SỐ LƯỢNG TỒN" Binding="{Binding SoLuongTon}" Width="140"/>
+                        <DataGridTextColumn Header="ĐƠN VỊ" Binding="{Binding DonViTinh}" Width="100"/>
+                        <DataGridTextColumn Header="ĐỊNH MỨC TỐI THIỂU" Binding="{Binding DinhMucToiThieu}" Width="160"/>
+                        <DataGridTextColumn Header="TRẠNG THÁI" Binding="{Binding TrangThai}" Width="150"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

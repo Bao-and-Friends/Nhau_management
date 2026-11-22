@@ -1,0 +1,175 @@
+<Window x:Class="RestaurantModern.Dialogs.OrderModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Gọi món cho bàn"
+        Width="1080" Height="720"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+
+    <Border Background="White" CornerRadius="18" BorderBrush="{StaticResource Brush.Border}" BorderThickness="1" Margin="14">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="30" ShadowDepth="4" Opacity="0.18" Color="#14243D"/>
+        </Border.Effect>
+
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <!-- 1. Modal Top Bar -->
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <!-- 2. Split: Dishes Picker (Left) & Order Detail (Right) -->
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- 1. Header -->
+            <DockPanel Grid.Row="0">
+                <Button DockPanel.Dock="Right" Content="✕" Click="Close_Click" 
+                        Background="Transparent" BorderThickness="0" FontSize="18" FontWeight="Bold" 
+                        Foreground="{StaticResource Brush.Text.Muted}" Cursor="Hand" Width="34" Height="34"/>
+                <StackPanel>
+                    <TextBlock x:Name="TxtModalTitle" Text="Gọi món · Bàn 02" FontSize="22" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Dark}"/>
+                    <TextBlock Text="Chọn món ăn từ thực đơn để bổ sung vào phiên phục vụ của bàn." Foreground="{StaticResource Brush.Text.Secondary}" FontSize="13" Margin="0,3,0,0"/>
+                </StackPanel>
+            </DockPanel>
+
+            <Separator Grid.Row="1" Background="{StaticResource Brush.Divider}" Margin="0,16"/>
+
+            <!-- 2. Content Body -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <!-- Left: Danh mục & Món ăn (Figma 8:2) -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- Right: Chi tiết gọi món (Figma 8:54) -->
+                    <ColumnDefinition Width="420"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- LEFT: Menu Items Picker -->
+                <Grid Grid.Column="0" Margin="0,0,20,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Filter & Search Bar -->
+                    <DockPanel Grid.Row="0" Margin="0,0,0,14">
+                        <TextBox x:Name="TxtSearchDish" TextChanged="SearchDish_TextChanged" 
+                                 Width="200" Height="38" VerticalContentAlignment="Center" DockPanel.Dock="Right"
+                                 ToolTip="Tìm theo tên món..."/>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button Content="Tất cả" Click="Category_Click" Tag="Tất cả" Style="{StaticResource SecondaryButton}" Height="34" Padding="12,2" Margin="0,0,6,0"/>
+                            <Button Content="Lẩu &amp; Nướng" Click="Category_Click" Tag="Lẩu &amp; Nướng" Style="{StaticResource SecondaryButton}" Height="34" Padding="12,2" Margin="0,0,6,0"/>
+                            <Button Content="Món chính" Click="Category_Click" Tag="Món chính" Style="{StaticResource SecondaryButton}" Height="34" Padding="12,2" Margin="0,0,6,0"/>
+                            <Button Content="Đồ uống" Click="Category_Click" Tag="Đồ uống" Style="{StaticResource SecondaryButton}" Height="34" Padding="12,2"/>
+                        </StackPanel>
+                    </DockPanel>
+
+                    <!-- Dishes List (Cards) -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl x:Name="LstDishes">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{StaticResource Brush.Border}" BorderThickness="1" CornerRadius="12" 
+                                            Background="#FAFCFF" Width="185" Height="145" Margin="0,0,12,12" Padding="12">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <DockPanel Grid.Row="0">
+                                                <TextBlock Text="{Binding Icon}" FontSize="20"/>
+                                                <TextBlock Text="{Binding DonGia, StringFormat='{}{0:N0} đ'}" Foreground="{StaticResource Brush.Accent.Primary}" FontWeight="Bold" FontSize="13" HorizontalAlignment="Right"/>
+                                            </DockPanel>
+
+                                            <TextBlock Grid.Row="1" Text="{Binding TenMon}" FontWeight="Bold" FontSize="13" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,4"/>
+
+                                            <Button Grid.Row="2" Content="+ Chọn món" Click="PickDish_Click" Tag="{Binding}" 
+                                                    Style="{StaticResource SecondaryButton}" Height="30" FontSize="12" Padding="8,2" HorizontalAlignment="Stretch"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+
+                <!-- RIGHT: Chi tiết gọi món (Panel 8:54) -->
+                <Border Grid.Column="1" Background="#F8FAFC" BorderBrush="{StaticResource Brush.Border}" BorderThickness="1" CornerRadius="14" Padding="18">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <!-- Title -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- Selected List -->
+                            <RowDefinition Height="*"/>
+                            <!-- Notes & Totals & Submit -->
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel Grid.Row="0" Margin="0,0,0,12">
+                            <TextBlock Text="Món đã chọn" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Dark}"/>
+                            <TextBlock x:Name="TxtTotalItems" Text="0 món" Foreground="{StaticResource Brush.Text.Secondary}" FontSize="13" HorizontalAlignment="Right"/>
+                        </DockPanel>
+
+                        <!-- Selected Items List -->
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,12">
+                            <ItemsControl x:Name="LstSelectedItems">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="White" BorderBrush="{StaticResource Brush.Border}" BorderThickness="1" CornerRadius="8" Padding="10,8" Margin="0,0,0,8">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Column="0">
+                                                    <TextBlock Text="{Binding TenMon}" FontWeight="Bold" FontSize="13" Foreground="{StaticResource Brush.Text.Dark}"/>
+                                                    <TextBlock Text="{Binding DonGia, StringFormat='{}{0:N0} đ'}" Foreground="{StaticResource Brush.Text.Secondary}" FontSize="12"/>
+                                                </StackPanel>
+
+                                                <!-- Stepper - 1 + -->
+                                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0">
+                                                    <Button Content="-" Click="DecreaseQty_Click" Tag="{Binding}" Width="26" Height="26" Style="{StaticResource SecondaryButton}" Padding="0"/>
+                                                    <TextBlock Text="{Binding SoLuong}" FontWeight="Bold" FontSize="13" Width="28" TextAlignment="Center" VerticalAlignment="Center"/>
+                                                    <Button Content="+" Click="IncreaseQty_Click" Tag="{Binding}" Width="26" Height="26" Style="{StaticResource SecondaryButton}" Padding="0"/>
+                                                </StackPanel>
+
+                                                <Button Grid.Column="2" Content="✕" Click="RemoveItem_Click" Tag="{Binding}" 
+                                                        Background="Transparent" BorderThickness="0" Foreground="{StaticResource Brush.Status.Danger}" 
+                                                        FontWeight="Bold" FontSize="14" Cursor="Hand" Width="24" Height="24"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+
+                        <!-- Bottom Controls -->
+                        <StackPanel Grid.Row="2">
+                            <TextBlock Text="Ghi chú cho bếp" FontWeight="Bold" FontSize="12" Foreground="{StaticResource Brush.Text.Dark}" Margin="0,0,0,4"/>
+                            <TextBox x:Name="TxtOrderNotes" Height="36" ToolTip="Ít cay, không hành, làm nhanh..." Margin="0,0,0,12"/>
+
+                            <DockPanel Margin="0,0,0,14">
+                                <TextBlock Text="Tổng tiền tạm tính:" FontWeight="Bold" FontSize="14" Foreground="{StaticResource Brush.Text.Dark}"/>
+                                <TextBlock x:Name="TxtTotalAmount" Text="0 đ" FontWeight="Bold" FontSize="16" Foreground="{StaticResource Brush.Accent.Primary}" HorizontalAlignment="Right"/>
+                            </DockPanel>
+
+                            <DockPanel LastChildFill="True">
+                                <Button DockPanel.Dock="Left" Content="Đóng" Click="Close_Click" Style="{StaticResource SecondaryButton}" Width="90" Height="42" Margin="0,0,10,0"/>
+                                <Button Content="Xác nhận thêm món" Click="Confirm_Click" Style="{StaticResource PrimaryButton}" Height="42"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

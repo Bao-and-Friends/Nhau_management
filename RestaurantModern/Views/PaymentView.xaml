@@ -1,0 +1,138 @@
+<UserControl x:Class="RestaurantModern.Views.PaymentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="380"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Column 1: Danh sách hóa đơn chờ -->
+        <Border Grid.Column="0" Style="{StaticResource Card}" Margin="0,0,16,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="0,0,0,14">
+                    <TextBlock Text="Hóa đơn chờ thanh toán" FontSize="16" FontWeight="Bold"/>
+                    <TextBlock Text="Chọn bàn cần tính tiền" Foreground="{StaticResource Brush.Text.Secondary}" FontSize="12" Margin="0,2,0,0"/>
+                </StackPanel>
+
+                <ListBox Grid.Row="1" ItemsSource="{Binding PendingInvoices}" 
+                         SelectedItem="{Binding SelectedInvoice}" 
+                         BorderThickness="0" Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{StaticResource Brush.Border}" BorderThickness="0,0,0,1" Padding="6,12">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <DockPanel Grid.Row="0">
+                                        <TextBlock Text="{Binding MaHD}" Foreground="{StaticResource Brush.Text.Muted}" FontSize="12" DockPanel.Dock="Right"/>
+                                        <TextBlock Text="{Binding TenBan}" FontWeight="Bold" FontSize="15"/>
+                                    </DockPanel>
+                                    <DockPanel Grid.Row="1" Margin="0,4,0,0">
+                                        <TextBlock Text="{Binding NgayLap, StringFormat='{}{0:HH:mm}'}" Foreground="{StaticResource Brush.Text.Secondary}" FontSize="12"/>
+                                        <TextBlock Text="{Binding TongTien, StringFormat='{}{0:N0} đ'}" Foreground="{StaticResource Brush.Accent.Primary}" FontWeight="Bold" FontSize="13.5" HorizontalAlignment="Right"/>
+                                    </DockPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+
+        <!-- Column 2: Chi tiết hóa đơn xem trước -->
+        <Border Grid.Column="1" Style="{StaticResource Card}" Margin="0,0,16,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="0,0,0,14">
+                    <DockPanel>
+                        <TextBlock Text="{Binding SelectedInvoice.TenBan}" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding SelectedInvoice.MaHD, StringFormat='Số: {0}'}" Foreground="{StaticResource Brush.Text.Muted}" FontSize="13" HorizontalAlignment="Right"/>
+                    </DockPanel>
+                    <TextBlock Text="{Binding SelectedInvoice.NhanVienLap, StringFormat='Nhân viên lập: {0}'}" Foreground="{StaticResource Brush.Text.Secondary}" FontSize="12" Margin="0,4,0,0"/>
+                    <Separator Background="{StaticResource Brush.Divider}" Margin="0,12"/>
+                </StackPanel>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding SelectedBillItems}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel Margin="0,6">
+                                    <TextBlock Text="{Binding DonGia, StringFormat='{}{0:N0} đ'}" DockPanel.Dock="Right" FontWeight="SemiBold" FontSize="13"/>
+                                    <TextBlock Text="{Binding SoLuong, StringFormat='x{0}'}" DockPanel.Dock="Left" Width="36" Foreground="{StaticResource Brush.Text.Secondary}" FontSize="13"/>
+                                    <TextBlock Text="{Binding TenMon}" FontSize="13.5" TextTrimming="CharacterEllipsis"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <StackPanel Grid.Row="2" Margin="0,14,0,0">
+                    <Separator Background="{StaticResource Brush.Divider}" Margin="0,0,0,12"/>
+                    <DockPanel>
+                        <TextBlock Text="TỔNG TIỀN PHẢI THU:" FontSize="14" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding SelectedInvoice.TongTien, StringFormat='{}{0:N0} đ'}" Foreground="{StaticResource Brush.Accent.Primary}" FontSize="22" FontWeight="Bold" HorizontalAlignment="Right"/>
+                    </DockPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Column 3: Phương thức & Xác nhận thanh toán -->
+        <Border Grid.Column="2" Style="{StaticResource Card}">
+            <StackPanel>
+                <TextBlock Text="Phương thức thanh toán" FontSize="16" FontWeight="Bold" Margin="0,0,0,14"/>
+
+                <!-- Method Selector -->
+                <UniformGrid Columns="2" Margin="0,0,0,16">
+                    <Button Content="📲 Quét mã VietQR" Command="{Binding SelectMethodCommand}" CommandParameter="VietQR" 
+                            Style="{StaticResource SecondaryButton}" Height="44" Margin="0,0,6,0"/>
+                    <Button Content="💵 Tiền mặt" Command="{Binding SelectMethodCommand}" CommandParameter="Tiền mặt" 
+                            Style="{StaticResource SecondaryButton}" Height="44"/>
+                </UniformGrid>
+
+                <!-- QR Panel -->
+                <Border Background="{StaticResource Brush.Surface.Subtle}" BorderBrush="{StaticResource Brush.Border}" BorderThickness="1" CornerRadius="12" Padding="16" Margin="0,0,0,16">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="MÃ THANH TOÁN VIETQR" FontWeight="Bold" FontSize="12" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Center"/>
+                        <Border Background="White" BorderBrush="{StaticResource Brush.Border}" BorderThickness="1" CornerRadius="8" Width="140" Height="140" Margin="0,12">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="📱" FontSize="40" HorizontalAlignment="Center"/>
+                                <TextBlock Text="VietQR Code" FontSize="11" Foreground="{StaticResource Brush.Text.Muted}"/>
+                            </StackPanel>
+                        </Border>
+                        <TextBlock Text="Chủ TK: NHA HANG NHAU" FontWeight="Bold" FontSize="12" HorizontalAlignment="Center"/>
+                        <TextBlock Text="STK: 1029384756 • MB Bank" Foreground="{StaticResource Brush.Text.Secondary}" FontSize="11" HorizontalAlignment="Center" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Tiền mặt input -->
+                <StackPanel Margin="0,0,0,16">
+                    <TextBlock Text="Tiền khách đưa:" Foreground="{StaticResource Brush.Text.Secondary}" FontSize="12.5" Margin="0,0,0,4"/>
+                    <TextBox Text="{Binding CustomerCash, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:N0}'}" Height="42"/>
+                    <DockPanel Margin="0,8,0,0">
+                        <TextBlock Text="Tiền thừa trả khách:" Foreground="{StaticResource Brush.Text.Secondary}" FontSize="12.5"/>
+                        <TextBlock Text="{Binding ChangeAmount, StringFormat='{}{0:N0} đ'}" Foreground="{StaticResource Brush.Status.Empty}" FontWeight="Bold" FontSize="14" HorizontalAlignment="Right"/>
+                    </DockPanel>
+                </StackPanel>
+
+                <TextBlock Text="{Binding NotificationMessage}" Foreground="{StaticResource Brush.Status.Empty}" FontWeight="SemiBold" FontSize="13" TextWrapping="Wrap" Margin="0,0,0,10"/>
+
+                <Button Content="✓ Hoàn tất thanh toán" Command="{Binding CompletePaymentCommand}" Style="{StaticResource PrimaryButton}" Height="48"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
