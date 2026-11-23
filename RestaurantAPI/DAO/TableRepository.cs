@@ -12,7 +12,7 @@ namespace RestaurantAPI.DAO
         SELECT MaBan, TenBan, SucChua, TrangThai, CheckIn, CheckOut 
         FROM BAN";
 
-            return await session.Connect.QueryAsync<TableDATA>(query, null, session.Transaction);
+            return await session.Connect.QueryAsync<TableDATA>(query);
         }
     }
 }

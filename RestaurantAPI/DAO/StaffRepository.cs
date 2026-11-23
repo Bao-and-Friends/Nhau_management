@@ -6,6 +6,19 @@ namespace RestaurantAPI.DAO
 {
     public class StaffRepository(DbSession session): IStaffRepository
     {
+        public async Task<IEnumerable<StaffDATA>> GetListNVAsync()
+        {
+            string query = @"
+                SELECT
+                    NV.MaNV, 
+                    NV.HoTen, 
+                    NV.SoDienThoai, 
+                    TK.Email
+                FROM NHANVIEN NV
+                LEFT JOIN TAIKHOAN TK ON TK.NVId = NV.Id";
+            return await session.Connect.QueryAsync<StaffDATA>(query);
+        }
+
         public async Task<StaffDATA?> GetByIdAsync(int id)
         {
             string query = @"
