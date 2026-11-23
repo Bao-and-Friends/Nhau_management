@@ -8,7 +8,7 @@ namespace RestaurantAPI.DAO.Interface
         Task<StaffDATA?> GetByMaNVAsync(string maNV);
         Task<IEnumerable<StaffDATA>> GetListNVAsync();
 
-        Task<int> InsertAsync(string hoTen, string gioiTinh, string vaiTro,
+        Task<(int Id, string MaNV)> InsertAsync(string hoTen, string gioiTinh, string vaiTro,
             DateTimeOffset? ngaySinh, string? sdt, string? diaChi);
     }
 }

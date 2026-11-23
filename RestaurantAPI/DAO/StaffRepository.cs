@@ -37,14 +37,16 @@ namespace RestaurantAPI.DAO
             return await session.Connect.QueryFirstOrDefaultAsync<StaffDATA>(query, new { MaNV = maNV.Trim() }, session.Transaction);
         }
 
-        public async Task<int> InsertAsync(string hoTen, string gioiTinh, string vaiTro,
+        private record InsertStaffResult(int Id, string MaNV);
+
+        public async Task<(int Id, string MaNV)> InsertAsync(string hoTen, string gioiTinh, string vaiTro,
             DateTimeOffset? ngaySinh, string? sdt, string? diaChi)
         {
             string query = @"
         DECLARE @NewMaNV VARCHAR(20) = 'NV' + FORMAT(NEXT VALUE FOR seq_MaNV, '0000');
 
         INSERT INTO NHANVIEN (MaNV, HoTen, GioiTinh, VaiTro, NgaySinh, SoDienThoai, DiaChi)
-        OUTPUT INSERTED.Id
+        OUTPUT INSERTED.Id, INSERTED.MaNV
         VALUES (@NewMaNV, @HoTen, @GioiTinh, @VaiTro, @NgaySinh, @SoDienThoai, @DiaChi);";
 
             var param = new
@@ -57,7 +59,8 @@ namespace RestaurantAPI.DAO
                 DiaChi = diaChi?.Trim()
             };
 
-            return await session.Connect.ExecuteScalarAsync<int>(query, param, session.Transaction);
+            var result = await session.Connect.QuerySingleAsync<InsertStaffResult>(query, param, session.Transaction);
+            return (result.Id, result.MaNV);
         }
     }
 }

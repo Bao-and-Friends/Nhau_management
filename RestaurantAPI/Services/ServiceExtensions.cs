@@ -3,7 +3,9 @@ using Microsoft.IdentityModel.Tokens;
 using RestaurantAPI.DAO;
 using RestaurantAPI.DAO.Interface;
 using RestaurantAPI.Models.Configuration;
+using RestaurantAPI.Services.Hubs;
 using RestaurantAPI.Services.Interface;
+using RestaurantAPI.Services.Interface.IHubs;
 using System.Security.Claims;
 using System.Text;
 
@@ -28,6 +30,10 @@ namespace RestaurantAPI.Services
             services.AddScoped<ITableService, TableService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IStaffService, StaffService>();
+
+            // SignalR Notifiers
+            services.AddScoped<IAccountNotifier, AccountNotifier>();
+
             return services;
         }
         // 2. Gom toàn bộ phần cấu hình JWT Token vào đây
@@ -53,6 +59,21 @@ namespace RestaurantAPI.Services
                     ValidIssuer = jwtSettings["Issuer"],
                     ValidAudience = jwtSettings["Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+                };
+
+                // Hỗ trợ truyền JWT Token qua Query String cho SignalR (WebSocket không gửi được custom headers)
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                        {
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
                 };
             });
             services.AddAuthorization();

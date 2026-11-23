@@ -1,4 +1,5 @@
 using Microsoft.OpenApi;
+using RestaurantAPI.Hubs;
 using RestaurantAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddMemoryCache();
+
+// Cấu hình SignalR
+builder.Services.AddSignalR();
+
+// Cấu hình CORS hỗ trợ SignalR (AllowCredentials)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.SetIsOriginAllowed(_ => true)
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
 
 builder.Services.AddRestaurantServices(builder.Configuration);
 
@@ -44,9 +60,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("CorsPolicy");
+
 app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<RestaurantHub>("/hubs/restaurant");
 app.Run();

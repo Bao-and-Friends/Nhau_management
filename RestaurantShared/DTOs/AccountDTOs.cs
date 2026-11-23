@@ -14,4 +14,14 @@ namespace RestaurantShared.DTOs
         string? Email,
         string? DiaChi
     );
+
+    // Thông tin tài khoản gửi qua SignalR khi tạo tài khoản thành công
+    public record NewAccountNotification(
+        string MaNV,
+        string Username,
+        string HoTen,
+        string VaiTro,
+        string? SoDienThoai,
+        string? Email
+    );
 }

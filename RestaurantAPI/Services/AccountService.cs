@@ -1,11 +1,16 @@
 using ErrorOr;
 using RestaurantAPI.DAO.Interface;
 using RestaurantAPI.Services.Interface;
+using RestaurantAPI.Services.Interface.IHubs;
 using RestaurantShared.DTOs;
 
 namespace RestaurantAPI.Services
 {
-    public class AccountService(IUnitOfWork uow, IStaffRepository StaffRepo, IAccountRepository AccRepo): IAccountService
+    public class AccountService(
+        IUnitOfWork uow, 
+        IStaffRepository StaffRepo, 
+        IAccountRepository AccRepo,
+        IAccountNotifier accNotifier): IAccountService
     {
         public async Task<ErrorOr<Success>> RegisterStaffAccountAsync(RegisterAccountRequest request)
         {
@@ -28,10 +33,12 @@ namespace RestaurantAPI.Services
 
             // 4. 🔒 BẮT ĐẦU TRANSACTION QUA UNIT OF WORK
             await uow.BeginTransactionAsync();
+            string maNV = string.Empty;
             try
             {
                 // Thêm vào bảng NHANVIEN (dùng chung Connection và Transaction)
-                int nvId = await StaffRepo.InsertAsync(request.HoTen, request.GioiTinh, request.VaiTro, request.NgaySinh, request.SoDienThoai, request.DiaChi);
+                int nvId;
+                (nvId, maNV) = await StaffRepo.InsertAsync(request.HoTen, request.GioiTinh, request.VaiTro, request.NgaySinh, request.SoDienThoai, request.DiaChi);
 
                 // Thêm vào bảng TAIKHOAN liên kết qua NVId
                 await AccRepo.InsertAccountAsync(nvId, request.Username, passwordHash, request.Email);
@@ -45,6 +52,16 @@ namespace RestaurantAPI.Services
                 await uow.RollbackAsync();
                 return Error.Failure("Account.RegisterFailed", $"Lỗi khi lưu dữ liệu nhân viên: {ex.Message}");
             }
+
+            // 5. 📢 Gửi thông báo realtime qua SignalR tới nhóm Quản lý (sau khi DB transaction đã commit thành công)
+            await accNotifier.NotifyAccountCreatedAsync(new NewAccountNotification(
+                maNV,
+                request.Username,
+                request.HoTen,
+                request.VaiTro,
+                request.SoDienThoai,
+                request.Email
+            ));
 
             return Result.Success;
         }
