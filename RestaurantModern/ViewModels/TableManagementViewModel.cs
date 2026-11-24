@@ -99,24 +99,6 @@ public class TableManagementViewModel : ViewModelBase
                     CheckIn = t.CheckIn
                 });
             }
-
-            if (_allTables.Count == 0)
-            {
-                // Fallback demo tables matching Figma 6:148
-                _allTables.AddRange([
-                    new() { MaBan = "B01", TenBan = "Bàn 01", SucChua = 4, TrangThai = "Trống", KhuVuc = "Tầng 1" },
-                    new() { MaBan = "B02", TenBan = "Bàn 02", SucChua = 6, TrangThai = "Có Khách", KhuVuc = "Tầng 1", CheckIn = DateTime.Now.AddMinutes(-40) },
-                    new() { MaBan = "B03", TenBan = "Bàn 03", SucChua = 4, TrangThai = "Có Khách", KhuVuc = "Tầng 1", CheckIn = DateTime.Now.AddMinutes(-20) },
-                    new() { MaBan = "B04", TenBan = "Bàn 04", SucChua = 2, TrangThai = "Trống", KhuVuc = "Tầng 1" },
-                    new() { MaBan = "B05", TenBan = "Bàn 05", SucChua = 6, TrangThai = "Chờ Dọn", KhuVuc = "Tầng 2" },
-                    new() { MaBan = "B06", TenBan = "Bàn 06", SucChua = 8, TrangThai = "Đã Đặt", KhuVuc = "Tầng 2" },
-                    new() { MaBan = "B07", TenBan = "Bàn 07", SucChua = 4, TrangThai = "Trống", KhuVuc = "Tầng 2" },
-                    new() { MaBan = "B08", TenBan = "Bàn 08", SucChua = 6, TrangThai = "Có Khách", KhuVuc = "Tầng 2", CheckIn = DateTime.Now.AddHours(-1) },
-                    new() { MaBan = "B09", TenBan = "Bàn 09", SucChua = 4, TrangThai = "Trống", KhuVuc = "Sân vườn" },
-                    new() { MaBan = "VIP01", TenBan = "Bàn VIP 01", SucChua = 10, TrangThai = "Có Khách", KhuVuc = "VIP", CheckIn = DateTime.Now.AddMinutes(-15) }
-                ]);
-            }
-
             ApplyFilters();
         }
         finally

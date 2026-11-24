@@ -2,7 +2,7 @@
 using RestaurantAPI.DAO.Interface;
 using RestaurantShared.Models.SQLData;
 
-namespace RestaurantAPI.DAO
+namespace RestaurantAPI.DAO.Implement
 {
     public class TableRepository(DbSession session): ITableRepository
     {

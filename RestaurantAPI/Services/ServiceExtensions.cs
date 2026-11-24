@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantAPI.DAO;
+using RestaurantAPI.DAO.Implement;
 using RestaurantAPI.DAO.Interface;
 using RestaurantAPI.Models.Configuration;
 using RestaurantAPI.Services.Hubs;
+using RestaurantAPI.Services.Implement;
 using RestaurantAPI.Services.Interface;
 using RestaurantAPI.Services.Interface.IHubs;
 using System.Security.Claims;
@@ -22,6 +24,7 @@ namespace RestaurantAPI.Services
             services.AddScoped<ITableRepository, TableRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IStaffRepository, StaffRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             // Nghiệp vụ (JWT, Mail, OTP)
             services.AddScoped<IAuthService, AuthService>();
@@ -30,6 +33,7 @@ namespace RestaurantAPI.Services
             services.AddScoped<ITableService, TableService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IStaffService, StaffService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             // SignalR Notifiers
             services.AddScoped<IAccountNotifier, AccountNotifier>();

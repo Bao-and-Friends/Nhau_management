@@ -1,8 +1,8 @@
-﻿using Dapper; 
+﻿using Dapper;
 using RestaurantAPI.DAO.Interface;
 using RestaurantShared.Models.SQLData;
 
-namespace RestaurantAPI.DAO
+namespace RestaurantAPI.DAO.Implement
 {
     public class AccountRepository(DbSession session): IAccountRepository
     {

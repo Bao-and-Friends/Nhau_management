@@ -4,7 +4,7 @@ using RestaurantAPI.Services.Interface;
 using RestaurantAPI.Services.Interface.IHubs;
 using RestaurantShared.DTOs;
 
-namespace RestaurantAPI.Services
+namespace RestaurantAPI.Services.Implement
 {
     public class AccountService(
         IUnitOfWork uow, 
@@ -33,7 +33,7 @@ namespace RestaurantAPI.Services
 
             // 4. 🔒 BẮT ĐẦU TRANSACTION QUA UNIT OF WORK
             await uow.BeginTransactionAsync();
-            string maNV = string.Empty;
+            string maNV;
             try
             {
                 // Thêm vào bảng NHANVIEN (dùng chung Connection và Transaction)

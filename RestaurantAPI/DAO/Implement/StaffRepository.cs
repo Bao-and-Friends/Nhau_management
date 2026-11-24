@@ -2,11 +2,11 @@
 using RestaurantAPI.DAO.Interface;
 using RestaurantShared.Models.SQLData;
 
-namespace RestaurantAPI.DAO
+namespace RestaurantAPI.DAO.Implement
 {
     public class StaffRepository(DbSession session): IStaffRepository
     {
-        public async Task<IEnumerable<StaffDATA>> GetListNVAsync()
+        public async Task<IEnumerable<StaffDATA>> GetAllStaffAsync()
         {
             string query = @"
                 SELECT

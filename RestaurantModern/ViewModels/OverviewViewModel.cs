@@ -61,7 +61,7 @@ public class OverviewViewModel : ViewModelBase
         try
         {
             var raw = await _api.GetTablesAsync();
-            TotalTables = raw.Count;
+            TotalTables = raw.Count();
             OccupiedTables = raw.Count(t => t.TrangThai.Equals("Có Khách", StringComparison.OrdinalIgnoreCase));
             EmptyTables = raw.Count(t => t.TrangThai.Equals("Trống", StringComparison.OrdinalIgnoreCase));
             CleaningTables = raw.Count(t => t.TrangThai.Equals("Chờ Dọn", StringComparison.OrdinalIgnoreCase) || t.TrangThai.Equals("Đã Đặt", StringComparison.OrdinalIgnoreCase));

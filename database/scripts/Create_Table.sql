@@ -83,7 +83,7 @@ CREATE TABLE PHIENPHUCVU
 
 CREATE TABLE DANHMUCMON
 (
-    MaDanhMuc varchar(10) NOT NULL,
+    MaDanhMuc int IDENTITY(1,1) NOT NULL,
     TenDanhMuc nvarchar(100) NOT NULL,
 
     CONSTRAINT PK_DANHMUCMON PRIMARY KEY (MaDanhMuc)
@@ -91,13 +91,12 @@ CREATE TABLE DANHMUCMON
 
 CREATE TABLE MONAN
 (
-    MaMon varchar(10) NOT NULL,
+    MaMon int IDENTITY(1,1) NOT NULL,
     TenMon nvarchar(100) NOT NULL,
     DonGia decimal(18, 2) NOT NULL,
-    DonViTinh nvarchar(30),
-    MoTa nvarchar(500),
-    MaDanhMuc varchar(10) NOT NULL,
-    TrangThai nvarchar(30),
+    DonViTinh nvarchar(30) NOT NULL,
+    MoTa nvarchar(500) NULL,
+    MaDanhMuc int NOT NULL,
 
     CONSTRAINT PK_MONAN PRIMARY KEY (MaMon),
 
@@ -108,7 +107,7 @@ CREATE TABLE CHITIET_GOIMON
 (
     MaChiTiet varchar(10) NOT NULL,
     MaPhien varchar(10) NOT NULL,
-    MaMon varchar(10) NOT NULL,
+    MaMon int NOT NULL,
     SoLuong int NOT NULL,
     DonGia decimal(18, 2) NOT NULL,
     GhiChu nvarchar(500),

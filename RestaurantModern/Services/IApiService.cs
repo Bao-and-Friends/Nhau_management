@@ -12,7 +12,7 @@ public interface IApiService
 
     Task<LoginResponse> LoginAsync(string username, string password);
     void Logout();
-    Task<List<TableDATA>> GetTablesAsync();
+    Task<IEnumerable<TableDATA>> GetTablesAsync();
     Task<ApiResponse> ForgotPasswordAsync(string username);
     Task<ApiResponse> VerifyOtpAsync(string username, string otp);
     Task<ApiResponse> ChangePasswordAsync(string username, string newPassword);

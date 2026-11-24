@@ -121,7 +121,7 @@ public class ApiService : IApiService
         _http.DefaultRequestHeaders.Authorization = null;
     }
 
-    public async Task<List<TableDATA>> GetTablesAsync()
+    public async Task<IEnumerable<TableDATA>> GetTablesAsync()
     {
         try
         {
@@ -133,22 +133,7 @@ public class ApiService : IApiService
         catch
         {
             IsServerConnected = false;
-            // Dữ liệu bàn mẫu thiết kế chuẩn Figma
-            return
-            [
-                new() { MaBan = "B01", TenBan = "Bàn 01", SucChua = 4, TrangThai = "Trống" },
-                new() { MaBan = "B02", TenBan = "Bàn 02", SucChua = 4, TrangThai = "Có Khách", CheckIn = DateTime.Now.AddHours(-1.5) },
-                new() { MaBan = "B03", TenBan = "Bàn 03", SucChua = 6, TrangThai = "Có Khách", CheckIn = DateTime.Now.AddHours(-0.5) },
-                new() { MaBan = "B04", TenBan = "Bàn 04", SucChua = 2, TrangThai = "Trống" },
-                new() { MaBan = "B05", TenBan = "Bàn 05", SucChua = 4, TrangThai = "Chờ Dọn" },
-                new() { MaBan = "B06", TenBan = "Bàn 06", SucChua = 8, TrangThai = "Có Khách", CheckIn = DateTime.Now.AddMinutes(-45) },
-                new() { MaBan = "B07", TenBan = "Bàn 07", SucChua = 4, TrangThai = "Đã Đặt", CheckIn = DateTime.Now.AddHours(2) },
-                new() { MaBan = "B08", TenBan = "Bàn 08", SucChua = 4, TrangThai = "Trống" },
-                new() { MaBan = "VIP01", TenBan = "Phòng VIP 01", SucChua = 12, TrangThai = "Có Khách", CheckIn = DateTime.Now.AddHours(-2) },
-                new() { MaBan = "VIP02", TenBan = "Phòng VIP 02", SucChua = 16, TrangThai = "Trống" },
-                new() { MaBan = "SV01", TenBan = "Sân Vườn 01", SucChua = 6, TrangThai = "Trống" },
-                new() { MaBan = "SV02", TenBan = "Sân Vườn 02", SucChua = 6, TrangThai = "Có Khách", CheckIn = DateTime.Now.AddMinutes(-20) }
-            ];
+            return [];
         }
     }
 
