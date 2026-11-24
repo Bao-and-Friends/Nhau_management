@@ -10,6 +10,7 @@ namespace RestaurantShared.Models.SQLData
         public string TenMon { get; set; } = string.Empty;
         public float DonGia { get; set; }
         public string DonViTinh { get; set; } = string.Empty;
+        public string TenDanhMuc { get; set; } = string.Empty;
         public string MoTa { get; set; } = string.Empty;
     }
 }

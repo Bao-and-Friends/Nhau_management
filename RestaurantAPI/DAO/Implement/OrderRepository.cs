@@ -10,7 +10,15 @@ namespace RestaurantAPI.DAO.Implement
         
        public async Task<IEnumerable<OrderDATA>> GetAllOrdersAsync()
         {
-            string query = @"SELECT TenMon,DonGia,DonViTinh,MoTa from MONAN";
+            string query = @"SELECT 
+                                m.MaMon, 
+                                m.TenMon, 
+                                m.DonGia, 
+                                m.DonViTinh, 
+                                d.TenDanhMuc, 
+                                m.MoTa
+                            FROM MONAN m
+                            JOIN DANHMUCMON d ON m.MaDanhMuc = d.MaDanhMuc;";
             return await session.Connect.QueryAsync<OrderDATA>(query);
         }
     }
