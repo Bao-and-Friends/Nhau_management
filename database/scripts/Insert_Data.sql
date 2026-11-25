@@ -16,11 +16,11 @@ VALUES
 INSERT INTO TAIKHOAN
 (
     MaTaiKhoan,
-    MaNV,
+    NhanVienID,
     TenDangNhap,
     MatKhau,
     TrangThai
 )
 VALUES
-('TK01', 'NV01', 'nguyenvana', '123456', N'Hoạt động'),
-('TK02', 'NV02', 'tranthib', '123456', N'Hoạt động');
+('TK01', (SELECT NhanVienID FROM NHANVIEN WHERE MaNV = 'NV01'), 'nguyenvana', '123456', N'Hoạt động'),
+('TK02', (SELECT NhanVienID FROM NHANVIEN WHERE MaNV = 'NV02'), 'tranthib', '123456', N'Hoạt động');
