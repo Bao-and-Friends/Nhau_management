@@ -25,6 +25,7 @@ namespace RestaurantAPI.Services
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IStaffRepository, StaffRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IBillRepository, BillRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             // Nghiệp vụ (JWT, Mail, OTP)
             services.AddScoped<IAuthService, AuthService>();
@@ -34,6 +35,7 @@ namespace RestaurantAPI.Services
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IStaffService, StaffService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IBillService, BillService>();
 
             // SignalR Notifiers
             services.AddScoped<IAccountNotifier, AccountNotifier>();
