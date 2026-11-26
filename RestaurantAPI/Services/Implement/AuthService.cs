@@ -33,21 +33,28 @@ namespace RestaurantAPI.Services.Implement
             if (trangThai.Equals("Khóa", StringComparison.OrdinalIgnoreCase) || trangThai == "0")
                 return Error.Unauthorized("Account.Locked", "Tài khoản đã bị khóa!");
 
-            // 1.3 Kiểm tra mật khẩu (BCrypt)
+            // 1.3 Kiểm tra mật khẩu (Bắt buộc mã hóa BCrypt)
             string hashPwd = account.MatKhau?.Trim() ?? string.Empty;
             bool isPasswordValid = false;
             if (hashPwd.StartsWith("$2a$") || hashPwd.StartsWith("$2b$") || hashPwd.StartsWith("$2y$"))
             {
-                isPasswordValid = BCrypt.Net.BCrypt.Verify(password, hashPwd);
+                try
+                {
+                    isPasswordValid = BCrypt.Net.BCrypt.Verify(password, hashPwd);
+                }
+                catch
+                {
+                    isPasswordValid = false;
+                }
             }
 
             if (!isPasswordValid)
                 return Error.Unauthorized("Account.InvalidPassword", "Mật khẩu không chính xác!");
 
             // 1.4 Lấy thông tin nhân viên
-            var staff = await StaffRepo.GetByIdAsync(account.NVId);
+            var staff = await StaffRepo.GetByIdAsync(account.NhanVienID);
             if (staff == null)
-                return Error.NotFound("Staff.NotFound", "Không tìm thấy thông tin nhân viên!");
+                return Error.NotFound("Staff.NotFound", "Tài  khoản chưa được gán cho bất kỳ nhân viên nào!");
 
             // 1.5 Sinh JWT Token
             string token = GenerateToken(staff, username);

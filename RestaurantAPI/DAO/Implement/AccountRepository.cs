@@ -15,7 +15,7 @@ namespace RestaurantAPI.DAO.Implement
 
         public async Task<AccountDATA?> GetByUsernameAsync(string username)
         {
-            string query = "SELECT Id, NVId, TenDangNhap, MatKhau, TrangThai, NgayTao, Email FROM TAIKHOAN WHERE TenDangNhap = @Username";
+            string query = "SELECT TaiKhoanID, NhanVienID, TenDangNhap, MatKhau,Email, TrangThai, NgayTao FROM TAIKHOAN WHERE TenDangNhap = @Username";
             return await session.Connect.QueryFirstOrDefaultAsync<AccountDATA>(query, new { Username = username.Trim() }, session.Transaction);
         }
 
@@ -35,7 +35,7 @@ namespace RestaurantAPI.DAO.Implement
         public async Task<bool> InsertAccountAsync(int nvId, string username, string passwordHash, string? email)
         {
             string query = @"
-        INSERT INTO TAIKHOAN (NVId, TenDangNhap, MatKhau, Email, TrangThai)
+        INSERT INTO TAIKHOAN (NhanVienID, TenDangNhap, MatKhau, Email, TrangThai)
         VALUES (@NVId, @Username, @MatKhau, @Email, N'Hoạt động')";
 
             var param = new

@@ -11,7 +11,7 @@ namespace RestaurantAPI.Controllers
     [Route("api/[controller]")]
     public class AccountController(IAccountService accountService): ControllerBase
     {
-        [Authorize(Roles ="Quản lý")]
+        //[Authorize(Roles ="Quản lý")]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterAccountRequest request)
         {
