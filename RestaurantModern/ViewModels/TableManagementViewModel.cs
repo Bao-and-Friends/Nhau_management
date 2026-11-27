@@ -16,6 +16,16 @@ public class TableManagementViewModel : ViewModelBase
     private string _searchText = string.Empty;
     private bool _isLoading;
 
+    private int _totalTables;
+    private int _emptyTables;
+    private int _occupiedTables;
+    private int _cleaningTables;
+
+    public int TotalTables { get => _totalTables; set => SetProperty(ref _totalTables, value); }
+    public int EmptyTables { get => _emptyTables; set => SetProperty(ref _emptyTables, value); }
+    public int OccupiedTables { get => _occupiedTables; set => SetProperty(ref _occupiedTables, value); }
+    public int CleaningTables { get => _cleaningTables; set => SetProperty(ref _cleaningTables, value); }
+
     public ObservableCollection<TableItem> FilteredTables { get; } = [];
 
     public string SelectedFilter
@@ -71,6 +81,7 @@ public class TableManagementViewModel : ViewModelBase
     public void AddTable(TableItem table)
     {
         _allTables.Add(table);
+        UpdateCounts();
         ApplyFilters();
     }
 
@@ -91,6 +102,7 @@ public class TableManagementViewModel : ViewModelBase
 
                 _allTables.Add(new TableItem
                 {
+                    BanID = t.BanID,
                     MaBan = t.MaBan,
                     TenBan = t.TenBan,
                     SucChua = t.SucChua,
@@ -99,12 +111,23 @@ public class TableManagementViewModel : ViewModelBase
                     CheckIn = t.CheckIn
                 });
             }
+            UpdateCounts();
             ApplyFilters();
         }
         finally
         {
             IsLoading = false;
         }
+    }
+
+    private void UpdateCounts()
+    {
+        TotalTables = _allTables.Count;
+        EmptyTables = _allTables.Count(t => t.TrangThai.Equals("Trống", StringComparison.OrdinalIgnoreCase));
+        OccupiedTables = _allTables.Count(t => t.TrangThai.Equals("Có Khách", StringComparison.OrdinalIgnoreCase));
+        CleaningTables = _allTables.Count(t => t.TrangThai.Equals("Chờ Dọn", StringComparison.OrdinalIgnoreCase) 
+                                           || t.TrangThai.Equals("Chưa dọn", StringComparison.OrdinalIgnoreCase)
+                                           || t.TrangThai.Equals("Chờ dọn", StringComparison.OrdinalIgnoreCase));
     }
 
     private void ApplyFilters()
@@ -114,7 +137,16 @@ public class TableManagementViewModel : ViewModelBase
 
         if (SelectedFilter != "Tất cả")
         {
-            query = query.Where(t => t.TrangThai.Equals(SelectedFilter, StringComparison.OrdinalIgnoreCase));
+            if (SelectedFilter.Equals("Chờ Dọn", StringComparison.OrdinalIgnoreCase) || SelectedFilter.Equals("Chưa dọn", StringComparison.OrdinalIgnoreCase))
+            {
+                query = query.Where(t => t.TrangThai.Equals("Chờ Dọn", StringComparison.OrdinalIgnoreCase)
+                                      || t.TrangThai.Equals("Chưa dọn", StringComparison.OrdinalIgnoreCase)
+                                      || t.TrangThai.Equals("Chờ dọn", StringComparison.OrdinalIgnoreCase));
+            }
+            else
+            {
+                query = query.Where(t => t.TrangThai.Equals(SelectedFilter, StringComparison.OrdinalIgnoreCase));
+            }
         }
 
         if (SelectedArea != "Tất cả")

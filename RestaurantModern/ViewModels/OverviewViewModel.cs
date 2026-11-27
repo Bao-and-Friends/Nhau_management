@@ -14,7 +14,7 @@ public class OverviewViewModel : ViewModelBase
     private int _occupiedTables;
     private int _emptyTables;
     private int _cleaningTables;
-    private decimal _todayRevenue = 14850000;
+    private decimal _todayRevenue;
     private bool _isLoading;
 
     public int TotalTables { get => _totalTables; set => SetProperty(ref _totalTables, value); }
@@ -60,23 +60,46 @@ public class OverviewViewModel : ViewModelBase
         IsLoading = true;
         try
         {
-            var raw = await _api.GetTablesAsync();
-            TotalTables = raw.Count();
-            OccupiedTables = raw.Count(t => t.TrangThai.Equals("Có Khách", StringComparison.OrdinalIgnoreCase));
-            EmptyTables = raw.Count(t => t.TrangThai.Equals("Trống", StringComparison.OrdinalIgnoreCase));
-            CleaningTables = raw.Count(t => t.TrangThai.Equals("Chờ Dọn", StringComparison.OrdinalIgnoreCase) || t.TrangThai.Equals("Đã Đặt", StringComparison.OrdinalIgnoreCase));
+            var rawTables = (await _api.GetTablesAsync()).ToList();
+            var rawBills = (await _api.GetBillsAsync()).ToList();
+
+            TotalTables = rawTables.Count;
+            OccupiedTables = rawTables.Count(t => t.TrangThai.Equals("Có Khách", StringComparison.OrdinalIgnoreCase));
+            EmptyTables = rawTables.Count(t => t.TrangThai.Equals("Trống", StringComparison.OrdinalIgnoreCase));
+            CleaningTables = rawTables.Count(t => t.TrangThai.Equals("Chờ Dọn", StringComparison.OrdinalIgnoreCase)
+                                               || t.TrangThai.Equals("Chưa dọn", StringComparison.OrdinalIgnoreCase)
+                                               || t.TrangThai.Equals("Chờ dọn", StringComparison.OrdinalIgnoreCase));
+
+            // Tính doanh thu thực tế từ các hóa đơn đã thanh toán
+            var paidBillsToday = rawBills.Where(b => b.TrangThai.Equals("Đã thanh toán", StringComparison.OrdinalIgnoreCase)
+                                                  && ((b.ThoiGianRa.HasValue && b.ThoiGianRa.Value.Date == DateTime.Today)
+                                                      || b.ThoiGianVao.Date == DateTime.Today)).ToList();
+            if (paidBillsToday.Count > 0)
+            {
+                TodayRevenue = paidBillsToday.Sum(b => b.TongThanhToan);
+            }
+            else
+            {
+                TodayRevenue = rawBills.Where(b => b.TrangThai.Equals("Đã thanh toán", StringComparison.OrdinalIgnoreCase)).Sum(b => b.TongThanhToan);
+            }
 
             ActiveTables.Clear();
-            foreach (var t in raw.Take(8))
+            foreach (var t in rawTables.Take(8))
             {
+                // Lấy tiền tạm tính thực tế từ hóa đơn đang mở của bàn (nếu có)
+                var pendingBill = rawBills.FirstOrDefault(b => (b.BanID == t.BanID || (!string.IsNullOrEmpty(b.MaBan) && b.MaBan == t.MaBan))
+                                                            && !b.TrangThai.Equals("Đã thanh toán", StringComparison.OrdinalIgnoreCase));
+                decimal tongTienTamTinh = pendingBill?.TongThanhToan ?? 0;
+
                 ActiveTables.Add(new TableItem
                 {
+                    BanID = t.BanID,
                     MaBan = t.MaBan,
                     TenBan = t.TenBan,
                     SucChua = t.SucChua,
                     TrangThai = t.TrangThai,
                     CheckIn = t.CheckIn,
-                    TongTienTamTinh = t.TrangThai == "Có Khách" ? (decimal)new Random().Next(450, 2500) * 1000 : 0
+                    TongTienTamTinh = tongTienTamTinh
                 });
             }
         }

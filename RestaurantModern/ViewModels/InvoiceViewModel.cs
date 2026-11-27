@@ -14,6 +14,13 @@ public class InvoiceViewModel : ViewModelBase
     private string _selectedFilter = "Tất cả";
     private string _searchText = string.Empty;
     private InvoiceItemModel? _selectedInvoice;
+    private bool _isLoading;
+
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set => SetProperty(ref _isLoading, value);
+    }
 
     public ObservableCollection<InvoiceItemModel> FilteredInvoices { get; } = [];
 
@@ -36,6 +43,7 @@ public class InvoiceViewModel : ViewModelBase
     }
 
     public RelayCommand FilterCommand { get; }
+    public RelayCommand RefreshCommand { get; }
     public RelayCommand OpenTablesCommand { get; }
     public RelayCommand ViewDetailCommand { get; }
 
@@ -45,6 +53,7 @@ public class InvoiceViewModel : ViewModelBase
         _navigate = navigate;
 
         FilterCommand = new RelayCommand(p => { if (p is string f) SelectedFilter = f; });
+        RefreshCommand = new RelayCommand(async () => await LoadInvoicesAsync());
         OpenTablesCommand = new RelayCommand(() => _navigate("tables", null));
         ViewDetailCommand = new RelayCommand(p =>
         {
@@ -55,21 +64,35 @@ public class InvoiceViewModel : ViewModelBase
             }
         });
 
-        LoadDemoInvoices();
+        _ = LoadInvoicesAsync();
     }
 
-    private void LoadDemoInvoices()
+    public async Task LoadInvoicesAsync()
     {
-        _allInvoices.Clear();
-        _allInvoices.AddRange([
-            new() { MaHD = "HD001", TenBan = "Bàn 02", NgayLap = DateTime.Now.AddMinutes(-40), NhanVienLap = "Trần Thị B", TongTien = 310000, PhuongThuc = "Chuyển khoản VietQR", TrangThai = "Chờ thanh toán" },
-            new() { MaHD = "HD002", TenBan = "Bàn 05", NgayLap = DateTime.Now.AddHours(-1), NhanVienLap = "Nguyễn Văn A", TongTien = 780000, PhuongThuc = "Tiền mặt", TrangThai = "Đã thanh toán" },
-            new() { MaHD = "HD003", TenBan = "Bàn 01", NgayLap = DateTime.Now.AddHours(-2), NhanVienLap = "Trần Thị B", TongTien = 1250000, PhuongThuc = "Chuyển khoản VietQR", TrangThai = "Đã thanh toán" },
-            new() { MaHD = "HD004", TenBan = "Bàn 08", NgayLap = DateTime.Now.AddHours(-3), NhanVienLap = "Lê Văn C", TongTien = 450000, PhuongThuc = "Tiền mặt", TrangThai = "Đã thanh toán" },
-            new() { MaHD = "HD005", TenBan = "Bàn 03", NgayLap = DateTime.Now.AddHours(-4), NhanVienLap = "Nguyễn Văn A", TongTien = 620000, PhuongThuc = "Chuyển khoản VietQR", TrangThai = "Đã thanh toán" },
-            new() { MaHD = "HD006", TenBan = "Bàn 07", NgayLap = DateTime.Now.AddHours(-5), NhanVienLap = "Trần Thị B", TongTien = 890000, PhuongThuc = "Tiền mặt", TrangThai = "Đã thanh toán" },
-        ]);
-        ApplyFilters();
+        IsLoading = true;
+        try
+        {
+            var bills = await _api.GetBillsAsync();
+            _allInvoices.Clear();
+            foreach (var b in bills)
+            {
+                _allInvoices.Add(new InvoiceItemModel
+                {
+                    MaHD = b.MaHoaDon,
+                    TenBan = !string.IsNullOrWhiteSpace(b.TenBan) ? b.TenBan : (b.BanID > 0 ? $"Bàn {b.BanID:D2}" : "Mang về"),
+                    NgayLap = b.ThoiGianRa ?? b.ThoiGianVao,
+                    NhanVienLap = !string.IsNullOrWhiteSpace(b.TenNhanVien) ? b.TenNhanVien : "Nhân viên",
+                    TongTien = b.TongThanhToan,
+                    PhuongThuc = !string.IsNullOrWhiteSpace(b.GhiChu) ? b.GhiChu : "Tiền mặt",
+                    TrangThai = b.TrangThai
+                });
+            }
+            ApplyFilters();
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     private void ApplyFilters()

@@ -18,7 +18,7 @@
             <Border Style="{StaticResource Card}" Margin="0,0,16,0" Padding="17">
                 <StackPanel>
                     <TextBlock Text="Tổng số bàn" Foreground="{StaticResource Brush.Text.Secondary}" FontSize="13"/>
-                    <TextBlock Text="{Binding FilteredTables.Count, StringFormat='{}{0:D2}'}" Foreground="{StaticResource Brush.Text.Dark}" FontSize="28" FontWeight="Bold" Margin="0,6,0,0"/>
+                    <TextBlock Text="{Binding TotalTables, StringFormat='{}{0:D2}'}" Foreground="{StaticResource Brush.Text.Dark}" FontSize="28" FontWeight="Bold" Margin="0,6,0,0"/>
                 </StackPanel>
             </Border>
 
@@ -29,7 +29,7 @@
                         <Ellipse Width="8" Height="8" Fill="{StaticResource Brush.Status.Empty}" Margin="0,0,6,0"/>
                         <TextBlock Text="Trống" Foreground="{StaticResource Brush.Text.Secondary}" FontSize="13"/>
                     </DockPanel>
-                    <TextBlock Text="05" Foreground="{StaticResource Brush.Status.Empty}" FontSize="28" FontWeight="Bold" Margin="0,6,0,0"/>
+                    <TextBlock Text="{Binding EmptyTables, StringFormat='{}{0:D2}'}" Foreground="{StaticResource Brush.Status.Empty}" FontSize="28" FontWeight="Bold" Margin="0,6,0,0"/>
                 </StackPanel>
             </Border>
 
@@ -40,7 +40,7 @@
                         <Ellipse Width="8" Height="8" Fill="{StaticResource Brush.Status.Occupied}" Margin="0,0,6,0"/>
                         <TextBlock Text="Có Khách" Foreground="{StaticResource Brush.Text.Secondary}" FontSize="13"/>
                     </DockPanel>
-                    <TextBlock Text="04" Foreground="{StaticResource Brush.Accent.Primary}" FontSize="28" FontWeight="Bold" Margin="0,6,0,0"/>
+                    <TextBlock Text="{Binding OccupiedTables, StringFormat='{}{0:D2}'}" Foreground="{StaticResource Brush.Accent.Primary}" FontSize="28" FontWeight="Bold" Margin="0,6,0,0"/>
                 </StackPanel>
             </Border>
 
@@ -51,7 +51,7 @@
                         <Ellipse Width="8" Height="8" Fill="{StaticResource Brush.Status.Cleaning}" Margin="0,0,6,0"/>
                         <TextBlock Text="Chờ Dọn" Foreground="{StaticResource Brush.Text.Secondary}" FontSize="13"/>
                     </DockPanel>
-                    <TextBlock Text="01" Foreground="{StaticResource Brush.Status.Cleaning}" FontSize="28" FontWeight="Bold" Margin="0,6,0,0"/>
+                    <TextBlock Text="{Binding CleaningTables, StringFormat='{}{0:D2}'}" Foreground="{StaticResource Brush.Status.Cleaning}" FontSize="28" FontWeight="Bold" Margin="0,6,0,0"/>
                 </StackPanel>
             </Border>
         </UniformGrid>

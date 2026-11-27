@@ -15,6 +15,13 @@ public class StaffViewModel : ViewModelBase
     private bool _showAddModal = false;
     private string _statusMessage = string.Empty;
     private bool _isStatusError;
+    private bool _isLoading;
+
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set => SetProperty(ref _isLoading, value);
+    }
 
     // Add Form Fields
     private string _newUsername = string.Empty;
@@ -81,6 +88,7 @@ public class StaffViewModel : ViewModelBase
     public string NewAddress { get => _newAddress; set => SetProperty(ref _newAddress, value); }
 
     public RelayCommand FilterCommand { get; }
+    public RelayCommand RefreshCommand { get; }
     public RelayCommand OpenAddModalCommand { get; }
     public RelayCommand CloseAddModalCommand { get; }
     public AsyncRelayCommand SubmitAddStaffCommand { get; }
@@ -90,6 +98,7 @@ public class StaffViewModel : ViewModelBase
         _api = api;
 
         FilterCommand = new RelayCommand(p => { if (p is string r) SelectedRole = r; });
+        RefreshCommand = new RelayCommand(async () => await LoadStaffAsync());
         OpenAddModalCommand = new RelayCommand(() =>
         {
             StatusMessage = string.Empty;
@@ -145,16 +154,7 @@ public class StaffViewModel : ViewModelBase
             var res = await _api.RegisterStaffAsync(req);
             if (res.IsSuccess)
             {
-                _allStaff.Add(new StaffItemModel
-                {
-                    MaNV = $"NV{_allStaff.Count + 1:D3}",
-                    HoTen = NewFullName.Trim(),
-                    VaiTro = NewRole,
-                    SoDienThoai = string.IsNullOrWhiteSpace(NewPhone) ? "0981112233" : NewPhone.Trim(),
-                    Email = string.IsNullOrWhiteSpace(NewEmail) ? $"{NewUsername.ToLower()}@nhau.vn" : NewEmail.Trim(),
-                    TrangThai = "Đang làm việc"
-                });
-                ApplyFilter();
+                await LoadStaffAsync();
                 ShowAddModal = false;
                 StatusMessage = "Đã lưu nhân viên và tạo tài khoản vào Database thành công!";
                 IsStatusError = false;
@@ -173,20 +173,34 @@ public class StaffViewModel : ViewModelBase
             }
         });
 
-        LoadDemoStaff();
+        _ = LoadStaffAsync();
     }
 
-    private void LoadDemoStaff()
+    public async Task LoadStaffAsync()
     {
-        _allStaff.Clear();
-        _allStaff.AddRange([
-            new() { MaNV = "NV001", HoTen = "Trần Quốc Huy", VaiTro = "Quản lý", SoDienThoai = "0981234567", Email = "huytq@nhau.vn", TrangThai = "Đang làm việc" },
-            new() { MaNV = "NV002", HoTen = "Nguyễn Thu Hà", VaiTro = "Thu ngân", SoDienThoai = "0972345678", Email = "hant@nhau.vn", TrangThai = "Đang làm việc" },
-            new() { MaNV = "NV003", HoTen = "Lê Hoàng Long", VaiTro = "Phục vụ", SoDienThoai = "0963456789", Email = "longlh@nhau.vn", TrangThai = "Đang làm việc" },
-            new() { MaNV = "NV004", HoTen = "Phạm Đình Bảo", VaiTro = "Bếp trưởng", SoDienThoai = "0914567890", Email = "baopd@nhau.vn", TrangThai = "Đang làm việc" },
-            new() { MaNV = "NV005", HoTen = "Đỗ Quỳnh Mai", VaiTro = "Phục vụ", SoDienThoai = "0905678901", Email = "maidq@nhau.vn", TrangThai = "Nghỉ phép" }
-        ]);
-        ApplyFilter();
+        IsLoading = true;
+        try
+        {
+            var staffList = await _api.GetStaffAsync();
+            _allStaff.Clear();
+            foreach (var s in staffList)
+            {
+                _allStaff.Add(new StaffItemModel
+                {
+                    MaNV = s.MaNV,
+                    HoTen = s.HoTen,
+                    VaiTro = s.VaiTro,
+                    SoDienThoai = s.SoDienThoai ?? string.Empty,
+                    Email = s.Email ?? string.Empty,
+                    TrangThai = s.TrangThai ?? "Đang làm việc"
+                });
+            }
+            ApplyFilter();
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     private void ApplyFilter()

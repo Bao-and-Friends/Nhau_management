@@ -10,6 +10,7 @@ public class NavigationItem
 
 public class TableItem
 {
+    public int BanID { get; set; }
     public string MaBan { get; set; } = string.Empty;
     public string TenBan { get; set; } = string.Empty;
     public int SucChua { get; set; } = 4;

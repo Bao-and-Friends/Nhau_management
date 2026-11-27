@@ -88,25 +88,10 @@ public class ApiService : IApiService
             }
             return result ?? new LoginResponse(false, null, null, "Phản hồi rỗng từ máy chủ.");
         }
-        catch (HttpRequestException)
+        catch (HttpRequestException ex)
         {
-            // Chế độ dự phòng khi máy chủ backend chưa bật / offline: Không làm sập hoặc đơ giao diện
             IsServerConnected = false;
-            if (!string.IsNullOrWhiteSpace(username))
-            {
-                var isManager = username.StartsWith("QL", StringComparison.OrdinalIgnoreCase) || username.Equals("admin", StringComparison.OrdinalIgnoreCase);
-                CurrentStaff = new StaffDATA
-                {
-                    MaNV = username.ToUpper(),
-                    HoTen = isManager ? "Trần Quốc Huy (Quản lý)" : "Nhân viên Nhà Hàng",
-                    VaiTro = isManager ? "Quản lý" : "Phục vụ",
-                    SoDienThoai = "0981234567",
-                    DiaChi = "Hà Nội"
-                };
-                Token = "demo-offline-token";
-                return new LoginResponse(true, Token, CurrentStaff, "Đăng nhập chế độ Offline (Máy chủ đang tắt).");
-            }
-            return new LoginResponse(false, null, null, "Không thể kết nối đến máy chủ.");
+            return new LoginResponse(false, null, null, $"Không thể kết nối đến máy chủ API: {ex.Message}");
         }
         catch (Exception ex)
         {
@@ -137,6 +122,54 @@ public class ApiService : IApiService
         }
     }
 
+    public async Task<IEnumerable<StaffDATA>> GetStaffAsync()
+    {
+        try
+        {
+            var res = await _http.GetAsync("api/staff");
+            var staff = await HandleResponse<List<StaffDATA>>(res);
+            IsServerConnected = true;
+            return staff;
+        }
+        catch
+        {
+            IsServerConnected = false;
+            return [];
+        }
+    }
+
+    public async Task<IEnumerable<BillDATA>> GetBillsAsync()
+    {
+        try
+        {
+            var res = await _http.GetAsync("api/bill");
+            var bills = await HandleResponse<List<BillDATA>>(res);
+            IsServerConnected = true;
+            return bills;
+        }
+        catch
+        {
+            IsServerConnected = false;
+            return [];
+        }
+    }
+
+    public async Task<IEnumerable<OrderDATA>> GetDishesAsync()
+    {
+        try
+        {
+            var res = await _http.GetAsync("api/order");
+            var dishes = await HandleResponse<List<OrderDATA>>(res);
+            IsServerConnected = true;
+            return dishes;
+        }
+        catch
+        {
+            IsServerConnected = false;
+            return [];
+        }
+    }
+
     public async Task<ApiResponse> ForgotPasswordAsync(string username)
     {
         try
@@ -149,9 +182,9 @@ public class ApiService : IApiService
             }
             return await HandleResponse<ApiResponse>(res);
         }
-        catch (HttpRequestException)
+        catch (HttpRequestException ex)
         {
-            return new ApiResponse(true, "[Demo] Mã OTP đã được gửi về email của bạn (Mã mẫu: 123456).");
+            return new ApiResponse(false, $"Không thể kết nối đến máy chủ: {ex.Message}");
         }
         catch (Exception ex)
         {
@@ -171,11 +204,9 @@ public class ApiService : IApiService
             }
             return await HandleResponse<ApiResponse>(res);
         }
-        catch (HttpRequestException)
+        catch (HttpRequestException ex)
         {
-            if (otp == "123456" || !string.IsNullOrWhiteSpace(otp))
-                return new ApiResponse(true, "Xác thực OTP thành công!");
-            return new ApiResponse(false, "Mã OTP không chính xác.");
+            return new ApiResponse(false, $"Không thể kết nối đến máy chủ: {ex.Message}");
         }
         catch (Exception ex)
         {
@@ -195,9 +226,9 @@ public class ApiService : IApiService
             }
             return await HandleResponse<ApiResponse>(res);
         }
-        catch (HttpRequestException)
+        catch (HttpRequestException ex)
         {
-            return new ApiResponse(true, "Đổi mật khẩu thành công!");
+            return new ApiResponse(false, $"Không thể kết nối đến máy chủ: {ex.Message}");
         }
         catch (Exception ex)
         {
@@ -230,9 +261,9 @@ public class ApiService : IApiService
 
             return new ApiResponse(false, $"Lỗi từ máy chủ (Mã: {(int)res.StatusCode})");
         }
-        catch (HttpRequestException)
+        catch (HttpRequestException ex)
         {
-            return new ApiResponse(true, "[Offline Demo] Đã lưu nhân viên vào danh sách tạm.");
+            return new ApiResponse(false, $"Không thể kết nối đến máy chủ: {ex.Message}");
         }
         catch (Exception ex)
         {

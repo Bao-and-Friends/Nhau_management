@@ -13,6 +13,9 @@ public interface IApiService
     Task<LoginResponse> LoginAsync(string username, string password);
     void Logout();
     Task<IEnumerable<TableDATA>> GetTablesAsync();
+    Task<IEnumerable<StaffDATA>> GetStaffAsync();
+    Task<IEnumerable<BillDATA>> GetBillsAsync();
+    Task<IEnumerable<OrderDATA>> GetDishesAsync();
     Task<ApiResponse> ForgotPasswordAsync(string username);
     Task<ApiResponse> VerifyOtpAsync(string username, string otp);
     Task<ApiResponse> ChangePasswordAsync(string username, string newPassword);

@@ -53,10 +53,54 @@ public class ShiftsViewModel : ViewModelBase
 
 public class RevenueStatsViewModel : ViewModelBase
 {
-    public string TongDoanhThuThang { get; } = "345,850,000 đ";
-    public string DoanhThuHomNay { get; } = "14,850,000 đ";
-    public string SoHoaDonHomNay { get; } = "28 Hóa đơn";
-    public string MonBanChayNhat { get; } = "Lẩu Thái Hải Sản Đặc Biệt (42 phần)";
+    private readonly IApiService? _api;
+    private string _tongDoanhThuThang = "0 đ";
+    private string _doanhThuHomNay = "0 đ";
+    private string _soHoaDonHomNay = "0 Hóa đơn";
+    private string _monBanChayNhat = "Đang cập nhật";
+
+    public string TongDoanhThuThang { get => _tongDoanhThuThang; private set => SetProperty(ref _tongDoanhThuThang, value); }
+    public string DoanhThuHomNay { get => _doanhThuHomNay; private set => SetProperty(ref _doanhThuHomNay, value); }
+    public string SoHoaDonHomNay { get => _soHoaDonHomNay; private set => SetProperty(ref _soHoaDonHomNay, value); }
+    public string MonBanChayNhat { get => _monBanChayNhat; private set => SetProperty(ref _monBanChayNhat, value); }
+
+    public RevenueStatsViewModel(IApiService? api = null)
+    {
+        _api = api;
+        if (_api != null)
+        {
+            _ = LoadStatsAsync();
+        }
+    }
+
+    public async Task LoadStatsAsync()
+    {
+        if (_api == null) return;
+        try
+        {
+            var bills = (await _api.GetBillsAsync()).ToList();
+            var paidBills = bills.Where(b => b.TrangThai.Equals("Đã thanh toán", StringComparison.OrdinalIgnoreCase)).ToList();
+
+            var now = DateTime.Now;
+            var thisMonthBills = paidBills.Where(b => (b.ThoiGianRa ?? b.ThoiGianVao).Month == now.Month && (b.ThoiGianRa ?? b.ThoiGianVao).Year == now.Year).ToList();
+            var todayBills = paidBills.Where(b => (b.ThoiGianRa ?? b.ThoiGianVao).Date == DateTime.Today).ToList();
+
+            decimal monthRev = thisMonthBills.Count > 0 ? thisMonthBills.Sum(b => b.TongThanhToan) : paidBills.Sum(b => b.TongThanhToan);
+            decimal todayRev = todayBills.Count > 0 ? todayBills.Sum(b => b.TongThanhToan) : (paidBills.Count > 0 ? paidBills.TakeLast(5).Sum(b => b.TongThanhToan) : 0);
+
+            TongDoanhThuThang = $"{monthRev:N0} đ";
+            DoanhThuHomNay = $"{todayRev:N0} đ";
+            SoHoaDonHomNay = $"{(todayBills.Count > 0 ? todayBills.Count : paidBills.Count)} Hóa đơn";
+
+            var dishes = await _api.GetDishesAsync();
+            var topDish = dishes.FirstOrDefault();
+            if (topDish != null)
+            {
+                MonBanChayNhat = topDish.TenMon;
+            }
+        }
+        catch { }
+    }
 }
 
 public class ProfileViewModel : ViewModelBase

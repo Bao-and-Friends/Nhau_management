@@ -157,7 +157,7 @@ public class MainViewModel : ViewModelBase
             case "reports":
                 ActivePageTitle = "Thống kê doanh thu";
                 ActivePageSubtitle = "Báo cáo doanh thu, sản lượng bán hàng và hiệu suất ca trực.";
-                CurrentViewModel = new RevenueStatsViewModel();
+                CurrentViewModel = new RevenueStatsViewModel(_api);
                 break;
             case "chat":
                 ActivePageTitle = "Chat nội bộ nhà hàng";

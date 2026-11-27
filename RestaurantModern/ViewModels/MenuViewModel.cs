@@ -11,6 +11,13 @@ public class MenuViewModel : ViewModelBase
     private readonly List<MenuItemModel> _allDishes = [];
     private string _selectedCategory = "Tất cả";
     private string _searchText = string.Empty;
+    private bool _isLoading;
+
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set => SetProperty(ref _isLoading, value);
+    }
 
     public ObservableCollection<MenuItemModel> FilteredDishes { get; } = [];
 
@@ -27,12 +34,14 @@ public class MenuViewModel : ViewModelBase
     }
 
     public RelayCommand FilterCommand { get; }
+    public RelayCommand RefreshCommand { get; }
     public RelayCommand ToggleAvailabilityCommand { get; }
 
     public MenuViewModel(IApiService api)
     {
         _api = api;
         FilterCommand = new RelayCommand(p => { if (p is string cat) SelectedCategory = cat; });
+        RefreshCommand = new RelayCommand(async () => await LoadMenuAsync());
         ToggleAvailabilityCommand = new RelayCommand(p =>
         {
             if (p is MenuItemModel item)
@@ -43,7 +52,7 @@ public class MenuViewModel : ViewModelBase
             }
         });
 
-        LoadDemoMenu();
+        _ = LoadMenuAsync();
     }
 
     public void AddDish(MenuItemModel dish)
@@ -52,26 +61,44 @@ public class MenuViewModel : ViewModelBase
         ApplyFilter();
     }
 
-    private void LoadDemoMenu()
+    public async Task LoadMenuAsync()
     {
-        _allDishes.Clear();
-        _allDishes.AddRange([
-            new() { MaMon = "M001", TenMon = "Lẩu Thái Hải Sản Thập Cẩm", DanhMuc = "Lẩu & Nướng", DonGia = 350000, DonViTinh = "Nồi", ConMon = true, Icon = "🍲" },
-            new() { MaMon = "M002", TenMon = "Lẩu Bò Nhúng Giấm", DanhMuc = "Lẩu & Nướng", DonGia = 320000, DonViTinh = "Nồi", ConMon = true, Icon = "🍲" },
-            new() { MaMon = "M003", TenMon = "Bò Nướng Tảng Sốt Tiêu Xanh", DanhMuc = "Món chính", DonGia = 189000, DonViTinh = "Đĩa", ConMon = true, Icon = "🥩" },
-            new() { MaMon = "M004", TenMon = "Sườn Heo Nướng BBQ Mật Ong", DanhMuc = "Món chính", DonGia = 175000, DonViTinh = "Đĩa", ConMon = true, Icon = "🍖" },
-            new() { MaMon = "M005", TenMon = "Gà Hấp Lá Chanh Nửa Con", DanhMuc = "Món chính", DonGia = 160000, DonViTinh = "Đĩa", ConMon = true, Icon = "🍗" },
-            new() { MaMon = "M006", TenMon = "Mực Chiên Bơ Tỏi Giòn Rụm", DanhMuc = "Hải sản", DonGia = 145000, DonViTinh = "Đĩa", ConMon = true, Icon = "🦑" },
-            new() { MaMon = "M007", TenMon = "Tôm Sú Hấp Bia Nước Dừa", DanhMuc = "Hải sản", DonGia = 195000, DonViTinh = "Đĩa", ConMon = true, Icon = "🦐" },
-            new() { MaMon = "M008", TenMon = "Bạch Tuộc Sa Tế Nướng Cay", DanhMuc = "Hải sản", DonGia = 150000, DonViTinh = "Đĩa", ConMon = false, Icon = "🐙" },
-            new() { MaMon = "M009", TenMon = "Gỏi Ngó Sen Tôm Thịt", DanhMuc = "Khai vị", DonGia = 89000, DonViTinh = "Đĩa", ConMon = true, Icon = "🥗" },
-            new() { MaMon = "M010", TenMon = "Khoai Tây Chiên Lắc Phô Mai", DanhMuc = "Khai vị", DonGia = 55000, DonViTinh = "Đĩa", ConMon = true, Icon = "🍟" },
-            new() { MaMon = "M011", TenMon = "Bia Tiger Crystal (Lon)", DanhMuc = "Đồ uống", DonGia = 28000, DonViTinh = "Lon", ConMon = true, Icon = "🍺" },
-            new() { MaMon = "M012", TenMon = "Bia Heineken Silver (Lon)", DanhMuc = "Đồ uống", DonGia = 32000, DonViTinh = "Lon", ConMon = true, Icon = "🍺" },
-            new() { MaMon = "M013", TenMon = "Nước Ngọt Coca / 7Up", DanhMuc = "Đồ uống", DonGia = 18000, DonViTinh = "Lon", ConMon = true, Icon = "🥤" },
-            new() { MaMon = "M014", TenMon = "Nước Suối Lavie", DanhMuc = "Đồ uống", DonGia = 12000, DonViTinh = "Chai", ConMon = true, Icon = "💧" }
-        ]);
-        ApplyFilter();
+        IsLoading = true;
+        try
+        {
+            var dishes = await _api.GetDishesAsync();
+            _allDishes.Clear();
+            foreach (var d in dishes)
+            {
+                _allDishes.Add(new MenuItemModel
+                {
+                    MaMon = d.MaMon,
+                    TenMon = d.TenMon,
+                    DanhMuc = string.IsNullOrWhiteSpace(d.TenDanhMuc) ? "Món chính" : d.TenDanhMuc,
+                    DonGia = d.DonGia,
+                    DonViTinh = string.IsNullOrWhiteSpace(d.DonViTinh) ? "Đĩa" : d.DonViTinh,
+                    ConMon = !string.Equals(d.TrangThai, "Hết món", StringComparison.OrdinalIgnoreCase) && d.TrangThai != "0",
+                    Icon = ResolveCategoryIcon(d.TenDanhMuc)
+                });
+            }
+            ApplyFilter();
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    private static string ResolveCategoryIcon(string? category)
+    {
+        if (string.IsNullOrWhiteSpace(category)) return "🍽";
+        var cat = category.ToLower();
+        if (cat.Contains("lẩu") || cat.Contains("nướng")) return "🍲";
+        if (cat.Contains("hải sản") || cat.Contains("tôm") || cat.Contains("cá") || cat.Contains("mực")) return "🦐";
+        if (cat.Contains("khai vị") || cat.Contains("gỏi") || cat.Contains("rau")) return "🥗";
+        if (cat.Contains("uống") || cat.Contains("bia") || cat.Contains("nước")) return "🍺";
+        if (cat.Contains("bò") || cat.Contains("thịt") || cat.Contains("heo") || cat.Contains("gà")) return "🥩";
+        return "🍽";
     }
 
     private void ApplyFilter()

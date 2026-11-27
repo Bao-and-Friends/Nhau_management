@@ -15,6 +15,13 @@ public class PaymentViewModel : ViewModelBase
     private decimal _customerCash = 1000000;
     private decimal _changeAmount;
     private string _notificationMessage = string.Empty;
+    private bool _isLoading;
+
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set => SetProperty(ref _isLoading, value);
+    }
 
     public ObservableCollection<InvoiceItemModel> PendingInvoices { get; } = [];
     public ObservableCollection<OrderDetailItem> SelectedBillItems { get; } = [];
@@ -81,27 +88,48 @@ public class PaymentViewModel : ViewModelBase
             }
         });
 
-        LoadInvoices(preselectedTable);
+        _ = LoadInvoicesAsync(preselectedTable);
     }
 
-    private void LoadInvoices(TableItem? preselectedTable)
+    public async Task LoadInvoicesAsync(TableItem? preselectedTable)
     {
-        PendingInvoices.Clear();
-        PendingInvoices.Add(new InvoiceItemModel { MaHD = "HD001", TenBan = "Bàn 02", NgayLap = DateTime.Now, NhanVienLap = "NV01 - Quản lý", TongTien = 895000, PhuongThuc = "VietQR", TrangThai = "Chờ thanh toán" });
-        PendingInvoices.Add(new InvoiceItemModel { MaHD = "HD002", TenBan = "Bàn 03", NgayLap = DateTime.Now.AddMinutes(-30), NhanVienLap = "NV02 - Thu ngân", TongTien = 1450000, PhuongThuc = "Tiền mặt", TrangThai = "Chờ thanh toán" });
-        PendingInvoices.Add(new InvoiceItemModel { MaHD = "HD003", TenBan = "Bàn 06", NgayLap = DateTime.Now.AddMinutes(-50), NhanVienLap = "NV01 - Quản lý", TongTien = 620000, PhuongThuc = "VietQR", TrangThai = "Chờ thanh toán" });
-        PendingInvoices.Add(new InvoiceItemModel { MaHD = "HD004", TenBan = "Phòng VIP 01", NgayLap = DateTime.Now.AddHours(-1), NhanVienLap = "NV03 - Phục vụ", TongTien = 3850000, PhuongThuc = "VietQR", TrangThai = "Chờ thanh toán" });
-
-        if (preselectedTable != null)
+        IsLoading = true;
+        try
         {
-            var match = PendingInvoices.FirstOrDefault(x => x.TenBan == preselectedTable.TenBan);
-            if (match != null)
+            PendingInvoices.Clear();
+            var bills = await _api.GetBillsAsync();
+            var pending = bills.Where(b => !b.TrangThai.Equals("Đã thanh toán", StringComparison.OrdinalIgnoreCase));
+
+            foreach (var b in pending)
             {
-                SelectedInvoice = match;
-                return;
+                PendingInvoices.Add(new InvoiceItemModel
+                {
+                    MaHD = b.MaHoaDon,
+                    TenBan = !string.IsNullOrWhiteSpace(b.TenBan) ? b.TenBan : (b.BanID > 0 ? $"Bàn {b.BanID:D2}" : "Mang về"),
+                    NgayLap = b.ThoiGianVao,
+                    NhanVienLap = !string.IsNullOrWhiteSpace(b.TenNhanVien) ? b.TenNhanVien : "Phục vụ",
+                    TongTien = b.TongThanhToan,
+                    PhuongThuc = !string.IsNullOrWhiteSpace(b.GhiChu) ? b.GhiChu : "VietQR",
+                    TrangThai = b.TrangThai
+                });
             }
+
+            if (preselectedTable != null)
+            {
+                var match = PendingInvoices.FirstOrDefault(x => x.TenBan.Equals(preselectedTable.TenBan, StringComparison.OrdinalIgnoreCase) 
+                                                             || (!string.IsNullOrEmpty(preselectedTable.MaBan) && x.TenBan.Contains(preselectedTable.MaBan, StringComparison.OrdinalIgnoreCase)));
+                if (match != null)
+                {
+                    SelectedInvoice = match;
+                    return;
+                }
+            }
+            SelectedInvoice = PendingInvoices.FirstOrDefault();
         }
-        SelectedInvoice = PendingInvoices.FirstOrDefault();
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     private void LoadBillItems()
